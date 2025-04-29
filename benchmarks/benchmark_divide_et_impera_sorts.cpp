@@ -41,21 +41,21 @@ static void BM_QuickSort(benchmark::State& state, int maxSmall, SmallSortStrateg
 
 // Registrazione dei benchmark
 // Array sizes da testare
-static const int sizes[] = {1,3,4,5,6,7,8,16,64,256,1024,16384,262144};
+static const int sizes[] = {64, 16384}; //{1,3,4,5,6,7,8,16,64,256,1024,16384,262144};
 // Tutti i valori di maxSmall
 static const int maxSmalls[] = {1,2,3,4,5,6,7,8};
 // Strategie disponibili
 static const SmallSortStrategy strategies[] = {
-    SmallSortStrategy::AlphaDev,
-    SmallSortStrategy::Branchless,
-    SmallSortStrategy::Branching
+    SmallSortStrategy::AlphaDev
+    //SmallSortStrategy::Branchless,
+    //SmallSortStrategy::Branching
 };
 // Nomina delle strategie per i benchmark
 static const char* strat_names[] = {"AlphaDev", "Branchless", "Branching"};
 
 int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
-    for (auto strat_idx = 0; strat_idx < 3; ++strat_idx) {
+    for (auto strat_idx = 0; strat_idx < sizeof(strategies) / sizeof(strategies[0]); ++strat_idx) {
         auto strat = strategies[strat_idx];
         for (auto ms : maxSmalls) {
             for (auto N : sizes) {
