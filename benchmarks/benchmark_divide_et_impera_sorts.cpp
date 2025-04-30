@@ -5,89 +5,72 @@
 #include "divide_et_impera_sorts.h"
 
 using namespace std;
+enum class SortType { Int32=0, Int64=1, Float=2 };
+static const char* SortTypeNames[] = {"int32","int64","float"};
 
-// --- helper per riempire ---
-static void fill_random(vector<int>& buf, mt19937_64& rng) {
-    static uniform_int_distribution<int> dist(-1'000'000, 1'000'000);
-    for (auto& x : buf) x = dist(rng);
-}
-
-// Template per benchmark di MergeSort
-static void BM_MergeSort(benchmark::State& state, int maxSmall, SmallSortStrategy strat) {
-    size_t N = state.range(0);
-    vector<int> original(N);
-    mt19937_64 rng(123456);
-    fill_random(original, rng);
-    for (auto _ : state) {
-        // copia per nondisturbare l'input originale
-        vector<int> buf = original;
-        mergeSort(buf.data(), 0, static_cast<int>(buf.size()) - 1, maxSmall, strat);
+// fill_random generico
+template<typename T>
+void fill_random(vector<T>& buf, mt19937_64& rng) {
+    if constexpr (is_integral_v<T>) {
+        uniform_int_distribution<T> dist(numeric_limits<T>::min(), numeric_limits<T>::max());
+        for (auto& x : buf) x = dist(rng);
+    } else {
+        uniform_real_distribution<T> dist(numeric_limits<T>::lowest(), numeric_limits<T>::max());
+        for (auto& x : buf) x = dist(rng);
     }
-    state.SetComplexityN(N);
 }
 
-// Template per benchmark di QuickSort
-static void BM_QuickSort(benchmark::State& state, int maxSmall, SmallSortStrategy strat) {
-    size_t N = state.range(0);
-    vector<int> original(N);
-    mt19937_64 rng(654321);
-    fill_random(original, rng);
-    for (auto _ : state) {
-        vector<int> buf = original;
-        quickSort(buf.data(), 0, static_cast<int>(buf.size()) - 1, maxSmall, strat);
+// Benchmark QuickSort template
+template<typename T>
+void BM_Quick(benchmark::State& st, int ms, SmallSortStrategy strat, SortType t) {
+    size_t N = st.range(0);
+    vector<T> orig(N);
+    mt19937_64 rng(1000 + int(t)); fill_random(orig, rng);
+    for (auto _ : st) {
+        vector<T> buf = orig;
+        quickSort(buf.data(), 0, int(buf.size()) - 1, ms, strat);
+        benchmark::ClobberMemory();
     }
-    state.SetComplexityN(N);
+    st.SetComplexityN(N);
 }
 
-// Registrazione dei benchmark
-// Array sizes da testare
-static const int sizes[] = {32, 1024}; //{1,3,4,5,6,7,8,16,64,256,1024,16384,262144};
-// Tutti i valori di maxSmall
-static const int maxSmalls[] = {1,2,3,4,5,6,7,8};
-// Strategie disponibili
-static const SmallSortStrategy strategies[] = {
-    SmallSortStrategy::AlphaDev
-    //SmallSortStrategy::Branchless,
-    //SmallSortStrategy::Branching
-};
-// Nomina delle strategie per i benchmark
-static const char* strat_names[] = {"AlphaDev", "Branchless", "Branching"};
+// Benchmark MergeSort template
+template<typename T>
+void BM_Merge(benchmark::State& st, int ms, SmallSortStrategy strat, SortType t) {
+    size_t N = st.range(0);
+    vector<T> orig(N);
+    mt19937_64 rng(2000 + int(t)); fill_random(orig, rng);
+    for (auto _ : st) {
+        vector<T> buf = orig;
+        mergeSort(buf.data(), 0, int(buf.size()) - 1, ms, strat);
+        benchmark::ClobberMemory();
+    }
+    st.SetComplexityN(N);
+}
 
-    int main(int argc, char** argv) {
-        benchmark::Initialize(&argc, argv);
-    
-        // 1) Tutti i QuickSort
-        for (auto N : sizes) {
-            for (auto ms : maxSmalls) {
-                for (int s = 0; s < sizeof(strategies) / sizeof(strategies[0]) ; ++s) {
-                    auto strat = strategies[s];
-                    string name = string("Quick") //+ to_string(N)
-                        + "_maxSmall" + to_string(ms)
-                        + "_" + strat_names[s];
-                    benchmark::RegisterBenchmark(
-                        name.c_str(), BM_QuickSort, ms, strat)
-                        ->Arg(N)
-                        ->Complexity();
-                }
-            }
+int main(int argc, char** argv) {
+    benchmark::Initialize(&argc, argv);
+    int sizes[] = {64, 1024, 262144};
+    int maxS  [] = {1,2,3,4,5,6,7,8};
+    SmallSortStrategy strats[] = {SmallSortStrategy::AlphaDev /*, Branchless, Branching*/};
+    SortType types[] = {SortType::Int32, SortType::Int64, SortType::Float};
+
+    for (auto t : types) for (auto N : sizes) for (auto ms : maxS) for (int s = 0; s < 1; ++s) {
+        auto strat = strats[s];
+        string nameQ = string("QS_") + SortTypeNames[int(t)] + "_N" + to_string(N) + "_ms" + to_string(ms);
+        switch (t) {
+            case SortType::Int32: benchmark::RegisterBenchmark(nameQ.c_str(), BM_Quick<int32_t>, ms, strat, t)->Arg(N)->Complexity(); break;
+            case SortType::Int64: benchmark::RegisterBenchmark(nameQ.c_str(), BM_Quick<int64_t>, ms, strat, t)->Arg(N)->Complexity(); break;
+            case SortType::Float: benchmark::RegisterBenchmark(nameQ.c_str(), BM_Quick<float>,    ms, strat, t)->Arg(N)->Complexity(); break;
         }
-    
-        // 2) Tutti i MergeSort
-        for (auto N : sizes) {
-            for (auto ms : maxSmalls) {
-                for (int s = 0; s < sizeof(strategies) / sizeof(strategies[0]) ; ++s) {
-                    auto strat = strategies[s];
-                    string name = string("Merge") //+ to_string(N)
-                        + "_maxSmall" + to_string(ms)
-                        + "_" + strat_names[s];
-                    benchmark::RegisterBenchmark(
-                        name.c_str(), BM_MergeSort, ms, strat)
-                        ->Arg(N)
-                        ->Complexity();
-                }
-            }
+        string nameM = string("MS_") + SortTypeNames[int(t)] + "_N" + to_string(N) + "_ms" + to_string(ms);
+        switch (t) {
+            case SortType::Int32: benchmark::RegisterBenchmark(nameM.c_str(), BM_Merge<int32_t>, ms, strat, t)->Arg(N)->Complexity(); break;
+            case SortType::Int64: benchmark::RegisterBenchmark(nameM.c_str(), BM_Merge<int64_t>, ms, strat, t)->Arg(N)->Complexity(); break;
+            case SortType::Float: benchmark::RegisterBenchmark(nameM.c_str(), BM_Merge<float>,    ms, strat, t)->Arg(N)->Complexity(); break;
         }
-        
+    }
+
     benchmark::RunSpecifiedBenchmarks();
     return 0;
 }
