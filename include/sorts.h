@@ -16,6 +16,7 @@
 #include <type_traits>
 #include <algorithm>
 #include <vector>
+#include <cmath>
 
 // for contiguous memory and max 64bit types
 template<typename T>
@@ -174,11 +175,11 @@ void quickSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
 // 3) Esegue un multi-merge iterativo di tutti i blocchi.
 
 template<typename T>
-void mergeSort8(T* arr, int left, int right) {
+void mergeSort8(T* arr, int left, int right, int maxSmall, SmallSortStrategy ss) {
     int len = right - left + 1;
     // caso base: piccolo
-    if (len <= 8) {
-        smallSort(arr + left, len, 8, SmallSortStrategy::Insertion);
+    if (len <= 8 && len <= maxSmall) {
+        smallSort(arr + left, len, maxSmall, ss);
         return;
     }
     // suddivisione in blocchi di max 8
@@ -191,7 +192,7 @@ void mergeSort8(T* arr, int left, int right) {
         int end   = std::min(start + 8 - 1, right);
         ranges.emplace_back(start, end);
         // ordina ciascun blocco
-        mergeSort8(arr, start, end);
+        mergeSort8(arr, start, end, maxSmall, ss);
     }
     // multi-merge: utilizza un buffer temporaneo per fondere progressivamente i blocchi
     std::vector<T> tmp(len);
@@ -218,4 +219,31 @@ void mergeSort8(T* arr, int left, int right) {
     }
     // copia indietro
     for (int i = 0; i < len; ++i) arr[left + i] = tmp[i];
+}
+
+// Introsort helper: funzione ricorsiva
+template<typename T>
+void introsortUtil(T* arr, int left, int right, int depthLimit, int maxSmall, SmallSortStrategy strat) {
+    int len = right - left + 1;
+    if (len <= 1)
+        return;
+    if (len <= maxSmall) {
+        smallSort(arr + left, len, maxSmall, strat);
+        return;
+    }
+    if (depthLimit == 0) {
+        heapSort(arr + left, len);
+        return;
+    }
+    int pi = partition(arr, left, right);
+    introsortUtil(arr, left, pi - 1, depthLimit - 1, maxSmall, strat);
+    introsortUtil(arr, pi + 1, right, depthLimit - 1, maxSmall, strat);
+}
+
+// Interfaccia pubblica per Introsort
+template<typename T>
+void introsort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
+    int len = right - left + 1;
+    int depthLimit = 2 * static_cast<int>(std::log2(len));
+    introsortUtil(arr, left, right, depthLimit, maxSmall, strat);
 }

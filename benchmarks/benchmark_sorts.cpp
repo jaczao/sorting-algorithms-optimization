@@ -3,7 +3,7 @@
 #include <vector>
 #include <limits>
 #include <cstdint>
-#include "divide_et_impera_sorts.h"
+#include "sorts.h"
 
 using namespace std;
 
@@ -16,8 +16,8 @@ enum class SmallSortStrategyEnum { AlphaDev = 0, Branchless = 1, Branching = 2, 
 static const char* SmallSortNames[] = {"AlphaDev","Branchless","Branching","Selection","Insertion","Bubble"};
 
 // Algoritmi di ordinamento
-enum class SortAlgorithm { Quick = 0, Merge = 1, Heap = 2, Merge8 = 3 };
-static const char* SortAlgoNames[] = {"Quick","Merge","Heap","Merge8"};
+enum class SortAlgorithm { Quick = 0, Merge = 1, Heap = 2, Merge8 = 3, Selection = 4, Insertion = 5, Bubble = 6, Intro =7, StdSort=8 };
+static const char* SortAlgoNames[] = {"Quick","Merge","Heap","Merge8","Selection","Insertion","Bubble","Intro", "StdSort"};
 
 // generico fill_random
 template<typename T>
@@ -45,8 +45,20 @@ void runSort(T* data, int size, int maxSmall, SmallSortStrategyEnum ss, SortAlgo
             heapSort(data, size);
             break;
         case SortAlgorithm::Merge8:
-            mergeSort8(data, 0, size-1);
+            mergeSort8(data, 0, size-1, maxSmall, static_cast<SmallSortStrategy>(ss));
             break;
+        case SortAlgorithm::Selection:
+            selectionSort(data, size);
+        break;
+        case SortAlgorithm::Insertion:
+            insertionSort(data, size);
+        break;
+        case SortAlgorithm::Bubble:
+            bubbleSort(data, size);
+        break;
+        case SortAlgorithm::StdSort:
+            std::sort(data, data+size);
+        break;
     }
 }
 
@@ -69,12 +81,12 @@ void BM_All(benchmark::State& state, SortType t, SmallSortStrategyEnum ss, SortA
 int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
 
-    SortType types[] = { SortType::Int32, SortType::Int64, SortType::Float };
-    int sizes[]     = { 256, 262144 };
+    SortType types[] = { SortType::Int32};//, SortType::Int64, SortType::Float };
+    int sizes[]     = { 277, 262151 };
     SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev, //SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
-                                     SmallSortStrategyEnum::Selection, SmallSortStrategyEnum::Insertion, SmallSortStrategyEnum::Bubble };
-    SortAlgorithm algs[] = { SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap};//, SortAlgorithm::Merge8 };
-    int maxSmalls[] = {1,2,3,4,5,6,7,8};
+                                     SmallSortStrategyEnum::Selection};//, SmallSortStrategyEnum::Insertion, SmallSortStrategyEnum::Bubble };
+    SortAlgorithm algs[] = { SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::Intro, SortAlgorithm::StdSort};//SortAlgorithm::Selection, SortAlgorithm::Insertion, SortAlgorithm::Bubble, 
+    int maxSmalls[] = {5,8};//1,2,3,4,5,6,7,8};
 
     for (auto t : types) {
         for (auto N : sizes) {
