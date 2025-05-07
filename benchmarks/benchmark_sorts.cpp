@@ -56,6 +56,9 @@ void runSort(T* data, int size, int maxSmall, SmallSortStrategyEnum ss, SortAlgo
         case SortAlgorithm::Bubble:
             bubbleSort(data, size);
         break;
+        case SortAlgorithm::Intro:
+            introSort(data, 0, size-1, maxSmall, static_cast<SmallSortStrategy>(ss));
+        break;
         case SortAlgorithm::StdSort:
             std::sort(data, data+size);
         break;
@@ -82,11 +85,11 @@ int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
 
     SortType types[] = { SortType::Int32};//, SortType::Int64, SortType::Float };
-    int sizes[]     = { 277, 262151 };
-    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev, //SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
-                                     SmallSortStrategyEnum::Selection};//, SmallSortStrategyEnum::Insertion, SmallSortStrategyEnum::Bubble };
+    int sizes[]     = { 1234567, 12345678, 123456789 };
+    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev//, SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
+                                     };//SmallSortStrategyEnum::Selection, SmallSortStrategyEnum::Insertion, SmallSortStrategyEnum::Bubble };
     SortAlgorithm algs[] = { SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::Intro, SortAlgorithm::StdSort};//SortAlgorithm::Selection, SortAlgorithm::Insertion, SortAlgorithm::Bubble, 
-    int maxSmalls[] = {5,8};//1,2,3,4,5,6,7,8};
+    int maxSmalls[] = {1,8};//1,2,3,4,5,6,7,8};
 
     for (auto t : types) {
         for (auto N : sizes) {

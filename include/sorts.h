@@ -223,7 +223,7 @@ void mergeSort8(T* arr, int left, int right, int maxSmall, SmallSortStrategy ss)
 
 // Introsort helper: funzione ricorsiva
 template<typename T>
-void introsortUtil(T* arr, int left, int right, int depthLimit, int maxSmall, SmallSortStrategy strat) {
+void introSortUtil(T* arr, int left, int right, int depthLimit, int maxSmall, SmallSortStrategy strat) {
     int len = right - left + 1;
     if (len <= 1)
         return;
@@ -231,19 +231,23 @@ void introsortUtil(T* arr, int left, int right, int depthLimit, int maxSmall, Sm
         smallSort(arr + left, len, maxSmall, strat);
         return;
     }
+    if (len <= 24) {
+        insertionSort(arr + left, len);
+        return;
+    }
     if (depthLimit == 0) {
         heapSort(arr + left, len);
         return;
     }
     int pi = partition(arr, left, right);
-    introsortUtil(arr, left, pi - 1, depthLimit - 1, maxSmall, strat);
-    introsortUtil(arr, pi + 1, right, depthLimit - 1, maxSmall, strat);
+    introSortUtil(arr, left, pi - 1, depthLimit - 1, maxSmall, strat);
+    introSortUtil(arr, pi + 1, right, depthLimit - 1, maxSmall, strat);
 }
 
 // Interfaccia pubblica per Introsort
 template<typename T>
-void introsort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
+void introSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
     int len = right - left + 1;
     int depthLimit = 2 * static_cast<int>(std::log2(len));
-    introsortUtil(arr, left, right, depthLimit, maxSmall, strat);
+    introSortUtil(arr, left, right, depthLimit, maxSmall, strat);
 }
