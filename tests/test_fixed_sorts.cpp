@@ -12,17 +12,23 @@
 #include <gtest/gtest.h>
 #include <algorithm>  // std::is_sorted
 #include <vector>
-
+#include <random>
 
 using std::vector;
 
 // Macro per generare test di SortNX
-#define TEST_SMALL(N, Func) \
-TEST(SmallSortTest, N##_##Func) { \
-    int buf[N]; \
-    for (int i = 0; i < N; ++i) buf[i] = N - i; \
-    Func(buf); \
-    EXPECT_TRUE(std::is_sorted(buf, buf + N)); \
+#define TEST_SMALL(N, Func)                                           \
+TEST(SmallSortTest, N##_##Func) {                                     \
+    std::mt19937 gen(std::random_device{}());                         \
+    std::uniform_int_distribution<int> dist(-1000, 1000);              \
+    for (int t = 0; t < (1 << N); ++t) {                                \
+        int buf[N];                                                   \
+        for (int i = 0; i < N; ++i) {                                   \
+            buf[i] = dist(gen);                                         \
+        }                                                             \
+        Func(buf);                                                    \
+        EXPECT_TRUE(std::is_sorted(buf, buf + N));                      \
+    }                                                                 \
 }
 
 // AlphaDev
