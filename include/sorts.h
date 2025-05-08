@@ -86,7 +86,7 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                         case 8: Sort8AlphaDev(buffer); return;
                     }
                     break;
-                case SmallSortStrategy::Branchless:
+                /*case SmallSortStrategy::Branchless:
                     switch (size) {
                         case 3: sort3branchless(buffer); return;
                         case 4: sort4branchless(buffer); return;
@@ -95,7 +95,7 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                         case 7: sort7branchless(buffer); return;
                         case 8: sort8branchless(buffer); return;
                     }
-                    break;
+                    break;*/
                 case SmallSortStrategy::Branching:
                     switch (size) {
                         case 3: sort3branching(buffer); return;
@@ -130,6 +130,8 @@ void mergeSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
     int len = right - left + 1;
     if (len <= 1) return;
     if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat); return; }
+    if (len <= 64) { insertionSort(arr + left, len); return; }
+    if (len <= 1000) { heapSort(arr + left, len); return; }
     int mid = left + (right - left) / 2;
     mergeSort(arr, left, mid, maxSmall, strat);
     mergeSort(arr, mid + 1, right, maxSmall, strat);

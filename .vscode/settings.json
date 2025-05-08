@@ -47,7 +47,9 @@
         "variant": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "charconv": "cpp",
+        "forward_list": "cpp"
     },
     "C_Cpp.default.compilerPath": "/usr/bin/clang++"
 }
