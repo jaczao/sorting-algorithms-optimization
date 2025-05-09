@@ -29,7 +29,7 @@ inline void sort2(T* a, T* b) {
     if (*a > *b) std::swap(*a, *b);
 }
 
-enum class SmallSortStrategy { AlphaDev, Branchless, Branching, Selection, Insertion, Bubble };
+enum class SmallSortStrategy { AlphaDev, Branchless, Branching, Selection, Insertion, Bubble, Heap };
 
 // Selection Sort
 template<typename T>
@@ -157,6 +157,7 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                 case SmallSortStrategy::Selection:
                 case SmallSortStrategy::Insertion:
                 case SmallSortStrategy::Bubble:
+                case SmallSortStrategy::Heap:
                     break;
             }
         }
@@ -164,6 +165,7 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
             case SmallSortStrategy::Selection: insertionSort(buffer, size); return;
             case SmallSortStrategy::Insertion: insertionSort(buffer, size); return;
             case SmallSortStrategy::Bubble:    bubbleSort(buffer, size);    return;
+            case SmallSortStrategy::Heap:      heapSort(buffer, size);      return;
             default:                           break;
         }
     }
@@ -179,7 +181,7 @@ void mergeSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
     if (len <= 1) return;
     if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat); return; }
     if (len <= 64) { insertionSort(arr + left, len); return; }
-    if (len <= 0) { heapSort(arr + left, len); return; }
+    //if (len <= 0) { heapSort(arr + left, len); return; }
     int mid = left + (right - left) / 2;
     mergeSort(arr, left, mid, maxSmall, strat);
     mergeSort(arr, mid + 1, right, maxSmall, strat);
@@ -337,15 +339,14 @@ void timSort(T* arr, int size) {
 
 // Merge Sort template
 template<typename T>
-void newSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat, int maxIns, int maxHeap) {
+void newSort(T* arr, int left, int right, int maxSmall, int maxAux, SmallSortStrategy strat1, SmallSortStrategy strat2) {
     int len = right - left + 1;
     if (len <= 1) return;
-    if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat); return; }
-    if (len <= maxIns) { insertionSort(arr + left, len); return; }
-    if (len <= maxHeap) { heapSort(arr + left, len); return; }
+    if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat1); return; }
+    if (maxSmall < len && len <= maxAux) { smallSort(arr + left, len, maxAux, strat2); return; }
     int mid = left + (right - left) / 2;
-    newSort(arr, left, mid, maxSmall, strat, maxIns, maxHeap);
-    newSort(arr, mid + 1, right, maxSmall, strat, maxIns, maxHeap);
+    newSort(arr, left, mid, maxSmall, maxAux, strat1, strat2);
+    newSort(arr, mid + 1, right, maxSmall, maxAux, strat1, strat2);
     int n1 = mid - left + 1;
     int n2 = right - mid;
     std::vector<T> L(n1), R(n2);
