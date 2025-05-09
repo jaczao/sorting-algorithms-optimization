@@ -84,18 +84,30 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                         case 6: Sort6AlphaDev(buffer); return;
                         case 7: Sort7AlphaDev(buffer); return;
                         case 8: Sort8AlphaDev(buffer); return;
+                        case 9:  sort9branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, std::less<int32_t>{}); return;
+                        case 10: sort10branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, std::less<int32_t>{}); return;
+                        case 11: sort11branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, std::less<int32_t>{}); return;
+                        case 12: sort12branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, std::less<int32_t>{}); return;
+                        case 13: sort13branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, std::less<int32_t>{}); return;
+                        case 14: sort14branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, std::less<int32_t>{}); return;
                     }
                     break;
-                /*case SmallSortStrategy::Branchless:
+                case SmallSortStrategy::Branchless:
                     switch (size) {
-                        case 3: sort3branchless(buffer); return;
-                        case 4: sort4branchless(buffer); return;
-                        case 5: sort5branchless(buffer); return;
-                        case 6: sort6branchless(buffer); return;
-                        case 7: sort7branchless(buffer); return;
-                        case 8: sort8branchless(buffer); return;
+                        case 3:  sort3branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, std::less<int32_t>{}); return; // posso rimuovere std::_ClassicAlgPolicy da qui e cambiare template per non avere errori
+                        case 4:  sort4branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, std::less<int32_t>{}); return;
+                        case 5:  sort5branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, std::less<int32_t>{}); return;
+                        case 6:  sort6branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, std::less<int32_t>{}); return;
+                        case 7:  sort7branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, std::less<int32_t>{}); return;
+                        case 8:  sort8branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, std::less<int32_t>{}); return;
+                        case 9:  sort9branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, std::less<int32_t>{}); return;
+                        case 10: sort10branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, std::less<int32_t>{}); return;
+                        case 11: sort11branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, std::less<int32_t>{}); return;
+                        case 12: sort12branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, std::less<int32_t>{}); return;
+                        case 13: sort13branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, std::less<int32_t>{}); return;
+                        case 14: sort14branchless<std::_ClassicAlgPolicy>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, std::less<int32_t>{}); return;
                     }
-                    break;*/
+                    break;
                 case SmallSortStrategy::Branching:
                     switch (size) {
                         case 3: sort3branching(buffer); return;
@@ -131,7 +143,7 @@ void mergeSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
     if (len <= 1) return;
     if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat); return; }
     if (len <= 64) { insertionSort(arr + left, len); return; }
-    if (len <= 1000) { heapSort(arr + left, len); return; }
+    if (len <= 0) { heapSort(arr + left, len); return; }
     int mid = left + (right - left) / 2;
     mergeSort(arr, left, mid, maxSmall, strat);
     mergeSort(arr, mid + 1, right, maxSmall, strat);

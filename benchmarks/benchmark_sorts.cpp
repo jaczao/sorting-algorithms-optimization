@@ -85,11 +85,11 @@ int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
 
     SortType types[] = { SortType::Int32};//, SortType::Int64, SortType::Float };
-    int sizes[]     = { 8, 80, 800, 8000, 80000};
-    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev//, SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
+    int sizes[]     = {300000};
+    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev//, SmallSortStrategyEnum::Branchless//SmallSortStrategyEnum::AlphaDev, SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
                                      };//SmallSortStrategyEnum::Selection, SmallSortStrategyEnum::Insertion, SmallSortStrategyEnum::Bubble };
-    SortAlgorithm algs[] = { SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::StdSort, SortAlgorithm::Intro}; //SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::Intro, SortAlgorithm::StdSort, SortAlgorithm::Selection, SortAlgorithm::Insertion, SortAlgorithm::Bubble, 
-    int maxSmalls[] = {8};//1,2,3,4,5,6,7,8};
+    SortAlgorithm algs[] = { SortAlgorithm::Merge, SortAlgorithm::Intro};//, SortAlgorithm::Heap, SortAlgorithm::StdSort, SortAlgorithm::Intro}; //SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::Intro, SortAlgorithm::StdSort, SortAlgorithm::Selection, SortAlgorithm::Insertion, SortAlgorithm::Bubble, 
+    int maxSmalls[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};//1,2,3,4,5,6,7,8};
 
     for (auto t : types) {
         for (auto N : sizes) {

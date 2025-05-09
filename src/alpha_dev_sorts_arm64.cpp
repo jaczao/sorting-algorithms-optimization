@@ -72,64 +72,54 @@ void Sort3AlphaDev(int* buffer) {
 }
 
 
-
 void Sort5AlphaDev(int* buffer) {
   asm volatile(
-      /* mov (%0), %%eax               */ "ldr   w1, [%0]                  \n"
-      /* mov 0x4(%0), %%ecx            */ "ldr   w2, [%0, #4]              \n"
-      /* cmp %%eax, %%ecx              */ "cmp   w1, w2                    \n"
-      /* mov %%eax, %%edx              */ "mov   w3, w1                    \n"
-      /* cmovl %%ecx, %%edx            */ "csel  w3, w3, w2, lt            \n"  // w3 = min(w1,w2)
-      /* cmovg %%ecx, %%eax            */ "csel  w1, w1, w2, gt            \n"  // w1 = max(w1,w2)
-
-      /* mov 0xc(%0), %%r8d            */ "ldr   w4, [%0, #12]             \n"
-      /* mov 0x10(%0), %%ecx           */ "ldr   w2, [%0, #16]             \n"
-      /* cmp %%r8d, %%ecx              */ "cmp   w4, w2                    \n"
-      /* mov %%r8d, %%r9d              */ "mov   w5, w4                    \n"
-      /* cmovl %%ecx, %%r9d            */ "csel  w5, w5, w2, lt            \n"  // w5 = min(w4,w2)
-      /* cmovg %%ecx, %%r8d            */ "csel  w4, w4, w2, gt            \n"  // w4 = max(w4,w2)
-
-      /* mov 0x8(%0), %%r10d           */ "ldr   w6, [%0, #8]              \n"
-      /* cmp %%r10d, %%r8d             */ "cmp   w6, w4                    \n"
-      /* mov %%r10d, %%ecx             */ "mov   w2, w6                    \n"
-      /* cmovl %%r8d, %%ecx            */ "csel  w2, w2, w4, lt            \n"  // w2 = min(w6,w4)
-      /* cmovle %%r10d, %%r8d          */ "csel  w4, w4, w6, le            \n"  // w4 = max(w6,w4)
-
-      /* cmp %%ecx, %%r9d              */ "cmp   w2, w5                    \n"
-      /* cmovle %%r9d, %%r10d          */ "csel  w6, w6, w5, le            \n"  // w6 = min(old w6, w5)
-      /* cmovg %%r9d, %%ecx            */ "csel  w2, w2, w5, gt            \n"  // w2 = max(w2, w5)
-
-      /* cmp %%eax, %%r8d              */ "cmp   w1, w4                    \n"
-      /* mov %%eax, %%r9d              */ "mov   w5, w1                    \n"
-      /* cmovl %%r8d, %%r9d            */ "csel  w5, w5, w4, lt            \n"  // w5 = min(w1,w4)
-      /* cmovle %%eax, %%r8d           */ "csel  w4, w4, w1, le            \n"  // w4 = max(w1,w4)
-
-      /* cmp %%edx, %%ecx              */ "cmp   w3, w2                    \n"
-      /* mov %%edx, %%eax              */ "mov   w1, w3                    \n"
-      /* cmovl %%ecx, %%eax            */ "csel  w1, w1, w2, lt            \n"  // w1 = min(w3,w2)
-      /* cmovle %%edx, %%ecx           */ "csel  w2, w2, w3, le            \n"  // w2 = max(w3,w2)
-
-      /* mov %%r8d, 0x10(%0)           */ "str   w4, [%0, #16]             \n"
-
-      /* cmp %%eax, %%r10d             */ "cmp   w1, w6                    \n"
-      /* cmovle %%r10d, %%edx          */ "csel  w3, w3, w6, le            \n"  // w3 = min(old w3, w6)
-      /* mov %%edx, (%0)               */ "str   w3, [%0]                  \n"
-      /* cmovg %%r10d, %%eax           */ "csel  w1, w1, w6, gt            \n"  // w1 = max(w1,w6)
-
-      /* cmp %%r9d, %%ecx              */ "cmp   w5, w2                    \n"
-      /* mov %%r9d, %%r8d              */ "mov   w4, w5                    \n"
-      /* cmovl %%ecx, %%r8d            */ "csel  w4, w4, w2, lt            \n"  // w4 = min(w5,w2)
-      /* cmovle %%r9d, %%ecx           */ "csel  w2, w2, w5, le            \n"  // w2 = max(w5,w2)
-      /* mov %%ecx, 0xc(%0)            */ "str   w2, [%0, #12]             \n"
-
-      /* cmp %%r8d, %%eax              */ "cmp   w4, w1                    \n"
-      /* cmovle %%eax, %%r9d           */ "csel  w5, w5, w1, le            \n"  // w5 = min(old w5, w1)
-      /* mov %%r9d, 0x4(%0)            */ "str   w5, [%0, #4]              \n"
-      /* cmovg %%eax, %%r8d            */ "csel  w4, w4, w1, gt            \n"  // w4 = max(w4,w1)
-      /* mov %%r8d, 0x8(%0)            */ "str   w4, [%0, #8]              \n"
+      "ldr w1, [%0]\n"
+      "ldr w2, [%0, #4]\n"
+      "cmp w1, w2\n"
+      "mov w3, w1\n"
+      "csel w3, w2, w3, gt\n"
+      "csel w1, w2, w1, lt\n"
+      "ldr w4, [%0, #12]\n"
+      "ldr w2, [%0, #16]\n"
+      "cmp w4, w2\n"
+      "mov w5, w4\n"
+      "csel w5, w2, w5, gt\n"
+      "csel w4, w2, w4, lt\n"
+      "ldr w6, [%0, #8]\n"
+      "cmp w6, w4\n"
+      "mov w2, w6\n"
+      "csel w2, w4, w2, gt\n"
+      "csel w4, w6, w4, ge\n"
+      "cmp w2, w5\n"
+      "csel w6, w5, w6, ge\n"
+      "csel w2, w5, w2, lt\n"
+      "cmp w1, w4\n"
+      "mov w5, w1\n"
+      "csel w5, w4, w5, gt\n"
+      "csel w4, w1, w4, ge\n"
+      "cmp w3, w2\n"
+      "mov w1, w3\n"
+      "csel w1, w2, w1, gt\n"
+      "csel w2, w3, w2, ge\n"
+      "str w4, [%0, #16]\n"
+      "cmp w1, w6\n"
+      "csel w3, w6, w3, ge\n"
+      "str w3, [%0]\n"
+      "csel w1, w6, w1, lt\n"
+      "cmp w5, w2\n"
+      "mov w4, w5\n"
+      "csel w4, w2, w4, gt\n"
+      "csel w2, w5, w2, ge\n"
+      "str w2, [%0, #12]\n"
+      "cmp w4, w1\n"
+      "csel w5, w1, w5, ge\n"
+      "str w5, [%0, #4]\n"
+      "csel w4, w1, w4, lt\n"
+      "str w4, [%0, #8]\n"
       : "+r"(buffer)
       :
-      : "w1","w2","w3","w4","w5","w6","cc","memory"
+      : "w1", "w2", "w3", "w4", "w5", "w6", "memory", "cc"
   );
 }
 

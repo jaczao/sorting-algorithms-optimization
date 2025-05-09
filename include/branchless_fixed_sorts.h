@@ -37,7 +37,7 @@ bool __r2        = __c(__tmp, *__y);
 return !__r1 || !__r2;
 }
 
-template <class _AlgPolicy,
+template <class,
 class _Compare,
 class _RandomAccessIterator>
 //,__enable_if_t<__use_branchless_sort<_Compare, _RandomAccessIterator>, int> = 0>
@@ -48,7 +48,7 @@ bool __swapped2 = partially_sorted_swap<_Compare>(__x1, __x2, __x3, __c);
 return __swapped1 || __swapped2;
 }
 
-template <class _AlgPolicy,
+template <class,
 class _Compare,
 class _RandomAccessIterator>
 //,__enable_if_t<__use_branchless_sort<_Compare, _RandomAccessIterator>, int> = 0>
@@ -65,7 +65,7 @@ cond_swap<_Compare>(__x3, __x4, __c);
 cond_swap<_Compare>(__x2, __x3, __c);
 }
 
-template <class _AlgPolicy,
+template <class,
 class _Compare,
 class _RandomAccessIterator>
 //,__enable_if_t<__use_branchless_sort<_Compare, _RandomAccessIterator>, int> = 0>
@@ -104,7 +104,7 @@ partially_sorted_swap<_Compare>(__x2, __x3, __x4, __c);
 // (1,3)
 // (2,3) (4,5)
 // (0,1) (5,6)
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
           //__enable_if_t<__use_branchless_sort<_Compare, _RandomAccessIterator>, int> = 0>
 inline constexpr void
 sort7branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
@@ -171,7 +171,7 @@ sort7branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomA
 }
 
 // S(8) = 19 comparatori (Batcher odd-even mergesort)
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
           //__enable_if_t<__use_branchless_sort<_Compare, _RandomAccessIterator>, int> = 0>
 inline void
 sort8branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
@@ -195,7 +195,7 @@ sort8branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomA
 // Layer 3: [0,1] [2,3] [4,5]  <--- Nota: Si ripetono
 // Layer 4: [1,2] [3,4]
 // Layer 5: [2,3]
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
 inline void
 sort6branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
@@ -224,7 +224,7 @@ sort6branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomA
 // [(0,1),(2,4),(3,5),(6,8)]
 // [(2,3),(4,5),(6,7)]
 // [(1,2),(3,4),(5,6)]
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
 inline void
 sort9branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
@@ -255,7 +255,7 @@ sort9branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomA
 // [(1,2),(3,5),(4,6),(7,8)]
 // [(2,3),(4,5),(6,7)]
 // [(3,4),(5,6)]
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
 inline void
 sort10branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
                  _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
@@ -288,7 +288,7 @@ sort10branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _Random
 // [(2,4),(3,6),(5,7),(8,9)]
 // [(1,2),(3,4),(5,6),(7,8)]
 // [(2,3),(4,5),(6,7)]
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
 inline void
 sort11branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
                  _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
@@ -322,7 +322,7 @@ sort11branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _Random
 // [(2,3),(4,5),(6,7),(8,9)]
 // [(4,6),(5,7)]
 // [(3,4),(5,6),(7,8)]
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
 inline void
 sort12branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
                  _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
@@ -360,7 +360,7 @@ sort12branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _Random
 // [(1,2),(3,4),(5,7),(6,8)]
 // [(2,3),(4,5),(6,7),(8,9)]
 // [(3,4),(5,6)]
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
 inline void
 sort13branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
                  _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
@@ -400,7 +400,7 @@ sort13branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _Random
 // [(2,4),(3,6),(5,8),(7,10),(9,11)]
 // [(3,4),(5,6),(7,8),(9,10)]
 // [(6,7)]
-template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+template <class, class _Compare, class _RandomAccessIterator>
 inline void
 sort14branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
                  _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
@@ -431,3 +431,886 @@ sort14branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _Random
 
 
 
+
+
+// === FUNZIONI DI ORDINAMENTO CON LE RETI DA BERT DOBBELAERE ===
+
+// Sorting network for 15 inputs, 56 CEs, 10 layers:
+// [(1,2),(3,10),(4,14),(5,8),(6,13),(7,12),(9,11)]
+// [(0,14),(1,5),(2,8),(3,7),(6,9),(10,12),(11,13)]
+// [(0,7),(1,6),(2,9),(4,10),(5,11),(8,13),(12,14)]
+// [(0,6),(2,4),(3,5),(7,11),(8,10),(9,12),(13,14)]
+// [(0,3),(1,2),(4,7),(5,9),(6,8),(10,11),(12,13)]
+// [(0,1),(2,3),(4,6),(7,9),(10,12),(11,13)]
+// [(1,2),(3,5),(8,10),(11,12)]
+// [(3,4),(5,6),(7,8),(9,10)]
+// [(2,3),(4,5),(6,7),(8,9),(10,11)]
+// [(5,6),(7,8)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator> // si puo togliere alg policy (?)
+inline void
+sort15branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x5, __x15, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x7, __x14, __c); cond_swap<_Compare>(__x8, __x13, __c); cond_swap<_Compare>(__x10, __x12, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x15, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x8, __c); cond_swap<_Compare>(__x2, __x7, __c); cond_swap<_Compare>(__x3, __x10, __c); cond_swap<_Compare>(__x5, __x11, __c); cond_swap<_Compare>(__x6, __x12, __c); cond_swap<_Compare>(__x9, __x14, __c); cond_swap<_Compare>(__x13, __x15, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x7, __c); cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x1, __x4, __c); cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x5, __x8, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c);
+}
+
+// Sorting network for 16 inputs, 60 CEs, 10 layers:
+// [(0,13),(1,12),(2,15),(3,14),(4,8),(5,6),(7,11),(9,10)]
+// [(0,5),(1,7),(2,9),(3,4),(6,13),(8,14),(10,15),(11,12)]
+// [(0,1),(2,3),(4,5),(6,8),(7,9),(10,11),(12,13),(14,15)]
+// [(0,2),(1,3),(4,10),(5,11),(6,7),(8,9),(12,14),(13,15)]
+// [(1,2),(3,12),(4,6),(5,7),(8,10),(9,11),(13,14)]
+// [(1,4),(2,6),(5,8),(7,10),(9,13),(11,14)]
+// [(2,4),(3,6),(9,12),(11,13)]
+// [(3,5),(6,8),(7,9),(10,12)]
+// [(3,4),(5,6),(7,8),(9,10),(11,12)]
+// [(6,7),(8,9)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort16branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x14, __c); cond_swap<_Compare>(__x2, __x13, __c); cond_swap<_Compare>(__x3, __x16, __c); cond_swap<_Compare>(__x4, __x15, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x10, __x11, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x6, __c); cond_swap<_Compare>(__x2, __x8, __c); cond_swap<_Compare>(__x3, __x10, __c); cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x7, __x14, __c); cond_swap<_Compare>(__x9, __x15, __c); cond_swap<_Compare>(__x11, __x16, __c); cond_swap<_Compare>(__x12, __x13, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x11, __c); cond_swap<_Compare>(__x6, __x12, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x13, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x14, __x15, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x12, __x15, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c);
+}
+
+// Sorting network for 17 inputs, 71 CEs, 12 layers:
+// [(0,11),(1,15),(2,10),(3,5),(4,6),(8,12),(9,16),(13,14)]
+// [(0,6),(1,13),(2,8),(4,14),(5,15),(7,11)]
+// [(0,8),(3,7),(4,9),(6,16),(10,11),(12,14)]
+// [(0,2),(1,4),(5,6),(7,13),(8,9),(10,12),(11,14),(15,16)]
+// [(0,3),(2,5),(6,11),(7,10),(9,13),(12,15),(14,16)]
+// [(0,1),(3,4),(5,10),(6,9),(7,8),(11,15),(13,14)]
+// [(1,2),(3,7),(4,8),(6,12),(11,13),(14,15)]
+// [(1,3),(2,7),(4,5),(9,11),(10,12),(13,14)]
+// [(2,3),(4,6),(5,7),(8,10)]
+// [(3,4),(6,8),(7,9),(10,12)]
+// [(5,6),(7,8),(9,10),(11,12)]
+// [(4,5),(6,7),(8,9),(10,11),(12,13)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort17branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x12, __c); cond_swap<_Compare>(__x2, __x16, __c); cond_swap<_Compare>(__x3, __x11, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x14, __x15, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x7, __c); cond_swap<_Compare>(__x2, __x14, __c); cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x5, __x15, __c); cond_swap<_Compare>(__x6, __x16, __c); cond_swap<_Compare>(__x8, __x12, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x5, __x10, __c); cond_swap<_Compare>(__x7, __x17, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x14, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x1, __x4, __c); cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x7, __x12, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x13, __x16, __c); cond_swap<_Compare>(__x15, __x17, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x14, __x15, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x3, __x8, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c);
+}
+
+// Sorting network for 18 inputs, 77 CEs, 12 layers:
+// [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17)]
+// [(0,2),(1,3),(4,12),(5,13),(6,8),(9,11),(14,16),(15,17)]
+// [(0,14),(1,16),(2,15),(3,17)]
+// [(0,6),(1,10),(2,9),(7,16),(8,15),(11,17)]
+// [(1,4),(3,9),(5,7),(8,14),(10,12),(13,16)]
+// [(0,1),(2,5),(3,13),(4,14),(7,9),(8,10),(12,15),(16,17)]
+// [(1,2),(3,5),(4,6),(11,13),(12,14),(15,16)]
+// [(4,8),(5,12),(6,10),(7,11),(9,13)]
+// [(1,4),(2,8),(3,6),(5,7),(9,15),(10,12),(11,14),(13,16)]
+// [(2,4),(5,8),(6,10),(7,11),(9,12),(13,15)]
+// [(3,5),(6,8),(7,10),(9,11),(12,14)]
+// [(3,4),(5,6),(7,8),(9,10),(11,12),(13,14)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort18branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _RandomAccessIterator __x18, _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x15, __c); cond_swap<_Compare>(__x2, __x17, __c); cond_swap<_Compare>(__x3, __x16, __c); cond_swap<_Compare>(__x4, __x18, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x7, __c); cond_swap<_Compare>(__x2, __x11, __c); cond_swap<_Compare>(__x3, __x10, __c); cond_swap<_Compare>(__x8, __x17, __c); cond_swap<_Compare>(__x9, __x16, __c); cond_swap<_Compare>(__x12, __x18, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x4, __x10, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x15, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x17, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x4, __x14, __c); cond_swap<_Compare>(__x5, __x15, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x13, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x6, __x13, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x10, __x14, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x10, __x16, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x17, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x14, __x16, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c);
+}
+
+// Sorting network for 19 inputs, 85 CEs, 12 layers:
+// [(0,12),(1,4),(2,8),(3,5),(6,17),(7,11),(9,14),(10,13),(15,16)]
+// [(0,2),(1,7),(3,6),(4,11),(5,17),(8,12),(10,15),(13,16),(14,18)]
+// [(3,10),(4,14),(5,15),(6,13),(7,9),(11,17),(16,18)]
+// [(0,7),(1,10),(4,6),(9,15),(11,16),(12,17),(13,14)]
+// [(0,3),(2,6),(5,7),(8,11),(12,16)]
+// [(1,8),(2,9),(3,4),(6,15),(7,13),(10,11),(12,18)]
+// [(1,3),(2,5),(6,9),(7,12),(8,10),(11,14),(17,18)]
+// [(0,1),(2,3),(4,8),(6,10),(9,12),(14,15),(16,17)]
+// [(1,2),(5,8),(6,7),(9,11),(10,13),(14,16),(15,17)]
+// [(3,6),(4,5),(7,9),(8,10),(11,12),(13,14),(15,16)]
+// [(3,4),(5,6),(7,8),(9,10),(11,13),(12,14)]
+// [(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort19branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _RandomAccessIterator __x18, _RandomAccessIterator __x19, _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x13, __c); cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x18, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x10, __x15, __c); cond_swap<_Compare>(__x11, __x14, __c); cond_swap<_Compare>(__x16, __x17, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x8, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x5, __x12, __c); cond_swap<_Compare>(__x6, __x18, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x11, __x16, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x15, __x19, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x5, __x15, __c); cond_swap<_Compare>(__x6, __x16, __c); cond_swap<_Compare>(__x7, __x14, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x17, __x19, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x8, __c); cond_swap<_Compare>(__x2, __x11, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x10, __x16, __c); cond_swap<_Compare>(__x12, __x17, __c); cond_swap<_Compare>(__x13, __x18, __c); cond_swap<_Compare>(__x14, __x15, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x1, __x4, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x12, __c); cond_swap<_Compare>(__x13, __x17, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x3, __x10, __c); cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x7, __x16, __c); cond_swap<_Compare>(__x8, __x14, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x19, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x13, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x18, __x19, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x11, __x14, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x13, __x15, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c);
+}
+
+// Sorting network for 20 inputs, 91 CEs, 12 layers:
+// [(0,3),(1,7),(2,5),(4,8),(6,9),(10,13),(11,15),(12,18),(14,17),(16,19)]
+// [(0,14),(1,11),(2,16),(3,17),(4,12),(5,19),(6,10),(7,15),(8,18),(9,13)]
+// [(0,4),(1,2),(3,8),(5,7),(11,16),(12,14),(15,19),(17,18)]
+// [(1,6),(2,12),(3,5),(4,11),(7,17),(8,15),(13,18),(14,16)]
+// [(0,1),(2,6),(7,10),(9,12),(13,17),(18,19)]
+// [(1,6),(5,9),(7,11),(8,12),(10,14),(13,18)]             // Ripetizione (1,6)
+// [(3,5),(4,7),(8,10),(9,11),(12,15),(14,16)]
+// [(1,3),(2,4),(5,7),(6,10),(9,13),(12,14),(15,17),(16,18)]
+// [(1,2),(3,4),(6,7),(8,9),(10,11),(12,13),(15,16),(17,18)]
+// [(2,3),(4,6),(5,8),(7,9),(10,12),(11,14),(13,15),(16,17)]
+// [(4,5),(6,8),(7,10),(9,12),(11,13),(14,15)]
+// [(3,4),(5,6),(7,8),(9,10),(11,12),(13,14),(15,16)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort20branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _RandomAccessIterator __x18, _RandomAccessIterator __x19, _RandomAccessIterator __x20,
+                 _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x4, __c); cond_swap<_Compare>(__x2, __x8, __c); cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x11, __x14, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x13, __x19, __c); cond_swap<_Compare>(__x15, __x18, __c); cond_swap<_Compare>(__x17, __x20, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x15, __c); cond_swap<_Compare>(__x2, __x12, __c); cond_swap<_Compare>(__x3, __x17, __c); cond_swap<_Compare>(__x4, __x18, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x20, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x9, __x19, __c); cond_swap<_Compare>(__x10, __x14, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x9, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x12, __x17, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x18, __x19, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x2, __x7, __c); cond_swap<_Compare>(__x3, __x13, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x12, __c); cond_swap<_Compare>(__x8, __x18, __c); cond_swap<_Compare>(__x9, __x16, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x15, __x17, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x2, __x7, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x14, __x19, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x16, __c); cond_swap<_Compare>(__x15, __x17, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x17, __x19, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c);
+}
+
+// Sorting network for 21 inputs, 99 CEs, 15 layers:
+// [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19)]
+// [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,14),(13,15),(16,18),(17,19)]
+// [(0,8),(1,9),(2,10),(3,11),(4,12),(5,13),(6,14),(7,15)]
+// [(0,4),(1,5),(3,7),(6,20),(8,12),(9,13),(10,14),(15,19)]
+// [(2,6),(3,18),(7,20)]
+// [(2,16),(3,6),(5,18),(7,17),(11,20)]
+// [(0,2),(3,8),(6,12),(7,10),(9,16),(11,15),(13,17),(14,18),(19,20)]
+// [(1,7),(2,3),(4,9),(10,11),(13,16),(15,18),(17,19)]
+// [(1,4),(5,10),(6,13),(7,8),(11,14),(12,16),(15,17),(18,19)]
+// [(1,2),(3,4),(5,6),(10,12),(11,13),(14,16),(17,18)]
+// [(2,3),(4,5),(6,9),(10,11),(12,13),(14,15),(16,17)]
+// [(6,7),(8,9),(15,16)]
+// [(4,6),(7,8),(9,12),(13,15)]
+// [(3,4),(5,7),(8,10),(9,11),(12,14)]
+// [(5,6),(7,8),(9,10),(11,12),(13,14)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort21branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _RandomAccessIterator __x18, _RandomAccessIterator __x19, _RandomAccessIterator __x20,
+                 _RandomAccessIterator __x21, _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x11, __c); cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x16, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x7, __x21, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x16, __x20, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x19, __c); cond_swap<_Compare>(__x8, __x21, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x3, __x17, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x6, __x19, __c); cond_swap<_Compare>(__x8, __x18, __c); cond_swap<_Compare>(__x12, __x21, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x4, __x9, __c); cond_swap<_Compare>(__x7, __x13, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x2, __x8, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x7, __x14, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x13, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x16, __x17, __c);
+    // Layer 13
+    cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x14, __x16, __c);
+    // Layer 14
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c);
+    // Layer 15
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c);
+}
+
+// Sorting network for 22 inputs, 106 CEs, 13 layers (corretta):
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort22branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _RandomAccessIterator __x18, _RandomAccessIterator __x19, _RandomAccessIterator __x20,
+                 _RandomAccessIterator __x21, _RandomAccessIterator __x22, _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x22, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x17, __x21, __c); cond_swap<_Compare>(__x18, __x22, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x15, __c); cond_swap<_Compare>(__x2, __x16, __c); cond_swap<_Compare>(__x3, __x19, __c); cond_swap<_Compare>(__x4, __x20, __c); cond_swap<_Compare>(__x5, __x17, __c); cond_swap<_Compare>(__x6, __x18, __c); cond_swap<_Compare>(__x7, __x21, __c); cond_swap<_Compare>(__x8, __x22, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x11, __x13, __c); // Era [9,11], [10,12] - corretto
+    // Layer 5
+    cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x11, __x19, __c); cond_swap<_Compare>(__x13, __x16, __c); cond_swap<_Compare>(__x14, __x20, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x11, __c); cond_swap<_Compare>(__x4, __x17, __c); cond_swap<_Compare>(__x6, __x19, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x12, __x21, __c); cond_swap<_Compare>(__x20, __x22, __c); // Era [19,21] - corretto
+    // Layer 7
+    cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x6, __x13, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x12, __x19, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x16, __x20, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x8, __x14, __c); cond_swap<_Compare>(__x9, __x15, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x18, __x21, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x9, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x20, __x21, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x12, __x17, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x18, __x20, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x12, __c); // Era [9,11] - corretto
+    cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); // Era [8,10] - corretto
+    cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c); // Era [16,18] - corretto
+    // Layer 13
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c);
+}
+
+// Sorting network for 23 inputs, 114 CEs, 14 layers:
+// [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21)]
+// [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,14),(13,15),(16,18),(17,19),(21,22)]
+// [(0,4),(1,5),(2,6),(3,7),(8,12),(9,13),(10,14),(11,15),(17,21),(18,20),(19,22)]
+// [(0,8),(1,9),(2,10),(3,11),(4,12),(5,13),(6,14),(7,15)]
+// [(1,2),(5,18),(7,19),(9,16),(10,21),(12,20),(15,22)]
+// [(5,9),(6,7),(10,18),(11,21),(12,17),(13,20),(14,15)]
+// [(3,17),(6,16),(7,14),(8,12),(15,19),(20,21)]
+// [(3,4),(5,8),(6,10),(9,12),(13,16),(14,15),(17,18),(19,21)]
+// [(0,5),(1,8),(2,12),(3,9),(4,10),(7,13),(11,17),(14,16),(18,20)]
+// [(2,6),(3,5),(4,8),(7,11),(10,12),(13,18),(14,17),(15,20)]
+// [(1,3),(2,5),(6,9),(7,10),(11,13),(12,14),(15,18),(16,17),(19,20)]
+// [(2,3),(4,6),(8,9),(11,12),(13,14),(15,16),(17,19)]
+// [(3,4),(5,6),(7,8),(9,10),(12,13),(14,15),(17,18)]
+// [(4,5),(6,7),(8,9),(10,11),(16,17)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort23branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _RandomAccessIterator __x18, _RandomAccessIterator __x19, _RandomAccessIterator __x20,
+                 _RandomAccessIterator __x21, _RandomAccessIterator __x22, _RandomAccessIterator __x23, _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x22, __x23, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x18, __x22, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x23, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x11, __c); cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x16, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x6, __x19, __c); cond_swap<_Compare>(__x8, __x20, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x11, __x22, __c); cond_swap<_Compare>(__x13, __x21, __c); cond_swap<_Compare>(__x16, __x23, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x11, __x19, __c); cond_swap<_Compare>(__x12, __x22, __c); cond_swap<_Compare>(__x13, __x18, __c); cond_swap<_Compare>(__x14, __x21, __c); cond_swap<_Compare>(__x15, __x16, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x4, __x18, __c); cond_swap<_Compare>(__x7, __x17, __c); cond_swap<_Compare>(__x8, __x15, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x22, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x1, __x6, __c); cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x3, __x13, __c); cond_swap<_Compare>(__x4, __x10, __c); cond_swap<_Compare>(__x5, __x11, __c); cond_swap<_Compare>(__x8, __x14, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x19, __x21, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x15, __x18, __c); cond_swap<_Compare>(__x16, __x21, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x20, __x21, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x20, __c);
+    // Layer 13
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x18, __x19, __c);
+    // Layer 14
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x17, __x18, __c);
+}
+
+// Sorting network for 24 inputs, 120 CEs, 13 layers:
+// [(0,20),(1,12),(2,16),(3,23),(4,6),(5,10),(7,21),(8,14),(9,15),(11,22),(13,18),(17,19)]
+// [(0,3),(1,11),(2,7),(4,17),(5,13),(6,19),(8,9),(10,18),(12,22),(14,15),(16,21),(20,23)]
+// [(0,1),(2,4),(3,12),(5,8),(6,9),(7,10),(11,20),(13,16),(14,17),(15,18),(19,21),(22,23)]
+// [(2,5),(4,8),(6,11),(7,14),(9,16),(12,17),(15,19),(18,21)]
+// [(1,8),(3,14),(4,7),(9,20),(10,12),(11,13),(15,22),(16,19)]
+// [(0,7),(1,5),(3,4),(6,11),(8,15),(9,14),(10,13),(12,17),(16,23),(18,22),(19,20)]
+// [(0,2),(1,6),(4,7),(5,9),(8,10),(13,15),(14,18),(16,19),(17,22),(21,23)]
+// [(2,3),(4,5),(6,8),(7,9),(10,11),(12,13),(14,16),(15,17),(18,19),(20,21)]
+// [(1,2),(3,6),(4,10),(7,8),(9,11),(12,14),(13,19),(15,16),(17,20),(21,22)]
+// [(2,3),(5,10),(6,7),(8,9),(13,18),(14,15),(16,17),(20,21)]
+// [(3,4),(5,7),(10,12),(11,13),(16,18),(19,20)]
+// [(4,6),(8,10),(9,12),(11,14),(13,15),(17,19)]
+// [(5,6),(7,8),(9,10),(11,12),(13,14),(15,16),(17,18)]
+template <class _AlgPolicy, class _Compare, class _RandomAccessIterator>
+inline void
+sort24branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _RandomAccessIterator __x4,
+                 _RandomAccessIterator __x5, _RandomAccessIterator __x6, _RandomAccessIterator __x7, _RandomAccessIterator __x8,
+                 _RandomAccessIterator __x9, _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15, _RandomAccessIterator __x16,
+                 _RandomAccessIterator __x17, _RandomAccessIterator __x18, _RandomAccessIterator __x19, _RandomAccessIterator __x20,
+                 _RandomAccessIterator __x21, _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _Compare __c) {
+    // Layer 1
+    cond_swap<_Compare>(__x1, __x21, __c); cond_swap<_Compare>(__x2, __x13, __c); cond_swap<_Compare>(__x3, __x17, __c); cond_swap<_Compare>(__x4, __x24, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x8, __x22, __c); cond_swap<_Compare>(__x9, __x15, __c); cond_swap<_Compare>(__x10, __x16, __c); cond_swap<_Compare>(__x12, __x23, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c);
+    // Layer 2
+    cond_swap<_Compare>(__x1, __x4, __c); cond_swap<_Compare>(__x2, __x12, __c); cond_swap<_Compare>(__x3, __x8, __c); cond_swap<_Compare>(__x5, __x18, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x7, __x20, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x19, __c); cond_swap<_Compare>(__x13, __x23, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x22, __c); cond_swap<_Compare>(__x21, __x24, __c);
+    // Layer 3
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x13, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x12, __x21, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x15, __x18, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c);
+    // Layer 4
+    cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x12, __c); cond_swap<_Compare>(__x8, __x15, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x13, __x18, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x19, __x22, __c);
+    // Layer 5
+    cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x4, __x15, __c); cond_swap<_Compare>(__x5, __x8, __c); cond_swap<_Compare>(__x10, __x21, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x16, __x23, __c); cond_swap<_Compare>(__x17, __x20, __c);
+    // Layer 6
+    cond_swap<_Compare>(__x1, __x8, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x7, __x12, __c); cond_swap<_Compare>(__x9, __x16, __c); cond_swap<_Compare>(__x10, __x15, __c); cond_swap<_Compare>(__x11, __x14, __c); cond_swap<_Compare>(__x13, __x18, __c); cond_swap<_Compare>(__x17, __x24, __c); cond_swap<_Compare>(__x19, __x23, __c); cond_swap<_Compare>(__x20, __x21, __c);
+    // Layer 7
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x7, __c); cond_swap<_Compare>(__x5, __x8, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x17, __x20, __c); cond_swap<_Compare>(__x18, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c);
+    // Layer 8
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c);
+    // Layer 9
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x5, __x11, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x20, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c);
+    // Layer 10
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x21, __x22, __c);
+    // Layer 11
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c);
+    // Layer 12
+    cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x18, __x20, __c);
+    // Layer 13
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c);
+}
+
+
+// N=25 (S(25)=130, depth 15)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort25branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),(22,23)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c);
+    cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c);
+    cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c);
+
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,14),(13,15),(16,18),(17,19),(21,22),(23,24)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c);
+    cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c);
+    cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c);
+    cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x24, __x25, __c);
+
+    // Layer 3: [(0,4),(1,5),(2,6),(3,7),(8,12),(9,13),(10,14),(11,15),(18,21),(20,23),(22,24)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c);
+    cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c);
+    cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x19, __x22, __c);
+    cond_swap<_Compare>(__x21, __x24, __c); cond_swap<_Compare>(__x23, __x25, __c);
+
+    // Layer 4: [(0,8),(1,9),(2,10),(3,11),(4,12),(5,13),(6,14),(7,15),(16,20),(17,22),(19,24),(21,23)]
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x11, __c);
+    cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x14, __c);
+    cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x17, __x21, __c);
+    cond_swap<_Compare>(__x18, __x23, __c); cond_swap<_Compare>(__x20, __x25, __c); cond_swap<_Compare>(__x22, __x24, __c);
+
+    // Layer 5: [(1,18),(3,21),(5,23),(6,19),(11,14),(15,24)]
+    cond_swap<_Compare>(__x2, __x19, __c); cond_swap<_Compare>(__x4, __x22, __c); cond_swap<_Compare>(__x6, __x24, __c);
+    cond_swap<_Compare>(__x7, __x20, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x16, __x25, __c);
+
+    // Layer 6: [(1,16),(3,17),(6,9),(7,11),(13,19),(14,23)]
+    cond_swap<_Compare>(__x2, __x17, __c); cond_swap<_Compare>(__x4, __x18, __c); cond_swap<_Compare>(__x7, __x10, __c);
+    cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x14, __x20, __c); cond_swap<_Compare>(__x15, __x24, __c);
+
+    // Layer 7: [(0,1),(2,16),(3,8),(7,20),(10,13),(11,22),(15,23)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x17, __c); cond_swap<_Compare>(__x4, __x9, __c);
+    cond_swap<_Compare>(__x8, __x21, __c); cond_swap<_Compare>(__x11, __x14, __c); cond_swap<_Compare>(__x12, __x23, __c);
+    cond_swap<_Compare>(__x16, __x24, __c);
+
+    // Layer 8: [(1,2),(5,10),(7,18),(11,21),(15,20),(19,22)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x8, __x19, __c);
+    cond_swap<_Compare>(__x12, __x22, __c); cond_swap<_Compare>(__x16, __x21, __c); cond_swap<_Compare>(__x20, __x23, __c);
+
+    // Layer 9: [(4,7),(5,6),(9,18),(10,17),(11,12),(13,21),(14,15),(19,20),(22,23)]
+    cond_swap<_Compare>(__x5, __x8, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x10, __x19, __c);
+    cond_swap<_Compare>(__x11, __x18, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x22, __c);
+    cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x23, __x24, __c);
+
+    // Layer 10: [(3,4),(7,8),(9,10),(11,16),(12,17),(13,18),(19,21),(20,22)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c);
+    cond_swap<_Compare>(__x12, __x17, __c); cond_swap<_Compare>(__x13, __x18, __c); cond_swap<_Compare>(__x14, __x19, __c);
+    cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x21, __x23, __c);
+
+    // Layer 11: [(1,3),(2,4),(5,11),(6,16),(7,9),(8,10),(12,13),(14,19),(15,18)]
+    cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x6, __x12, __c);
+    cond_swap<_Compare>(__x7, __x17, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x9, __x11, __c);
+    cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x20, __c); cond_swap<_Compare>(__x16, __x19, __c);
+
+    // Layer 12: [(2,3),(5,7),(6,9),(8,11),(10,16),(12,14),(15,17)]
+    cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x7, __x10, __c);
+    cond_swap<_Compare>(__x9, __x12, __c); cond_swap<_Compare>(__x11, __x17, __c); cond_swap<_Compare>(__x13, __x15, __c);
+    cond_swap<_Compare>(__x16, __x18, __c);
+
+    // Layer 13: [(3,5),(4,6),(7,8),(9,11),(10,12),(13,14),(15,16),(17,18)]
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c);
+    cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c);
+    cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c);
+
+    // Layer 14: [(4,7),(6,8),(9,10),(11,12),(13,15),(14,16),(17,19),(18,21)]
+    cond_swap<_Compare>(__x5, __x8, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c);
+    cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x15, __x17, __c);
+    cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x19, __x22, __c);
+
+    // Layer 15: [(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21)]
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c);
+    cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c);
+    cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c);
+}
+
+
+// N=26 (S(26)=138, depth 15)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort26branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25, _RandomAccessIterator __x26,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),(22,23),(24,25)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c);
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(14,16),(15,17),(18,20),(19,21),(22,24),(23,25)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x23, __x25, __c); cond_swap<_Compare>(__x24, __x26, __c);
+    // Layer 3: [(0,4),(1,6),(2,5),(3,7),(8,14),(9,16),(10,15),(11,17),(18,22),(19,24),(20,23),(21,25)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x7, __c); cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x15, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x11, __x16, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x19, __x23, __c); cond_swap<_Compare>(__x20, __x25, __c); cond_swap<_Compare>(__x21, __x24, __c); cond_swap<_Compare>(__x22, __x26, __c);
+    // Layer 4: [(0,18),(1,19),(2,20),(3,21),(4,22),(5,23),(6,24),(7,25),(9,12),(13,16)]
+    cond_swap<_Compare>(__x1, __x19, __c); cond_swap<_Compare>(__x2, __x20, __c); cond_swap<_Compare>(__x3, __x21, __c); cond_swap<_Compare>(__x4, __x22, __c); cond_swap<_Compare>(__x5, __x23, __c); cond_swap<_Compare>(__x6, __x24, __c); cond_swap<_Compare>(__x7, __x25, __c); cond_swap<_Compare>(__x8, __x26, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x14, __x17, __c);
+    // Layer 5: [(3,11),(8,9),(10,13),(12,15),(14,22),(16,17)]
+    cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x14, __c); cond_swap<_Compare>(__x13, __x16, __c); cond_swap<_Compare>(__x15, __x23, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    // Layer 6: [(0,8),(1,9),(2,14),(6,12),(7,15),(10,18),(11,23),(13,19),(16,24),(17,25)]
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x15, __c); cond_swap<_Compare>(__x7, __x13, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x11, __x19, __c); cond_swap<_Compare>(__x12, __x24, __c); cond_swap<_Compare>(__x14, __x20, __c); cond_swap<_Compare>(__x17, __x25, __c); cond_swap<_Compare>(__x18, __x26, __c);
+    // Layer 7: [(1,2),(3,18),(4,8),(7,22),(17,21),(23,24)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x19, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x8, __x23, __c); cond_swap<_Compare>(__x18, __x22, __c); cond_swap<_Compare>(__x24, __x25, __c);
+    // Layer 8: [(3,14),(4,10),(5,18),(7,20),(8,13),(11,22),(12,17),(15,21)]
+    cond_swap<_Compare>(__x4, __x15, __c); cond_swap<_Compare>(__x5, __x11, __c); cond_swap<_Compare>(__x6, __x19, __c); cond_swap<_Compare>(__x8, __x21, __c); cond_swap<_Compare>(__x9, __x14, __c); cond_swap<_Compare>(__x12, __x23, __c); cond_swap<_Compare>(__x13, __x18, __c); cond_swap<_Compare>(__x16, __x22, __c);
+    // Layer 9: [(1,4),(5,6),(7,9),(8,10),(15,17),(16,18),(19,20),(21,24)]
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x22, __x25, __c);
+    // Layer 10: [(2,5),(3,10),(6,14),(9,13),(11,19),(12,16),(15,22),(20,23)]
+    cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x12, __x20, __c); cond_swap<_Compare>(__x13, __x17, __c); cond_swap<_Compare>(__x16, __x23, __c); cond_swap<_Compare>(__x21, __x24, __c);
+    // Layer 11: [(2,8),(5,7),(6,9),(11,12),(13,14),(16,19),(17,23),(18,20)]
+    cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x17, __x20, __c); cond_swap<_Compare>(__x18, __x24, __c); cond_swap<_Compare>(__x19, __x21, __c);
+    // Layer 12: [(2,4),(3,5),(6,11),(7,10),(9,16),(12,13),(14,19),(15,18),(20,22),(21,23)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x12, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x20, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x21, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c);
+    // Layer 13: [(3,4),(5,8),(6,7),(9,11),(10,12),(13,15),(14,16),(17,20),(18,19),(21,22)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x18, __x21, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x22, __x23, __c);
+    // Layer 14: [(5,6),(7,8),(9,10),(11,12),(13,14),(15,16),(17,18),(19,20)]
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c);
+    // Layer 15: [(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21)]
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c);
+}
+
+// N=27 (S(27)=147, depth 16)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort27branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25, _RandomAccessIterator __x26, _RandomAccessIterator __x27,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,14),(15,16),(17,18),(19,20),(21,22),(23,24),(25,26)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x24, __x25, __c); cond_swap<_Compare>(__x26, __x27, __c);
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,13),(15,17),(16,18),(19,21),(20,22),(23,25),(24,26)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x21, __x23, __c); cond_swap<_Compare>(__x24, __x26, __c); cond_swap<_Compare>(__x25, __x27, __c);
+    // Layer 3: [(0,23),(1,24),(2,25),(3,26),(4,8),(5,9),(6,10),(7,11),(13,14),(15,19),(16,20),(17,21),(18,22)]
+    cond_swap<_Compare>(__x1, __x24, __c); cond_swap<_Compare>(__x2, __x25, __c); cond_swap<_Compare>(__x3, __x26, __c); cond_swap<_Compare>(__x4, __x27, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x17, __x21, __c); cond_swap<_Compare>(__x18, __x22, __c); cond_swap<_Compare>(__x19, __x23, __c);
+    // Layer 4: [(0,4),(1,6),(2,19),(3,20),(5,13),(9,21),(11,14),(12,16),(17,23),(18,24),(22,26)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x7, __c); cond_swap<_Compare>(__x3, __x20, __c); cond_swap<_Compare>(__x4, __x21, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x10, __x22, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x13, __x17, __c); cond_swap<_Compare>(__x18, __x24, __c); cond_swap<_Compare>(__x19, __x25, __c); cond_swap<_Compare>(__x23, __x27, __c);
+    // Layer 5: [(5,17),(6,16),(7,22),(9,25),(10,24),(12,15),(13,20),(14,26)]
+    cond_swap<_Compare>(__x6, __x18, __c); cond_swap<_Compare>(__x7, __x17, __c); cond_swap<_Compare>(__x8, __x23, __c); cond_swap<_Compare>(__x10, __x26, __c); cond_swap<_Compare>(__x11, __x25, __c); cond_swap<_Compare>(__x13, __x16, __c); cond_swap<_Compare>(__x14, __x21, __c); cond_swap<_Compare>(__x15, __x27, __c);
+    // Layer 6: [(1,12),(4,15),(7,23),(10,19),(11,16),(13,18),(20,24),(22,25)]
+    cond_swap<_Compare>(__x2, __x13, __c); cond_swap<_Compare>(__x5, __x16, __c); cond_swap<_Compare>(__x8, __x24, __c); cond_swap<_Compare>(__x11, __x20, __c); cond_swap<_Compare>(__x12, __x17, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x21, __x25, __c); cond_swap<_Compare>(__x23, __x26, __c);
+    // Layer 7: [(0,1),(6,12),(8,11),(9,15),(10,17),(14,24),(16,21),(18,19)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x7, __x13, __c); cond_swap<_Compare>(__x9, __x12, __c); cond_swap<_Compare>(__x10, __x16, __c); cond_swap<_Compare>(__x11, __x18, __c); cond_swap<_Compare>(__x15, __x25, __c); cond_swap<_Compare>(__x17, __x22, __c); cond_swap<_Compare>(__x19, __x20, __c);
+    // Layer 8: [(1,4),(2,8),(3,11),(12,15),(14,20),(16,22),(21,25)]
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x13, __x16, __c); cond_swap<_Compare>(__x15, __x21, __c); cond_swap<_Compare>(__x17, __x23, __c); cond_swap<_Compare>(__x22, __x26, __c);
+    // Layer 9: [(2,5),(3,17),(8,13),(11,23),(21,22),(24,25)]
+    cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x4, __x18, __c); cond_swap<_Compare>(__x9, __x14, __c); cond_swap<_Compare>(__x12, __x24, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x25, __x26, __c);
+    // Layer 10: [(1,2),(3,10),(5,6),(7,13),(11,15),(14,21),(18,23),(20,22)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x14, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x15, __x22, __c); cond_swap<_Compare>(__x19, __x24, __c); cond_swap<_Compare>(__x21, __x23, __c);
+    // Layer 11: [(4,5),(6,9),(7,8),(13,17),(14,16),(19,23),(22,24)]
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x20, __x24, __c); cond_swap<_Compare>(__x23, __x25, __c);
+    // Layer 12: [(2,4),(3,6),(5,7),(8,12),(9,10),(11,13),(14,18),(15,17),(16,19),(21,23)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x17, __x20, __c); cond_swap<_Compare>(__x22, __x24, __c);
+    // Layer 13: [(3,5),(6,8),(7,9),(10,12),(11,14),(13,16),(15,18),(17,19),(20,21),(22,23)]
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c);
+    // Layer 14: [(5,6),(8,11),(9,10),(12,14),(13,15),(17,18),(19,21)]
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x9, __x12, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x22, __c);
+    // Layer 15: [(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,20),(21,22)]
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c);
+    // Layer 16: [(3,4),(5,6),(7,8),(9,10),(11,12),(13,14),(15,16),(17,18),(19,20)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c);
+}
+
+
+// N=28 (S(28)=155, depth 14)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort28branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25, _RandomAccessIterator __x26, _RandomAccessIterator __x27,
+                 _RandomAccessIterator __x28,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),(22,23),(24,25),(26,27)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c); cond_swap<_Compare>(__x27, __x28, __c);
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,14),(13,15),(16,18),(17,19),(20,22),(21,23),(24,26),(25,27)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x21, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c); cond_swap<_Compare>(__x25, __x27, __c); cond_swap<_Compare>(__x26, __x28, __c);
+    // Layer 3: [(0,4),(1,5),(2,6),(3,7),(8,12),(9,13),(14,18),(15,19),(20,24),(21,25),(22,26),(23,27)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x21, __x25, __c); cond_swap<_Compare>(__x22, __x26, __c); cond_swap<_Compare>(__x23, __x27, __c); cond_swap<_Compare>(__x24, __x28, __c);
+    // Layer 4: [(0,20),(1,21),(2,22),(3,23),(4,24),(5,25),(6,26),(7,27),(9,17),(10,18),(11,15),(12,16)]
+    cond_swap<_Compare>(__x1, __x21, __c); cond_swap<_Compare>(__x2, __x22, __c); cond_swap<_Compare>(__x3, __x23, __c); cond_swap<_Compare>(__x4, __x24, __c); cond_swap<_Compare>(__x5, __x25, __c); cond_swap<_Compare>(__x6, __x26, __c); cond_swap<_Compare>(__x7, __x27, __c); cond_swap<_Compare>(__x8, __x28, __c); cond_swap<_Compare>(__x10, __x18, __c); cond_swap<_Compare>(__x11, __x19, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x13, __x17, __c);
+    // Layer 5: [(1,2),(4,20),(5,6),(7,23),(8,12),(9,16),(10,14),(11,18),(13,17),(15,19),(21,22),(25,26)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x5, __x21, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x24, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x12, __x19, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x26, __x27, __c);
+    // Layer 6: [(0,8),(1,9),(2,12),(3,5),(4,10),(6,16),(7,13),(11,21),(14,20),(15,25),(17,23),(18,26),(19,27),(22,24)]
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x13, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x11, __c); cond_swap<_Compare>(__x7, __x17, __c); cond_swap<_Compare>(__x8, __x14, __c); cond_swap<_Compare>(__x12, __x22, __c); cond_swap<_Compare>(__x15, __x21, __c); cond_swap<_Compare>(__x16, __x26, __c); cond_swap<_Compare>(__x18, __x24, __c); cond_swap<_Compare>(__x19, __x27, __c); cond_swap<_Compare>(__x20, __x28, __c); cond_swap<_Compare>(__x23, __x25, __c);
+    // Layer 7: [(2,4),(3,7),(5,17),(8,14),(9,11),(10,22),(13,19),(16,18),(20,24),(23,25)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x6, __x18, __c); cond_swap<_Compare>(__x9, __x15, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x11, __x23, __c); cond_swap<_Compare>(__x14, __x20, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x21, __x25, __c); cond_swap<_Compare>(__x24, __x26, __c);
+    // Layer 8: [(1,8),(3,9),(5,11),(6,10),(7,15),(12,20),(16,22),(17,21),(18,24),(19,26)]
+    cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x4, __x10, __c); cond_swap<_Compare>(__x6, __x12, __c); cond_swap<_Compare>(__x7, __x11, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x13, __x21, __c); cond_swap<_Compare>(__x17, __x23, __c); cond_swap<_Compare>(__x18, __x22, __c); cond_swap<_Compare>(__x19, __x25, __c); cond_swap<_Compare>(__x20, __x27, __c);
+    // Layer 9: [(1,2),(4,6),(5,9),(10,16),(11,17),(12,14),(13,15),(18,22),(21,23),(25,26)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x11, __x17, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x19, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c); cond_swap<_Compare>(__x26, __x27, __c);
+    // Layer 10: [(4,8),(6,12),(7,11),(10,14),(13,17),(15,21),(16,20),(19,23)]
+    cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x13, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x16, __x22, __c); cond_swap<_Compare>(__x17, __x21, __c); cond_swap<_Compare>(__x20, __x24, __c);
+    // Layer 11: [(2,4),(6,8),(7,16),(9,14),(10,12),(11,20),(13,18),(15,17),(19,21),(23,25)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x17, __c); cond_swap<_Compare>(__x10, __x15, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x21, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x24, __x26, __c);
+    // Layer 12: [(3,10),(5,12),(7,9),(11,13),(14,16),(15,22),(17,24),(18,20)]
+    cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x6, __x13, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x23, __c); cond_swap<_Compare>(__x18, __x25, __c); cond_swap<_Compare>(__x19, __x21, __c);
+    // Layer 13: [(3,6),(5,8),(7,10),(9,12),(11,14),(13,16),(15,18),(17,20),(19,22),(21,24)]
+    cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x18, __x21, __c); cond_swap<_Compare>(__x20, __x23, __c); cond_swap<_Compare>(__x22, __x25, __c);
+    // Layer 14: [(3,4),(5,6),(7,8),(9,10),(11,12),(13,14),(15,16),(17,18),(19,20),(21,22),(23,24)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x24, __x25, __c);
+}
+
+// N=29 (S(29)=164, depth 15)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort29branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25, _RandomAccessIterator __x26, _RandomAccessIterator __x27,
+                 _RandomAccessIterator __x28, _RandomAccessIterator __x29,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,28),(17,26),(18,25),(19,23),(21,27),(22,24)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x29, __c); cond_swap<_Compare>(__x18, __x27, __c); cond_swap<_Compare>(__x19, __x26, __c); cond_swap<_Compare>(__x20, __x24, __c); cond_swap<_Compare>(__x22, __x28, __c); cond_swap<_Compare>(__x23, __x25, __c);
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,14),(13,15),(17,22),(18,19),(20,27),(23,25),(24,26)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x18, __x23, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x28, __c); cond_swap<_Compare>(__x24, __x26, __c); cond_swap<_Compare>(__x25, __x27, __c);
+    // Layer 3: [(0,4),(1,5),(2,6),(3,7),(8,12),(9,13),(10,14),(11,15),(16,20),(17,18),(19,22),(23,24),(25,26),(27,28)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x17, __x21, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x23, __c); cond_swap<_Compare>(__x24, __x25, __c); cond_swap<_Compare>(__x26, __x27, __c); cond_swap<_Compare>(__x28, __x29, __c);
+    // Layer 4: [(0,8),(1,9),(2,10),(3,11),(4,12),(5,13),(6,14),(7,15),(16,18),(20,22),(21,25),(24,27),(26,28)]
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x11, __c); cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x21, __x23, __c); cond_swap<_Compare>(__x22, __x26, __c); cond_swap<_Compare>(__x25, __x28, __c); cond_swap<_Compare>(__x27, __x29, __c);
+    // Layer 5: [(1,8),(2,24),(4,19),(5,20),(6,21),(7,27),(9,18),(10,23),(11,26),(13,22),(14,25),(15,28),(16,17)]
+    cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x3, __x25, __c); cond_swap<_Compare>(__x5, __x20, __c); cond_swap<_Compare>(__x6, __x21, __c); cond_swap<_Compare>(__x7, __x22, __c); cond_swap<_Compare>(__x8, __x28, __c); cond_swap<_Compare>(__x10, __x19, __c); cond_swap<_Compare>(__x11, __x24, __c); cond_swap<_Compare>(__x12, __x27, __c); cond_swap<_Compare>(__x14, __x23, __c); cond_swap<_Compare>(__x15, __x26, __c); cond_swap<_Compare>(__x16, __x29, __c); cond_swap<_Compare>(__x17, __x18, __c);
+    // Layer 6: [(0,6),(2,4),(3,24),(5,10),(12,19),(13,18),(14,21),(15,25),(20,23),(26,27)]
+    cond_swap<_Compare>(__x1, __x7, __c); cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x25, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x13, __x20, __c); cond_swap<_Compare>(__x14, __x19, __c); cond_swap<_Compare>(__x15, __x22, __c); cond_swap<_Compare>(__x16, __x26, __c); cond_swap<_Compare>(__x21, __x24, __c); cond_swap<_Compare>(__x27, __x28, __c);
+    // Layer 7: [(0,16),(1,6),(3,12),(4,8),(5,17),(7,24),(14,20),(15,26),(18,21),(19,23),(25,27)]
+    cond_swap<_Compare>(__x1, __x17, __c); cond_swap<_Compare>(__x2, __x7, __c); cond_swap<_Compare>(__x4, __x13, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x6, __x18, __c); cond_swap<_Compare>(__x8, __x25, __c); cond_swap<_Compare>(__x15, __x21, __c); cond_swap<_Compare>(__x16, __x27, __c); cond_swap<_Compare>(__x19, __x22, __c); cond_swap<_Compare>(__x20, __x24, __c); cond_swap<_Compare>(__x26, __x28, __c);
+    // Layer 8: [(1,5),(2,16),(3,10),(6,9),(7,18),(8,17),(11,19),(13,14),(15,22),(21,23),(25,26)]
+    cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x17, __c); cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x19, __c); cond_swap<_Compare>(__x9, __x18, __c); cond_swap<_Compare>(__x12, __x20, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c); cond_swap<_Compare>(__x26, __x27, __c);
+    // Layer 9: [(1,2),(3,5),(4,8),(6,16),(7,11),(9,17),(10,12),(14,20),(15,18),(19,24),(22,27)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x17, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x10, __x18, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x15, __x21, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x20, __x25, __c); cond_swap<_Compare>(__x23, __x28, __c);
+    // Layer 10: [(4,6),(9,16),(10,13),(11,19),(12,14),(20,21),(22,26),(23,24)]
+    cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x11, __x14, __c); cond_swap<_Compare>(__x12, __x20, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x27, __c); cond_swap<_Compare>(__x24, __x25, __c);
+    // Layer 11: [(2,4),(3,6),(7,16),(8,9),(11,17),(15,19),(18,23),(24,25)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x8, __x17, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x19, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c);
+    // Layer 12: [(3,4),(5,9),(7,10),(11,13),(12,16),(14,17),(15,20),(19,21),(22,24)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x13, __x17, __c); cond_swap<_Compare>(__x15, __x18, __c); cond_swap<_Compare>(__x16, __x21, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x23, __x25, __c);
+    // Layer 13: [(5,8),(6,7),(9,12),(10,11),(13,14),(15,16),(17,20),(18,19),(21,23),(24,25)]
+    cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x21, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x22, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c);
+    // Layer 14: [(5,6),(7,8),(9,10),(11,12),(13,15),(14,16),(17,18),(19,20),(21,22)]
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c);
+    // Layer 15: [(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),(22,23)]
+    cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c);
+}
+
+// N=30 (S(30)=172, depth 14)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort30branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25, _RandomAccessIterator __x26, _RandomAccessIterator __x27,
+                 _RandomAccessIterator __x28, _RandomAccessIterator __x29, _RandomAccessIterator __x30,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),(22,23),(24,25),(26,27),(28,29)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c); cond_swap<_Compare>(__x27, __x28, __c); cond_swap<_Compare>(__x29, __x30, __c);
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(13,15),(14,16),(18,20),(19,21),(22,24),(23,25),(26,28),(27,29)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x23, __x25, __c); cond_swap<_Compare>(__x24, __x26, __c); cond_swap<_Compare>(__x27, __x29, __c); cond_swap<_Compare>(__x28, __x30, __c);
+    // Layer 3: [(0,4),(1,5),(2,6),(3,7),(8,14),(9,17),(10,16),(12,20),(13,19),(15,21),(22,26),(23,27),(24,28),(25,29)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x15, __c); cond_swap<_Compare>(__x10, __x18, __c); cond_swap<_Compare>(__x11, __x17, __c); cond_swap<_Compare>(__x13, __x21, __c); cond_swap<_Compare>(__x14, __x20, __c); cond_swap<_Compare>(__x16, __x22, __c); cond_swap<_Compare>(__x23, __x27, __c); cond_swap<_Compare>(__x24, __x28, __c); cond_swap<_Compare>(__x25, __x29, __c); cond_swap<_Compare>(__x26, __x30, __c);
+    // Layer 4: [(0,8),(1,9),(2,14),(3,17),(4,10),(5,11),(6,16),(12,26),(13,23),(15,27),(18,24),(19,25),(20,28),(21,29)]
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x15, __c); cond_swap<_Compare>(__x4, __x18, __c); cond_swap<_Compare>(__x5, __x11, __c); cond_swap<_Compare>(__x6, __x12, __c); cond_swap<_Compare>(__x7, __x17, __c); cond_swap<_Compare>(__x13, __x27, __c); cond_swap<_Compare>(__x14, __x24, __c); cond_swap<_Compare>(__x16, __x28, __c); cond_swap<_Compare>(__x19, __x25, __c); cond_swap<_Compare>(__x20, __x26, __c); cond_swap<_Compare>(__x21, __x29, __c); cond_swap<_Compare>(__x22, __x30, __c);
+    // Layer 5: [(1,13),(2,12),(3,15),(4,18),(5,19),(6,20),(7,21),(8,22),(9,23),(10,24),(11,25),(14,26),(16,28),(17,27)]
+    cond_swap<_Compare>(__x2, __x14, __c); cond_swap<_Compare>(__x3, __x13, __c); cond_swap<_Compare>(__x4, __x16, __c); cond_swap<_Compare>(__x5, __x19, __c); cond_swap<_Compare>(__x6, __x20, __c); cond_swap<_Compare>(__x7, __x21, __c); cond_swap<_Compare>(__x8, __x22, __c); cond_swap<_Compare>(__x9, __x23, __c); cond_swap<_Compare>(__x10, __x24, __c); cond_swap<_Compare>(__x11, __x25, __c); cond_swap<_Compare>(__x12, __x26, __c); cond_swap<_Compare>(__x15, __x27, __c); cond_swap<_Compare>(__x17, __x29, __c); cond_swap<_Compare>(__x18, __x28, __c);
+    // Layer 6: [(0,4),(2,8),(3,13),(5,9),(6,22),(7,23),(10,12),(11,15),(14,18),(16,26),(17,19),(20,24),(21,27),(25,29)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x3, __x9, __c); cond_swap<_Compare>(__x4, __x14, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x7, __x23, __c); cond_swap<_Compare>(__x8, __x24, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x17, __x27, __c); cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x21, __x25, __c); cond_swap<_Compare>(__x22, __x28, __c); cond_swap<_Compare>(__x26, __x30, __c);
+    // Layer 7: [(0,2),(1,14),(3,5),(4,8),(9,13),(11,17),(12,18),(15,28),(16,20),(21,25),(24,26),(27,29)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x15, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x13, __x19, __c); cond_swap<_Compare>(__x16, __x29, __c); cond_swap<_Compare>(__x17, __x21, __c); cond_swap<_Compare>(__x22, __x26, __c); cond_swap<_Compare>(__x25, __x27, __c); cond_swap<_Compare>(__x28, __x30, __c);
+    // Layer 8: [(2,4),(5,9),(6,14),(7,13),(8,10),(15,23),(16,22),(19,21),(20,24),(25,27)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x6, __x10, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x14, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x16, __x24, __c); cond_swap<_Compare>(__x17, __x23, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x21, __x25, __c); cond_swap<_Compare>(__x26, __x28, __c);
+    // Layer 9: [(6,8),(7,11),(10,14),(12,16),(13,17),(15,19),(18,22),(21,23)]
+    cond_swap<_Compare>(__x7, __x9, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x13, __x17, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x19, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c);
+    // Layer 10: [(4,6),(7,9),(8,10),(11,13),(12,14),(15,17),(16,18),(19,21),(20,22),(23,25)]
+    cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x21, __x23, __c); cond_swap<_Compare>(__x24, __x26, __c);
+    // Layer 11: [(1,8),(3,18),(5,20),(7,22),(9,24),(10,12),(11,26),(13,15),(14,16),(17,19),(21,28)]
+    cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x4, __x19, __c); cond_swap<_Compare>(__x6, __x21, __c); cond_swap<_Compare>(__x8, __x23, __c); cond_swap<_Compare>(__x10, __x25, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x27, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x22, __x29, __c);
+    // Layer 12: [(1,2),(3,10),(5,12),(7,14),(9,16),(11,18),(13,20),(15,22),(17,24),(19,26),(27,28)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x11, __c); cond_swap<_Compare>(__x6, __x13, __c); cond_swap<_Compare>(__x8, __x15, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x12, __x19, __c); cond_swap<_Compare>(__x14, __x21, __c); cond_swap<_Compare>(__x16, __x23, __c); cond_swap<_Compare>(__x18, __x25, __c); cond_swap<_Compare>(__x20, __x27, __c); cond_swap<_Compare>(__x28, __x29, __c);
+    // Layer 13: [(2,4),(3,6),(5,8),(7,10),(9,12),(11,14),(13,16),(15,18),(17,20),(19,22),(21,24),(23,26),(25,27)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x7, __c); cond_swap<_Compare>(__x6, __x9, __c); cond_swap<_Compare>(__x8, __x11, __c); cond_swap<_Compare>(__x10, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x18, __x21, __c); cond_swap<_Compare>(__x20, __x23, __c); cond_swap<_Compare>(__x22, __x25, __c); cond_swap<_Compare>(__x24, __x27, __c); cond_swap<_Compare>(__x26, __x28, __c);
+    // Layer 14: [(3,4),(5,6),(7,8),(9,10),(11,12),(13,14),(15,16),(17,18),(19,20),(21,22),(23,24),(25,26)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x24, __x25, __c); cond_swap<_Compare>(__x26, __x27, __c);
+}
+
+// N=31 (S(31)=180, depth 14)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort31branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25, _RandomAccessIterator __x26, _RandomAccessIterator __x27,
+                 _RandomAccessIterator __x28, _RandomAccessIterator __x29, _RandomAccessIterator __x30,
+                 _RandomAccessIterator __x31,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),(22,23),(24,25),(26,27),(28,29)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c); cond_swap<_Compare>(__x27, __x28, __c); cond_swap<_Compare>(__x29, __x30, __c);
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,14),(13,15),(16,18),(17,19),(20,22),(21,23),(24,26),(25,27),(28,30)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x21, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c); cond_swap<_Compare>(__x25, __x27, __c); cond_swap<_Compare>(__x26, __x28, __c); cond_swap<_Compare>(__x29, __x31, __c);
+    // Layer 3: [(0,4),(1,5),(2,6),(3,7),(8,12),(9,13),(10,14),(11,15),(16,20),(17,21),(18,22),(19,23),(24,28),(25,29),(26,30)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x17, __x21, __c); cond_swap<_Compare>(__x18, __x22, __c); cond_swap<_Compare>(__x19, __x23, __c); cond_swap<_Compare>(__x20, __x24, __c); cond_swap<_Compare>(__x25, __x29, __c); cond_swap<_Compare>(__x26, __x30, __c); cond_swap<_Compare>(__x27, __x31, __c);
+    // Layer 4: [(0,8),(1,9),(2,10),(3,11),(4,12),(5,13),(6,14),(7,15),(16,24),(17,25),(18,26),(19,27),(20,28),(21,29),(22,30)]
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x11, __c); cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x17, __x25, __c); cond_swap<_Compare>(__x18, __x26, __c); cond_swap<_Compare>(__x19, __x27, __c); cond_swap<_Compare>(__x20, __x28, __c); cond_swap<_Compare>(__x21, __x29, __c); cond_swap<_Compare>(__x22, __x30, __c); cond_swap<_Compare>(__x23, __x31, __c);
+    // Layer 5: [(0,16),(1,8),(2,4),(3,12),(5,10),(6,9),(7,14),(11,13),(17,24),(18,20),(19,28),(21,26),(22,25),(23,30),(27,29)]
+    cond_swap<_Compare>(__x1, __x17, __c); cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x13, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x15, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x18, __x25, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x29, __c); cond_swap<_Compare>(__x22, __x27, __c); cond_swap<_Compare>(__x23, __x26, __c); cond_swap<_Compare>(__x24, __x31, __c); cond_swap<_Compare>(__x28, __x30, __c);
+    // Layer 6: [(1,2),(3,5),(4,8),(6,22),(7,11),(9,25),(10,12),(13,14),(17,18),(19,21),(20,24),(23,27),(26,28),(29,30)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x23, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x10, __x26, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x21, __x25, __c); cond_swap<_Compare>(__x24, __x28, __c); cond_swap<_Compare>(__x27, __x29, __c); cond_swap<_Compare>(__x30, __x31, __c);
+    // Layer 7: [(1,17),(2,18),(3,19),(4,20),(5,10),(7,23),(8,24),(11,27),(12,28),(13,29),(14,30),(21,26)]
+    cond_swap<_Compare>(__x2, __x18, __c); cond_swap<_Compare>(__x3, __x19, __c); cond_swap<_Compare>(__x4, __x20, __c); cond_swap<_Compare>(__x5, __x21, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x8, __x24, __c); cond_swap<_Compare>(__x9, __x25, __c); cond_swap<_Compare>(__x12, __x28, __c); cond_swap<_Compare>(__x13, __x29, __c); cond_swap<_Compare>(__x14, __x30, __c); cond_swap<_Compare>(__x15, __x31, __c); cond_swap<_Compare>(__x22, __x27, __c);
+    // Layer 8: [(3,17),(4,16),(5,21),(6,18),(7,9),(8,20),(10,26),(11,23),(13,25),(14,28),(15,27),(22,24)]
+    cond_swap<_Compare>(__x4, __x18, __c); cond_swap<_Compare>(__x5, __x17, __c); cond_swap<_Compare>(__x6, __x22, __c); cond_swap<_Compare>(__x7, __x19, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x9, __x21, __c); cond_swap<_Compare>(__x11, __x27, __c); cond_swap<_Compare>(__x12, __x24, __c); cond_swap<_Compare>(__x14, __x26, __c); cond_swap<_Compare>(__x15, __x29, __c); cond_swap<_Compare>(__x16, __x28, __c); cond_swap<_Compare>(__x23, __x25, __c);
+    // Layer 9: [(1,4),(3,8),(5,16),(7,17),(9,21),(10,22),(11,19),(12,20),(14,24),(15,26),(23,28),(27,30)]
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x4, __x9, __c); cond_swap<_Compare>(__x6, __x17, __c); cond_swap<_Compare>(__x8, __x18, __c); cond_swap<_Compare>(__x10, __x22, __c); cond_swap<_Compare>(__x11, __x23, __c); cond_swap<_Compare>(__x12, __x20, __c); cond_swap<_Compare>(__x13, __x21, __c); cond_swap<_Compare>(__x15, __x25, __c); cond_swap<_Compare>(__x16, __x27, __c); cond_swap<_Compare>(__x24, __x29, __c); cond_swap<_Compare>(__x28, __x31, __c);
+    // Layer 10: [(2,5),(7,8),(9,18),(11,17),(12,16),(13,22),(14,20),(15,19),(23,24),(26,29)]
+    cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x19, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x13, __x17, __c); cond_swap<_Compare>(__x14, __x23, __c); cond_swap<_Compare>(__x15, __x21, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x24, __x25, __c); cond_swap<_Compare>(__x27, __x30, __c);
+    // Layer 11: [(2,4),(6,12),(9,16),(10,11),(13,17),(14,18),(15,22),(19,25),(20,21),(27,29)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x7, __x13, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x16, __x23, __c); cond_swap<_Compare>(__x20, __x26, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x28, __x30, __c);
+    // Layer 12: [(5,6),(8,12),(9,10),(11,13),(14,16),(15,17),(18,20),(19,23),(21,22),(25,26)]
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x24, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x26, __x27, __c);
+    // Layer 13: [(3,5),(6,7),(8,9),(10,12),(11,14),(13,16),(15,18),(17,20),(19,21),(22,23),(24,25),(26,28)]
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x18, __x21, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c); cond_swap<_Compare>(__x27, __x29, __c);
+    // Layer 14: [(3,4),(5,6),(7,8),(9,10),(11,12),(13,14),(15,16),(17,18),(19,20),(21,22),(23,24),(25,26),(27,28)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x24, __x25, __c); cond_swap<_Compare>(__x26, __x27, __c); cond_swap<_Compare>(__x28, __x29, __c);
+}
+
+// N=32 (S(32)=185, depth 14)
+// Rete: Dal testo fornito
+template <class, class _Compare, class _RandomAccessIterator>
+inline void
+sort32branchless(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3,
+                 _RandomAccessIterator __x4, _RandomAccessIterator __x5, _RandomAccessIterator __x6,
+                 _RandomAccessIterator __x7, _RandomAccessIterator __x8, _RandomAccessIterator __x9,
+                 _RandomAccessIterator __x10, _RandomAccessIterator __x11, _RandomAccessIterator __x12,
+                 _RandomAccessIterator __x13, _RandomAccessIterator __x14, _RandomAccessIterator __x15,
+                 _RandomAccessIterator __x16, _RandomAccessIterator __x17, _RandomAccessIterator __x18,
+                 _RandomAccessIterator __x19, _RandomAccessIterator __x20, _RandomAccessIterator __x21,
+                 _RandomAccessIterator __x22, _RandomAccessIterator __x23, _RandomAccessIterator __x24,
+                 _RandomAccessIterator __x25, _RandomAccessIterator __x26, _RandomAccessIterator __x27,
+                 _RandomAccessIterator __x28, _RandomAccessIterator __x29, _RandomAccessIterator __x30,
+                 _RandomAccessIterator __x31, _RandomAccessIterator __x32,
+                 _Compare __c) {
+    // Layer 1: [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),(22,23),(24,25),(26,27),(28,29),(30,31)]
+    cond_swap<_Compare>(__x1, __x2, __c); cond_swap<_Compare>(__x3, __x4, __c); cond_swap<_Compare>(__x5, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x13, __x14, __c); cond_swap<_Compare>(__x15, __x16, __c); cond_swap<_Compare>(__x17, __x18, __c); cond_swap<_Compare>(__x19, __x20, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c); cond_swap<_Compare>(__x27, __x28, __c); cond_swap<_Compare>(__x29, __x30, __c); cond_swap<_Compare>(__x31, __x32, __c);
+    // Layer 2: [(0,2),(1,3),(4,6),(5,7),(8,10),(9,11),(12,14),(13,15),(16,18),(17,19),(20,22),(21,23),(24,26),(25,27),(28,30),(29,31)]
+    cond_swap<_Compare>(__x1, __x3, __c); cond_swap<_Compare>(__x2, __x4, __c); cond_swap<_Compare>(__x5, __x7, __c); cond_swap<_Compare>(__x6, __x8, __c); cond_swap<_Compare>(__x9, __x11, __c); cond_swap<_Compare>(__x10, __x12, __c); cond_swap<_Compare>(__x13, __x15, __c); cond_swap<_Compare>(__x14, __x16, __c); cond_swap<_Compare>(__x17, __x19, __c); cond_swap<_Compare>(__x18, __x20, __c); cond_swap<_Compare>(__x21, __x23, __c); cond_swap<_Compare>(__x22, __x24, __c); cond_swap<_Compare>(__x25, __x27, __c); cond_swap<_Compare>(__x26, __x28, __c); cond_swap<_Compare>(__x29, __x31, __c); cond_swap<_Compare>(__x30, __x32, __c);
+    // Layer 3: [(0,4),(1,5),(2,6),(3,7),(8,12),(9,13),(10,14),(11,15),(16,20),(17,21),(18,22),(19,23),(24,28),(25,29),(26,30),(27,31)]
+    cond_swap<_Compare>(__x1, __x5, __c); cond_swap<_Compare>(__x2, __x6, __c); cond_swap<_Compare>(__x3, __x7, __c); cond_swap<_Compare>(__x4, __x8, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x14, __c); cond_swap<_Compare>(__x11, __x15, __c); cond_swap<_Compare>(__x12, __x16, __c); cond_swap<_Compare>(__x17, __x21, __c); cond_swap<_Compare>(__x18, __x22, __c); cond_swap<_Compare>(__x19, __x23, __c); cond_swap<_Compare>(__x20, __x24, __c); cond_swap<_Compare>(__x25, __x29, __c); cond_swap<_Compare>(__x26, __x30, __c); cond_swap<_Compare>(__x27, __x31, __c); cond_swap<_Compare>(__x28, __x32, __c);
+    // Layer 4: [(0,8),(1,9),(2,10),(3,11),(4,12),(5,13),(6,14),(7,15),(16,24),(17,25),(18,26),(19,27),(20,28),(21,29),(22,30),(23,31)]
+    cond_swap<_Compare>(__x1, __x9, __c); cond_swap<_Compare>(__x2, __x10, __c); cond_swap<_Compare>(__x3, __x11, __c); cond_swap<_Compare>(__x4, __x12, __c); cond_swap<_Compare>(__x5, __x13, __c); cond_swap<_Compare>(__x6, __x14, __c); cond_swap<_Compare>(__x7, __x15, __c); cond_swap<_Compare>(__x8, __x16, __c); cond_swap<_Compare>(__x17, __x25, __c); cond_swap<_Compare>(__x18, __x26, __c); cond_swap<_Compare>(__x19, __x27, __c); cond_swap<_Compare>(__x20, __x28, __c); cond_swap<_Compare>(__x21, __x29, __c); cond_swap<_Compare>(__x22, __x30, __c); cond_swap<_Compare>(__x23, __x31, __c); cond_swap<_Compare>(__x24, __x32, __c);
+    // Layer 5: [(0,16),(1,8),(2,4),(3,12),(5,10),(6,9),(7,14),(11,13),(15,31),(17,24),(18,20),(19,28),(21,26),(22,25),(23,30),(27,29)]
+    cond_swap<_Compare>(__x1, __x17, __c); cond_swap<_Compare>(__x2, __x9, __c); cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x4, __x13, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x7, __x10, __c); cond_swap<_Compare>(__x8, __x15, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x16, __x32, __c); cond_swap<_Compare>(__x18, __x25, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x29, __c); cond_swap<_Compare>(__x22, __x27, __c); cond_swap<_Compare>(__x23, __x26, __c); cond_swap<_Compare>(__x24, __x31, __c); cond_swap<_Compare>(__x28, __x30, __c);
+    // Layer 6: [(1,2),(3,5),(4,8),(6,22),(7,11),(9,25),(10,12),(13,14),(17,18),(19,21),(20,24),(23,27),(26,28),(29,30)]
+    cond_swap<_Compare>(__x2, __x3, __c); cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x5, __x9, __c); cond_swap<_Compare>(__x7, __x23, __c); cond_swap<_Compare>(__x8, __x12, __c); cond_swap<_Compare>(__x10, __x26, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x21, __x25, __c); cond_swap<_Compare>(__x24, __x28, __c); cond_swap<_Compare>(__x27, __x29, __c); cond_swap<_Compare>(__x30, __x31, __c);
+    // Layer 7: [(1,17),(2,18),(3,19),(4,20),(5,10),(7,23),(8,24),(11,27),(12,28),(13,29),(14,30),(21,26)]
+    cond_swap<_Compare>(__x2, __x18, __c); cond_swap<_Compare>(__x3, __x19, __c); cond_swap<_Compare>(__x4, __x20, __c); cond_swap<_Compare>(__x5, __x21, __c); cond_swap<_Compare>(__x6, __x11, __c); cond_swap<_Compare>(__x8, __x24, __c); cond_swap<_Compare>(__x9, __x25, __c); cond_swap<_Compare>(__x12, __x28, __c); cond_swap<_Compare>(__x13, __x29, __c); cond_swap<_Compare>(__x14, __x30, __c); cond_swap<_Compare>(__x15, __x31, __c); cond_swap<_Compare>(__x22, __x27, __c);
+    // Layer 8: [(3,17),(4,16),(5,21),(6,18),(7,9),(8,20),(10,26),(11,23),(13,25),(14,28),(15,27),(22,24)]
+    cond_swap<_Compare>(__x4, __x18, __c); cond_swap<_Compare>(__x5, __x17, __c); cond_swap<_Compare>(__x6, __x22, __c); cond_swap<_Compare>(__x7, __x19, __c); cond_swap<_Compare>(__x8, __x10, __c); cond_swap<_Compare>(__x9, __x21, __c); cond_swap<_Compare>(__x11, __x27, __c); cond_swap<_Compare>(__x12, __x24, __c); cond_swap<_Compare>(__x14, __x26, __c); cond_swap<_Compare>(__x15, __x29, __c); cond_swap<_Compare>(__x16, __x28, __c); cond_swap<_Compare>(__x23, __x25, __c);
+    // Layer 9: [(1,4),(3,8),(5,16),(7,17),(9,21),(10,22),(11,19),(12,20),(14,24),(15,26),(23,28),(27,30)]
+    cond_swap<_Compare>(__x2, __x5, __c); cond_swap<_Compare>(__x4, __x9, __c); cond_swap<_Compare>(__x6, __x17, __c); cond_swap<_Compare>(__x8, __x18, __c); cond_swap<_Compare>(__x10, __x22, __c); cond_swap<_Compare>(__x11, __x23, __c); cond_swap<_Compare>(__x12, __x20, __c); cond_swap<_Compare>(__x13, __x21, __c); cond_swap<_Compare>(__x15, __x25, __c); cond_swap<_Compare>(__x16, __x27, __c); cond_swap<_Compare>(__x24, __x29, __c); cond_swap<_Compare>(__x28, __x31, __c);
+    // Layer 10: [(2,5),(7,8),(9,18),(11,17),(12,16),(13,22),(14,20),(15,19),(23,24),(26,29)]
+    cond_swap<_Compare>(__x3, __x6, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x19, __c); cond_swap<_Compare>(__x12, __x18, __c); cond_swap<_Compare>(__x13, __x17, __c); cond_swap<_Compare>(__x14, __x23, __c); cond_swap<_Compare>(__x15, __x21, __c); cond_swap<_Compare>(__x16, __x20, __c); cond_swap<_Compare>(__x24, __x25, __c); cond_swap<_Compare>(__x27, __x30, __c);
+    // Layer 11: [(2,4),(6,12),(9,16),(10,11),(13,17),(14,18),(15,22),(19,25),(20,21),(27,29)]
+    cond_swap<_Compare>(__x3, __x5, __c); cond_swap<_Compare>(__x7, __x13, __c); cond_swap<_Compare>(__x10, __x17, __c); cond_swap<_Compare>(__x11, __x12, __c); cond_swap<_Compare>(__x14, __x18, __c); cond_swap<_Compare>(__x15, __x19, __c); cond_swap<_Compare>(__x16, __x23, __c); cond_swap<_Compare>(__x20, __x26, __c); cond_swap<_Compare>(__x21, __x22, __c); cond_swap<_Compare>(__x28, __x30, __c);
+    // Layer 12: [(5,6),(8,12),(9,10),(11,13),(14,16),(15,17),(18,20),(19,23),(21,22),(25,26)]
+    cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x9, __x13, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x14, __c); cond_swap<_Compare>(__x15, __x17, __c); cond_swap<_Compare>(__x16, __x18, __c); cond_swap<_Compare>(__x19, __x21, __c); cond_swap<_Compare>(__x20, __x24, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x26, __x27, __c);
+    // Layer 13: [(3,5),(6,7),(8,9),(10,12),(11,14),(13,16),(15,18),(17,20),(19,21),(22,23),(24,25),(26,28)]
+    cond_swap<_Compare>(__x4, __x6, __c); cond_swap<_Compare>(__x7, __x8, __c); cond_swap<_Compare>(__x9, __x10, __c); cond_swap<_Compare>(__x11, __x13, __c); cond_swap<_Compare>(__x12, __x15, __c); cond_swap<_Compare>(__x14, __x17, __c); cond_swap<_Compare>(__x16, __x19, __c); cond_swap<_Compare>(__x18, __x21, __c); cond_swap<_Compare>(__x20, __x22, __c); cond_swap<_Compare>(__x23, __x24, __c); cond_swap<_Compare>(__x25, __x26, __c); cond_swap<_Compare>(__x27, __x29, __c);
+    // Layer 14: [(3,4),(5,6),(7,8),(9,10),(11,12),(13,14),(15,16),(17,18),(19,20),(21,22),(23,24),(25,26),(27,28)]
+    cond_swap<_Compare>(__x4, __x5, __c); cond_swap<_Compare>(__x6, __x7, __c); cond_swap<_Compare>(__x8, __x9, __c); cond_swap<_Compare>(__x10, __x11, __c); cond_swap<_Compare>(__x12, __x13, __c); cond_swap<_Compare>(__x14, __x15, __c); cond_swap<_Compare>(__x16, __x17, __c); cond_swap<_Compare>(__x18, __x19, __c); cond_swap<_Compare>(__x20, __x21, __c); cond_swap<_Compare>(__x22, __x23, __c); cond_swap<_Compare>(__x24, __x25, __c); cond_swap<_Compare>(__x26, __x27, __c); cond_swap<_Compare>(__x28, __x29, __c);
+}

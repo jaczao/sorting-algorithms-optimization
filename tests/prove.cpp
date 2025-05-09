@@ -21,10 +21,10 @@ void printArray(const int arr[], int n) {
 
 int main() {
     // Definiamo alcuni vettori di 4 elementi ciascuno.
-    int vector1[8] = {3, 1, 4, 2, 1, 5, 9, 6};
-    int vector2[8] = {10, 5, 7, 6, 2, 3, 8, 4};
-    int vector3[8] = {8, 2, 9, 1, 6, 4, 7, 3};
-    int vector4[8] = {5, 3, 8, 2, 1, 4, 7, 6};
+    int vector1[5] = {3, 1, 4, 2, 1};//, 5, 9, 6};
+    int vector2[5] = {10, 5, 7, 6};//, 2, 3, 8, 4};
+    int vector3[5] = {8, 2, 9, 1};//, 6, 4, 7, 3};
+    int vector4[5] = {5, 3, 8, 2};//, 1, 4, 7, 6};
 
     // Array di puntatori ai vettori e nomi per la stampa.
     int* vectors[] = {vector1, vector2, vector3, vector4};
@@ -33,13 +33,13 @@ int main() {
     // Per ogni vettore, stampiamo l'array prima e dopo l'ordinamento
     for (int i = 0; i < 4; i++) { // Cambiato da 8 a 4 per evitare accessi fuori limite
         cout << names[i] << " prima del sorting: ";
-        printArray(vectors[i], 8);
+        printArray(vectors[i], 5);
 
         // Ordiniamo usando la funzione alphadev_sort definita in "alphadev_sorts_arm64.h"
-        Sort8AlphaDev(vectors[i]);
+        Sort5AlphaDev(vectors[i]);
 
         cout << names[i] << " dopo il sorting: ";
-        printArray(vectors[i], 8);
+        printArray(vectors[i], 5);
         cout << endl;
     }
 
