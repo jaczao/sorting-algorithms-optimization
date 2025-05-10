@@ -92,7 +92,7 @@ static void BM_QuickSort(benchmark::State &state, int size) {
 // Registrazione dinamica dei benchmark:
 // Per newSort si testano tutte le combinazioni dei parametri su 4 dimensioni.
 namespace {
-    std::vector<int> sizes   =  {100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000};
+    std::vector<int> sizes   =  { 100000, 200000, 500000, 1000000, 2000000, 5000000};
     std::vector<int> maxSmalls = {32};
 
     /*struct RegisterNewSort {
@@ -117,19 +117,19 @@ namespace {
         RegisterOtherSorts() {
             for (auto s : sizes) {
                 std::string name7 = "BM_NewSort/size=" + std::to_string(s);
-                benchmark::RegisterBenchmark(name7.c_str(), BM_NewSort, s, 32, 1, SmallSortStrategy::Heap);
-                std::string name2 = "BM_MergeSort/size=" + std::to_string(s);
+                benchmark::RegisterBenchmark(name7.c_str(), BM_NewSort, s, 32, 32, SmallSortStrategy::Insertion);
+                /*std::string name2 = "BM_MergeSort/size=" + std::to_string(s);
                 benchmark::RegisterBenchmark(name2.c_str(), BM_MergeSort, s);
-                std::string name3 = "BM_TimSort/size=" + std::to_string(s);
-                benchmark::RegisterBenchmark(name3.c_str(), BM_TimSort, s);
+                std::string name5 = "BM_HeapSort/size=" + std::to_string(s);
+                benchmark::RegisterBenchmark(name5.c_str(), BM_HeapSort, s);
                 std::string name6 = "BM_QuickSort/size=" + std::to_string(s);
                 benchmark::RegisterBenchmark(name6.c_str(), BM_QuickSort, s);
                 std::string name1 = "BM_IntroSort/size=" + std::to_string(s);
                 benchmark::RegisterBenchmark(name1.c_str(), BM_IntroSort, s);
+                std::string name3 = "BM_TimSort/size=" + std::to_string(s);
+                benchmark::RegisterBenchmark(name3.c_str(), BM_TimSort, s);*/
                 std::string name4 = "BM_StdSort/size=" + std::to_string(s);
                 benchmark::RegisterBenchmark(name4.c_str(), BM_StdSort, s);
-                std::string name5 = "BM_HeapSort/size=" + std::to_string(s);
-                benchmark::RegisterBenchmark(name5.c_str(), BM_HeapSort, s);
             }
         }
     } registerOtherSorts;

@@ -339,14 +339,15 @@ void timSort(T* arr, int size) {
 
 // Merge Sort template
 template<typename T>
-void newSort(T* arr, int left, int right, int maxSmall, int maxAux, SmallSortStrategy strat1, SmallSortStrategy strat2) {
+void newSort(T* arr, int left, int right, int maxSmall, int maxAux, SmallSortStrategy strat1, SmallSortStrategy strat2, int depth=0) {
     int len = right - left + 1;
     if (len <= 1) return;
     if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat1); return; }
-    if (maxSmall < len && len <= maxAux) { smallSort(arr + left, len, maxAux, strat2); return; }
+    //if (maxSmall < len && len <= maxAux) { smallSort(arr + left, len, maxAux, strat2); return; }
+    if (maxAux < len && len <= 5000 && depth == 0) { quickSort(arr, left, right, maxSmall, strat1); return; }
     int mid = left + (right - left) / 2;
-    newSort(arr, left, mid, maxSmall, maxAux, strat1, strat2);
-    newSort(arr, mid + 1, right, maxSmall, maxAux, strat1, strat2);
+    newSort(arr, left, mid, maxSmall, maxAux, strat1, strat2, depth + 1);
+    newSort(arr, mid + 1, right, maxSmall, maxAux, strat1, strat2, depth + 1);
     int n1 = mid - left + 1;
     int n2 = right - mid;
     std::vector<T> L(n1), R(n2);
