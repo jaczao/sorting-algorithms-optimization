@@ -108,6 +108,16 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                         case 30: sort30branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, std::less<int32_t>{}); return;
                         case 31: sort31branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, std::less<int32_t>{}); return;
                         case 32: sort32branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, std::less<int32_t>{}); return;
+                        case 64: sort64branchless<void>(
+                            buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7,
+                            buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15,
+                            buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23,
+                            buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31,
+                            buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39,
+                            buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47,
+                            buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55,
+                            buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, buffer+62, buffer+63,
+                            std::less<int32_t>{}); return;
                     }
                     break;
                 case SmallSortStrategy::Branchless:
@@ -142,6 +152,16 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                         case 30: sort30branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, std::less<int32_t>{}); return;
                         case 31: sort31branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, std::less<int32_t>{}); return;
                         case 32: sort32branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, std::less<int32_t>{}); return;
+                        case 64: sort64branchless<void>(
+                            buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7,
+                            buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15,
+                            buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23,
+                            buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31,
+                            buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39,
+                            buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47,
+                            buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55,
+                            buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, buffer+62, buffer+63,
+                            std::less<int32_t>{}); return;
                     }
                     break;
                 case SmallSortStrategy::Branching:
@@ -306,12 +326,12 @@ void introSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
 
 // Aggiunta della funzione timSort
 template<typename T>
-void timSort(T* arr, int size) {
-    const int RUN = 32;
+void timSort(T* arr, int size, int maxSmall, SmallSortStrategy strat) {
+    const int RUN = maxSmall;
     // Passo 1: Ordina i piccoli blocchi con insertionSort
     for (int i = 0; i < size; i += RUN) {
         int runSize = std::min(RUN, size - i);
-        insertionSort(arr + i, runSize);
+        smallSort(arr + i, runSize, maxSmall, strat);
     }
     // Passo 2: Merge iterativo dei blocchi ordinati
     for (int run = RUN; run < size; run *= 2) {

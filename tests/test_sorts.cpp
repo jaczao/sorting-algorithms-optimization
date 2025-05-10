@@ -20,7 +20,7 @@ protected:
         introSort(copy.data(), 0, static_cast<int>(copy.size()) - 1, maxSmall, strat);
         EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
         copy = v;
-        timSort(copy.data(), static_cast<int>(copy.size()));
+        timSort(copy.data(), static_cast<int>(copy.size()), maxSmall, strat);
         EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
         copy = v;
         newSort(copy.data(), 0, static_cast<int>(copy.size()) - 1, 32, 1, strat, SmallSortStrategy::Heap);
@@ -104,7 +104,7 @@ TEST_F(DivideEtImperaTest, TimSortFunction) {
         {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {7, 3, 9, 1, 4}
     };
     for (auto v : cases) {
-        timSort(v.data(), static_cast<int>(v.size()));
+        timSort(v.data(), static_cast<int>(v.size()), 32, SmallSortStrategy::AlphaDev);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }

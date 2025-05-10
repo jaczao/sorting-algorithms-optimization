@@ -16,8 +16,8 @@ enum class SmallSortStrategyEnum { AlphaDev = 0, Branchless = 1, Branching = 2, 
 static const char* SmallSortNames[] = {"AlphaDev","Branchless","Branching","Selection","Insertion","Bubble"};
 
 // Algoritmi di ordinamento
-enum class SortAlgorithm { Quick = 0, Merge = 1, Heap = 2, Merge8 = 3, Selection = 4, Insertion = 5, Bubble = 6, Intro =7, StdSort=8 };
-static const char* SortAlgoNames[] = {"Quick","Merge","Heap","Merge8","Selection","Insertion","Bubble","Intro", "StdSort"};
+enum class SortAlgorithm { Quick = 0, Merge = 1, Heap = 2, Merge8 = 3, Selection = 4, Insertion = 5, Bubble = 6, Intro =7, StdSort=8, TimSort=9 };
+static const char* SortAlgoNames[] = {"Quick","Merge","Heap","Merge8","Selection","Insertion","Bubble","Intro", "StdSort", "TimSort"};
 
 // generico fill_random
 template<typename T>
@@ -62,6 +62,9 @@ void runSort(T* data, int size, int maxSmall, SmallSortStrategyEnum ss, SortAlgo
         case SortAlgorithm::StdSort:
             std::sort(data, data+size);
         break;
+        case SortAlgorithm::TimSort:
+            timSort(data, size, maxSmall, static_cast<SmallSortStrategy>(ss));
+        break;
     }
 }
 
@@ -85,11 +88,11 @@ int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
 
     SortType types[] = { SortType::Int32};//, SortType::Int64, SortType::Float };
-    int sizes[]     = {500, 20000, 1000000};
-    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev//, SmallSortStrategyEnum::Branchless//SmallSortStrategyEnum::AlphaDev, SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
+    int sizes[]     = {12345678, 123456789};//{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};//{1};
+    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev, SmallSortStrategyEnum::Insertion//, SmallSortStrategyEnum::Branchless//, SmallSortStrategyEnum::Branchless//SmallSortStrategyEnum::AlphaDev, SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
                                      };//SmallSortStrategyEnum::Selection, SmallSortStrategyEnum::Insertion, SmallSortStrategyEnum::Bubble };
-    SortAlgorithm algs[] = { SortAlgorithm::Intro};//, SortAlgorithm::Heap, SortAlgorithm::StdSort, SortAlgorithm::Intro}; //SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::Intro, SortAlgorithm::StdSort, SortAlgorithm::Selection, SortAlgorithm::Insertion, SortAlgorithm::Bubble, 
-    int maxSmalls[] = {16,24,32};//{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32};//1,2,3,4,5,6,7,8};
+    SortAlgorithm algs[] = { SortAlgorithm::TimSort};//, SortAlgorithm::Heap, SortAlgorithm::StdSort, SortAlgorithm::Intro}; //SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::Intro, SortAlgorithm::StdSort, SortAlgorithm::Selection, SortAlgorithm::Insertion, SortAlgorithm::Bubble, 
+    int maxSmalls[] = {8, 32};//{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32};//1,2,3,4,5,6,7,8};
 
     for (auto t : types) {
         for (auto N : sizes) {
