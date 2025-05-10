@@ -85,11 +85,11 @@ int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
 
     SortType types[] = { SortType::Int32};//, SortType::Int64, SortType::Float };
-    int sizes[]     = {30000, 3000000};
+    int sizes[]     = {500, 20000, 1000000};
     SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev//, SmallSortStrategyEnum::Branchless//SmallSortStrategyEnum::AlphaDev, SmallSortStrategyEnum::Branchless, SmallSortStrategyEnum::Branching,
                                      };//SmallSortStrategyEnum::Selection, SmallSortStrategyEnum::Insertion, SmallSortStrategyEnum::Bubble };
     SortAlgorithm algs[] = { SortAlgorithm::Intro};//, SortAlgorithm::Heap, SortAlgorithm::StdSort, SortAlgorithm::Intro}; //SortAlgorithm::Quick, SortAlgorithm::Merge, SortAlgorithm::Heap, SortAlgorithm::Intro, SortAlgorithm::StdSort, SortAlgorithm::Selection, SortAlgorithm::Insertion, SortAlgorithm::Bubble, 
-    int maxSmalls[] = {1,2,4,8,16,32};//{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32};//1,2,3,4,5,6,7,8};
+    int maxSmalls[] = {16,24,32};//{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32};//1,2,3,4,5,6,7,8};
 
     for (auto t : types) {
         for (auto N : sizes) {

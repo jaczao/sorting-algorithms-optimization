@@ -36,7 +36,7 @@ static void BM_IntroSort(benchmark::State &state, int size) {
     auto original = generate_random_vector(size);
     for (auto _ : state) {
         auto data = original;
-        introSort(data.data(), 0, data.size()-1, 32, strat);
+        introSort(data.data(), 0, data.size()-1, 32, strat); // 32 posso metterlo parametro
         benchmark::ClobberMemory();
     }
 }
@@ -72,16 +72,16 @@ static void BM_StdSort(benchmark::State &state, int size) {
 // Registrazione dinamica dei benchmark:
 // Per newSort si testano tutte le combinazioni dei parametri su 4 dimensioni.
 namespace {
-    std::vector<int> sizes   =  {1234, 12345, 123456, 1234567};
+    std::vector<int> sizes   =  {950, 1900};
     std::vector<int> maxSmalls = {32};
 
     struct RegisterNewSort {
         RegisterNewSort() {
-            std::vector<int> maxAux_vals = {32, 64, 128, 256, 512, 1024, 2048};
+            std::vector<int> maxAux_vals = {1, 1024};
             for (auto s : sizes)
                 for (auto maxSmall : maxSmalls)
                     for (auto maxAux : maxAux_vals)
-                        for (auto strat2 : {SmallSortStrategy::Insertion, SmallSortStrategy::Heap}) {
+                        for (auto strat2 : {SmallSortStrategy::Heap}) { //SmallSortStrategy::Insertion, 
                             std::string strat2_name = (strat2 == SmallSortStrategy::Insertion) ? "Insertion" : "Heap";
                             std::string name = "BM_NewSort/size=" + std::to_string(s) +
                                                ",maxsmall=" + std::to_string(maxSmall) +
@@ -91,7 +91,7 @@ namespace {
                         }
         }
     } registerNewSort;
-
+    
     // Per introsort, mergesort, timsort e std::sort si testano 4 dimensioni.
     struct RegisterOtherSorts {
         RegisterOtherSorts() {

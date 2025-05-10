@@ -19,6 +19,15 @@ protected:
         copy = v;
         introSort(copy.data(), 0, static_cast<int>(copy.size()) - 1, maxSmall, strat);
         EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
+        copy = v;
+        timSort(copy.data(), static_cast<int>(copy.size()));
+        EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
+        copy = v;
+        newSort(copy.data(), 0, static_cast<int>(copy.size()) - 1, 32, 1, strat, SmallSortStrategy::Heap);
+        EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
+        copy = v;
+        newSort(copy.data(), 0, static_cast<int>(copy.size()) - 1, 32, 1024, strat, SmallSortStrategy::Heap);
+        EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
     }
 };
 
@@ -38,8 +47,6 @@ TEST_F(DivideEtImperaTest, RandomArrays) {
         check_sorted(v, 1, SmallSortStrategy::AlphaDev);
     }
 }
-
-// ...existing code...
 
 TEST_F(DivideEtImperaTest, InsertionSortFunction) {
     vector<vector<int>> cases = {
@@ -91,3 +98,25 @@ TEST_F(DivideEtImperaTest, IntroSortTest) {
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
+
+TEST_F(DivideEtImperaTest, TimSortFunction) {
+    vector<vector<int>> cases = {
+        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {7, 3, 9, 1, 4}
+    };
+    for (auto v : cases) {
+        timSort(v.data(), static_cast<int>(v.size()));
+        EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
+    }
+}
+
+TEST_F(DivideEtImperaTest, NewSortFunction) {
+    vector<vector<int>> cases = {
+        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {8, 3, 7, 4, 6, 5, 2, 1, 9}
+    };
+    for (auto v : cases) {
+        if (!v.empty())
+            newSort(v.data(), 0, static_cast<int>(v.size()) - 1, 4, 4, SmallSortStrategy::AlphaDev, SmallSortStrategy::Insertion);
+        EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
+    }
+}
+
