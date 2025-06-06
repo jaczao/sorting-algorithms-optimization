@@ -196,15 +196,15 @@ int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
 
     SortType types[] = { SortType::Int32 };
-    int sizes[]     = {1000000};
-    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev, SmallSortStrategyEnum::Insertion };
-    SortAlgorithm algs[] = { SortAlgorithm::TimSort, SortAlgorithm::Intro };
-    int maxSmalls[] = {64};
-    RandomRangeType rangeTypes[] = {RandomRangeType::FullType};//, RandomRangeType::Binary, RandomRangeType::Small, RandomRangeType::NRange};
-    ArrayOrderType orderTypes[] = {ArrayOrderType::Random, ArrayOrderType::Ascending, ArrayOrderType::Descending, ArrayOrderType::PipeOrgan, ArrayOrderType::Constant, ArrayOrderType::MostlySorted, ArrayOrderType::NaturalRuns};
+    int sizes[]     = {1000, 1000000};
+    SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev };//, SmallSortStrategyEnum::Insertion };
+    SortAlgorithm algs[] = { SortAlgorithm::Intro, SortAlgorithm::Heap };
+    int maxSmalls[] = {1};
+    RandomRangeType rangeTypes[] = {RandomRangeType::FullType, RandomRangeType::Binary};//, RandomRangeType::Small, RandomRangeType::NRange};
+    ArrayOrderType orderTypes[] = {ArrayOrderType::Random};//, ArrayOrderType::Ascending, ArrayOrderType::Descending, ArrayOrderType::PipeOrgan, ArrayOrderType::Constant, ArrayOrderType::MostlySorted, ArrayOrderType::NaturalRuns};
 
-    for (auto t : types) {
-        for (auto N : sizes) {
+    for (auto t : types) { // massimo: 3 * 12 * 2 * 5 * 8 * 4 * 7 = 80640 combinazioni
+        for (auto N : sizes) { // minimo: 3 * 6 * 1 * 5 * 2 * 4 * 7 = 5040 combinazioni
             for (auto ss : ssArr) {
                 for (auto alg : algs) {
                     for (auto ms : maxSmalls) {
@@ -220,7 +220,7 @@ int main(int argc, char** argv) {
                                 switch (t) {
                                     case SortType::Int32:
                                         benchmark::RegisterBenchmark(name.c_str(), BM_All<int32_t>, t, ss, alg, rangeType, orderType)
-                                            ->Args({N, ms})->Complexity();
+                                            ->Args({N, ms})->Complexity();//->Iterations(20);
                                         break;
                                     case SortType::Int64:
                                         benchmark::RegisterBenchmark(name.c_str(), BM_All<int64_t>, t, ss, alg, rangeType, orderType)
