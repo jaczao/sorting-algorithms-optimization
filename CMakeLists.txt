@@ -39,17 +39,17 @@ set(SORT_SOURCES
 
 set(ARCH_SOURCES)
 
-if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64" OR CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "ARM64")
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|AARCH64" OR CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "arm64|ARM64|aarch64|AARCH64")
     message(STATUS "Building for AArch64, includo assembly ARM64")
     list(APPEND ARCH_SOURCES src/alpha_dev_sorts_arm64.cpp)
 
-elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64" OR CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64" OR
-       CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64" OR CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "AMD64")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|X86_64|amd64|AMD64" OR
+       CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64|X86_64|amd64|AMD64")
     message(STATUS "Building per x86_64/AMD64, includo assembly x86")
     list(APPEND ARCH_SOURCES src/alpha_dev_sorts_x86-64.cpp)
 
 else()
-    message(WARNING "Architettura non riconosciuta: ${CMAKE_SYSTEM_PROCESSOR}. Nessun file assembly incluso.")
+    message(WARNING "Architettura non riconosciuta: ${CMAKE_SYSTEM_PROCESSOR} / ${CMAKE_HOST_SYSTEM_PROCESSOR}. Nessun file assembly incluso.")
 endif()
 
 
