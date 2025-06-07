@@ -34,15 +34,31 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 set(SORT_SOURCES
     src/branchless_fixed_sorts.cpp
     src/branching_fixed_sorts.cpp
-    src/alpha_dev_sorts_arm64.cpp
     src/sorts.cpp
 )
+
+set(ARCH_SOURCES)
+
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64" OR CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "ARM64")
+    message(STATUS "Building for AArch64, includo assembly ARM64")
+    list(APPEND ARCH_SOURCES src/alpha_dev_sorts_arm64.cpp)
+
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64" OR CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64" OR
+       CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64" OR CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "AMD64")
+    message(STATUS "Building per x86_64/AMD64, includo assembly x86")
+    list(APPEND ARCH_SOURCES src/alpha_dev_sorts_x86-64.cpp)
+
+else()
+    message(WARNING "Architettura non riconosciuta: ${CMAKE_SYSTEM_PROCESSOR}. Nessun file assembly incluso.")
+endif()
+
 
 # Benchmark executable (avoid name conflict)
 if(BUILD_BENCHMARK)
   add_executable(benchmark_app
     benchmarks/benchmark_sorts.cpp
     ${SORT_SOURCES}
+    ${ARCH_SOURCES}
   )
   target_link_libraries(benchmark_app
     PRIVATE
@@ -58,6 +74,7 @@ if(BUILD_TESTS)
     tests/test_sorts.cpp
     tests/test_fixed_sorts.cpp
     ${SORT_SOURCES}
+    ${ARCH_SOURCES}
   )
   target_link_libraries(run_tests
     PRIVATE
