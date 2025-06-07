@@ -3,7 +3,7 @@
 #include <cstddef>
 #include "branchless_fixed_sorts.h"
 #include "branching_fixed_sorts.h"
-// Selezione del header AlphaDev in base all'architettura
+// Selezione dell'header AlphaDev in base all'architettura
 #if defined(__x86_64__) || defined(_M_X64)
 #include "../include/alpha_dev_sorts_x86-64.h"
 #elif defined(__aarch64__)

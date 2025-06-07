@@ -3,6 +3,7 @@
 #include <vector>
 #include <limits>
 #include <cstdint>
+#include <numeric>
 #include "sorts.h"
 
 using namespace std;
