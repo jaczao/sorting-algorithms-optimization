@@ -24,9 +24,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest googlebenchmark)
 
-# Fetch GoogleTest e GoogleBenchmark
-FetchContent_MakeAvailable(googletest googlebenchmark)
-
 # --- BEGIN SKIP cxx03_test ---
 # Se esiste il target legacy C++03, escludilo dalla build
 if (TARGET cxx03_test)
