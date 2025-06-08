@@ -24,6 +24,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest googlebenchmark)
 
+# --- BEGIN SKIP cxx03_test ---
+# Se esiste il target legacy C++03, escludilo dalla build
+if (TARGET cxx03_test)
+  message(STATUS "Escludo il test legacy cxx03_test (richiede C++03)")
+  set_target_properties(cxx03_test PROPERTIES
+    EXCLUDE_FROM_ALL TRUE
+    EXCLUDE_FROM_DEFAULT_BUILD TRUE
+  )
+endif()
+# --- END SKIP cxx03_test ---
+
 # Find Threads for benchmark linking
 find_package(Threads REQUIRED)
 
