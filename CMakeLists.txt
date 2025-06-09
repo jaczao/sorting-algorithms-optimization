@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Options
 option(BUILD_BENCHMARK "Build benchmarks" ON)
 option(BUILD_TESTS "Build tests" ON)
+option(BUILD_STL_CHECK "Build stl check" ON)
 
 # Fetch GoogleTest and GoogleBenchmark via FetchContent
 include(FetchContent)
@@ -93,4 +94,11 @@ if(BUILD_TESTS)
   )
   include(GoogleTest)
   gtest_discover_tests(run_tests)
+endif()
+
+# Test executable
+if(BUILD_STL_CHECK)
+  add_executable(run_stl_check
+    tests/stl_check.cpp
+  )
 endif()
