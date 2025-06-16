@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Options
 option(BUILD_BENCHMARK "Build benchmarks" ON)
 option(BUILD_TESTS "Build tests" ON)
-option(BUILD_STL_CHECK "Build stl check" ON)
+option(BUILD_CHECKS "Build checks" ON)
 
 # Fetch GoogleTest and GoogleBenchmark via FetchContent
 include(FetchContent)
@@ -79,6 +79,7 @@ if(BUILD_BENCHMARK)
   )
 endif()
 
+
 # Test executable
 if(BUILD_TESTS)
   enable_testing()
@@ -88,6 +89,18 @@ if(BUILD_TESTS)
     ${SORT_SOURCES}
     ${ARCH_SOURCES}
   )
+
+  #[[
+  if (MINGW)
+  # Static-link della C++ runtime di LLVM
+  target_link_options(run_tests PRIVATE
+    -static           # chiede al linker di cercare solo librerie statiche
+    -lc++             # la libc++ vera e propria
+    -lc++abi          # l’ABI di libc++
+    -pthread          # se hai threading
+  )
+  endif()]]
+
   target_link_libraries(run_tests
     PRIVATE
       gtest_main
@@ -96,9 +109,10 @@ if(BUILD_TESTS)
   gtest_discover_tests(run_tests)
 endif()
 
+
 # Test executable
-if(BUILD_STL_CHECK)
-  add_executable(run_stl_check
+if(BUILD_CHECKS)
+  add_executable(run_checks
     tests/stl_check.cpp
   )
 endif()
