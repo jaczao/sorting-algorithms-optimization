@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <numeric>
 #include "sorts.h"
+#include <iostream>
 
 using namespace std;
 
@@ -194,13 +195,22 @@ void BM_All(benchmark::State& state, SortType t, SmallSortStrategyEnum ss, SortA
 }
 
 int main(int argc, char** argv) {
+    
+    /*
+    if constexpr (__cplusplus == 202002L) {
+        std::cout << "✔ C++20 attivo (__cplusplus = " << __cplusplus << ")\n";
+    } else {
+        std::cout << "✖ C++20 NON ATTIVO (__cplusplus = " << __cplusplus << ")\n";
+    }*/
+
+
     benchmark::Initialize(&argc, argv);
 
     SortType types[] = { SortType::Int32 };
-    int sizes[]     = {100000, 10000000}; // massimo: 8 * 7 = 56 combinazioni
+    int sizes[]     = {100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000}; // massimo: 8 * 7 = 56 combinazioni
     SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev };//, SmallSortStrategyEnum::Insertion };
-    SortAlgorithm algs[] = { SortAlgorithm::Merge, SortAlgorithm::Intro };//, SortAlgorithm::TimSort };
-    int maxSmalls[] = {32}; // massimo: 10
+    SortAlgorithm algs[] = { SortAlgorithm::StdSort, SortAlgorithm::Intro, SortAlgorithm::TimSort};//, SortAlgorithm::Merge, SortAlgorithm::Quick, SortAlgorithm::Heap  };//, SortAlgorithm::TimSort };
+    int maxSmalls[] = {64}; // massimo: 10
     RandomRangeType rangeTypes[] = {RandomRangeType::FullType};//,RandomRangeType::Binary};//, RandomRangeType::Small, RandomRangeType::NRange};
     ArrayOrderType orderTypes[] = {ArrayOrderType::Random};//, ArrayOrderType::Ascending, ArrayOrderType::Descending, ArrayOrderType::PipeOrgan, ArrayOrderType::Constant, ArrayOrderType::MostlySorted, ArrayOrderType::NaturalRuns};
 
