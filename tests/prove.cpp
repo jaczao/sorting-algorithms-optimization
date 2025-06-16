@@ -11,6 +11,7 @@ using namespace std;
 #else
 #error "Unsupported architecture for AlphaDev sorts"
 #endif
+#include <ciso646>
 
 void printArray(const int arr[], int n) {
     for (int i = 0; i < n; i++) {
@@ -20,6 +21,10 @@ void printArray(const int arr[], int n) {
 }
 
 int main() {
+    #ifdef _LIBCPP_VERSION
+        cout << "Questo è un print di prova all'interno del blocco _LIBCPP_VERSION." << endl;
+    #endif
+
     // Definiamo alcuni vettori di 4 elementi ciascuno.
     int vector1[5] = {3, 1, 4, 2, 1};//, 5, 9, 6};
     int vector2[5] = {10, 5, 7, 6};//, 2, 3, 8, 4};
@@ -36,7 +41,7 @@ int main() {
         printArray(vectors[i], 5);
 
         // Ordiniamo usando la funzione alphadev_sort definita in "alphadev_sorts_arm64.h"
-        Sort5AlphaDev(vectors[i]);
+        //Sort5AlphaDev(vectors[i]);
 
         cout << names[i] << " dopo il sorting: ";
         printArray(vectors[i], 5);

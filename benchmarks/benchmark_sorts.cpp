@@ -31,7 +31,7 @@ static const char* ArrayOrderNames[] = {"Random", "Ascending", "Descending", "Pi
 // generico fill_random con range selezionabile
 template<typename T>
 void fill_random(vector<T>& buf, mt19937_64& rng/*e se lo generassi qui senza averlo come param?*/, RandomRangeType rangeType, int N) {
-    if constexpr (is_integral_v<T>) {
+    if constexpr (is_integral_v<T>) { //gestisco caso integral vs not (che non sia float per forza)
         switch (rangeType) {
             case RandomRangeType::FullType: {
                 uniform_int_distribution<T> dist(numeric_limits<T>::min(), numeric_limits<T>::max());
@@ -197,11 +197,11 @@ int main(int argc, char** argv) {
     benchmark::Initialize(&argc, argv);
 
     SortType types[] = { SortType::Int32 };
-    int sizes[]     = {1000, 1000000};
+    int sizes[]     = {100000, 10000000}; // massimo: 8 * 7 = 56 combinazioni
     SmallSortStrategyEnum ssArr[] = { SmallSortStrategyEnum::AlphaDev };//, SmallSortStrategyEnum::Insertion };
-    SortAlgorithm algs[] = { SortAlgorithm::Intro, SortAlgorithm::Heap };
-    int maxSmalls[] = {1};
-    RandomRangeType rangeTypes[] = {RandomRangeType::FullType, RandomRangeType::Binary};//, RandomRangeType::Small, RandomRangeType::NRange};
+    SortAlgorithm algs[] = { SortAlgorithm::Merge, SortAlgorithm::Intro };//, SortAlgorithm::TimSort };
+    int maxSmalls[] = {32}; // massimo: 10
+    RandomRangeType rangeTypes[] = {RandomRangeType::FullType};//,RandomRangeType::Binary};//, RandomRangeType::Small, RandomRangeType::NRange};
     ArrayOrderType orderTypes[] = {ArrayOrderType::Random};//, ArrayOrderType::Ascending, ArrayOrderType::Descending, ArrayOrderType::PipeOrgan, ArrayOrderType::Constant, ArrayOrderType::MostlySorted, ArrayOrderType::NaturalRuns};
 
     for (auto t : types) { // massimo: 3 * 12 * 2 * 5 * 8 * 4 * 7 = 80640 combinazioni
@@ -240,6 +240,8 @@ int main(int argc, char** argv) {
         }
     }
 
+    benchmark::SetDefaultTimeUnit(benchmark::kNanosecond);
     benchmark::RunSpecifiedBenchmarks();
+    benchmark::Shutdown();
     return 0;
 }

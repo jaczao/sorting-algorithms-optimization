@@ -3,3 +3,5 @@
 /build/
 /build-macos/
 /build-windows/
+/plots/
+results.json
