@@ -133,7 +133,7 @@ void apply_order(vector<T>& buf, ArrayOrderType order, mt19937_64& rng) {
                 size_t start = pos_dist(rng);
                 size_t maxlen = std::min(len_dist(rng), N - start);
                 if (maxlen < 2) continue;
-                std::iota(buf.begin() + start, buf.begin() + start + maxlen, T(start));
+                std::iota(buf.begin() + start, buf.begin() + start + maxlen, T(start)); //attenzione che tstart non sfori maxTYPE
             }
             break;
         }

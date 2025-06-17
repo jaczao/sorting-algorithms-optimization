@@ -1,3 +1,5 @@
+# si usa sempre clang per questo progetto
+# usare solo su Macos
 set(CMAKE_SYSTEM_NAME    Darwin)
 set(CMAKE_C_COMPILER     "/usr/bin/clang")
 set(CMAKE_CXX_COMPILER   "/usr/bin/clang++")

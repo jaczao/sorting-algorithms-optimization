@@ -1,4 +1,5 @@
-# usalo solo su Windows
+# si usa sempre clang per questo progetto
+# usare solo su Windows
 set(CMAKE_SYSTEM_NAME Windows)
 # modifica il percorso se LLVM è altrove
 #set(CMAKE_C_COMPILER   "C:/Program Files/LLVM/bin/clang.exe")
