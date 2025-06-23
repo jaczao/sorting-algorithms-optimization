@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 // for contiguous memory and max 64bit types
 template<typename T>
@@ -74,9 +75,10 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
     if (size < 2) return;
     if (size == 2 && maxSmall >= 2) { sort2(buffer, buffer+1); return; }
     if (size >= 3 && size <= maxSmall) {
-        if constexpr (std::is_same_v<T, int32_t>) {
             switch (strat) {
                 case SmallSortStrategy::AlphaDev:
+                    if constexpr (std::is_same_v<T, int32_t>) {
+                        
                     switch (size) {
                         case 3: Sort3AlphaDev(buffer); return;
                         case 4: Sort4AlphaDev(buffer); return;
@@ -118,6 +120,7 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                             buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55,
                             buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, buffer+62, buffer+63,
                             std::less<int32_t>{}); return;
+                    }
                     }
                     break;
                 case SmallSortStrategy::Branchless:
@@ -164,30 +167,13 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                             std::less<int32_t>{}); return;
                     }
                     break;
-                case SmallSortStrategy::Branching:
-                    switch (size) {
-                        case 3: sort3branching(buffer); return;
-                        case 4: sort4branching(buffer); return;
-                        case 5: sort5branching(buffer); return;
-                        case 6: sort6branching(buffer); return;
-                        case 7: sort7branching(buffer); return;
-                        case 8: sort8branching(buffer); return;
-                    }
-                    break;
-                case SmallSortStrategy::Selection:
-                case SmallSortStrategy::Insertion:
-                case SmallSortStrategy::Bubble:
-                case SmallSortStrategy::Heap:
-                    break;
+                case SmallSortStrategy::Selection: insertionSort(buffer, size); return;
+                case SmallSortStrategy::Insertion: insertionSort(buffer, size); return;
+                case SmallSortStrategy::Bubble:    bubbleSort(buffer, size);    return;
+                case SmallSortStrategy::Heap:      heapSort(buffer, size);      return;
+                default:                           break;
             }
-        }
-        switch (strat) {
-            case SmallSortStrategy::Selection: insertionSort(buffer, size); return;
-            case SmallSortStrategy::Insertion: insertionSort(buffer, size); return;
-            case SmallSortStrategy::Bubble:    bubbleSort(buffer, size);    return;
-            case SmallSortStrategy::Heap:      heapSort(buffer, size);      return;
-            default:                           break;
-        }
+        
     }
     
     // fallback per tutti i tipi

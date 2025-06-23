@@ -351,6 +351,38 @@ def generate_all_plots(df):
         filename_base="io3"
     )
 
+    # Io4
+    plot_benchmark(
+        df=df,
+        x_param=PARAM_N,
+        y_param=METRIC_Y,
+        fixed_params={
+            PARAM_TYPE: "int64",
+            PARAM_ORDER_TYPE: "Random",
+            PARAM_RANGE_TYPE: "FullType",
+            PARAM_MAX_SMALL: 64
+        },
+        varying_params=[PARAM_ALG, PARAM_SS],
+        title="Io4",
+        filename_base="io4"
+    )
+
+    # Io5
+    plot_benchmark(
+        df=df,
+        x_param=PARAM_N,
+        y_param=METRIC_Y,
+        fixed_params={
+            PARAM_TYPE: "float",
+            PARAM_ORDER_TYPE: "Random",
+            PARAM_RANGE_TYPE: "FullType",
+            PARAM_MAX_SMALL: 64
+        },
+        varying_params=[PARAM_ALG, PARAM_SS],
+        title="Io5",
+        filename_base="io5"
+    )
+
     print("--- Generazione Grafici Completata ---")
 
 
