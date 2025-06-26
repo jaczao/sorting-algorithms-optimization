@@ -45,7 +45,6 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # Source files for sorting implementations
 set(SORT_SOURCES
     src/branchless_fixed_sorts.cpp
-    src/branching_fixed_sorts.cpp
     src/sorts.cpp
 )
 
