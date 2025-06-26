@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import argparse
 import os
+import matplotlib.ticker as mticker
 
 # Nomi dei parametri come appaiono nel JSON di Google Benchmark (derivati dai tuoi nomi C++)
 # Google Benchmark aggiunge "BM_All/" al nome del benchmark e i parametri Args vengono aggiunti dopo.
@@ -62,6 +63,7 @@ def parse_benchmark_name(name_str):
         # (es. std::sort che non ha ss o maxSmall)
 
 
+    '''
     # Gestione di std::sort e algoritmi semplici che non hanno tutti i parametri
     if params.get(PARAM_ALG) == "StdSort" or \
        params.get(PARAM_ALG) in ["Selection", "Insertion", "Bubble"]:
@@ -69,6 +71,7 @@ def parse_benchmark_name(name_str):
         if params.get(PARAM_ALG) == "StdSort": # StdSort non ha maxSmall come lo intendi tu
              if PARAM_MAX_SMALL not in params: # Se non preso da Args
                 params[PARAM_MAX_SMALL] = "N/A"
+    '''
 
 
     # Se N o maxSmall non sono stati presi da Args, segnala un problema o usa un default
@@ -81,7 +84,7 @@ def parse_benchmark_name(name_str):
         # per algoritmi che lo usano. Per quelli che non lo usano (es. HeapSort), va bene
         if params.get(PARAM_ALG) not in ["Heap", "Selection", "Insertion", "Bubble", "StdSort"]:
             print(f"Attenzione: maxSmall non trovato per {name_str}")
-            params[PARAM_MAX_SMALL] = 0 # o gestisci
+            params[PARAM_MAX_SMALL] = 1 # o gestisci
 
 
     return params
@@ -108,6 +111,11 @@ def load_data(json_file):
         processed_benchmarks.append(record)
     
     return pd.DataFrame(processed_benchmarks)
+
+# ... (il codice prima di plot_benchmark rimane invariato) ...
+
+
+# ... (tutto il codice precedente a plot_benchmark rimane invariato) ...
 
 def plot_benchmark(df, x_param, fixed_params, varying_params, filename_base):
     """
@@ -145,7 +153,9 @@ def plot_benchmark(df, x_param, fixed_params, varying_params, filename_base):
         print(f"Nessun dato trovato per i parametri fissati: {fixed_params}. Salto il grafico.")
         return
 
-    plt.figure(figsize=(12, 7))
+    # MODIFICA: Figura Quadrata (era nel suggerimento precedente, lo includo qui)
+    plt.figure(figsize=(10, 10)) # Puoi aggiustare la dimensione
+    ax = plt.gca() # Ottieni l'oggetto Axes corrente
     
     # Raggruppa per i parametri che variano per creare linee diverse
     # Costruisci una legenda dinamica
@@ -160,31 +170,49 @@ def plot_benchmark(df, x_param, fixed_params, varying_params, filename_base):
                  label_parts.append(f"{varying_params[0].replace('_',' ').title()}: {name_tuple}")
             
             label = ", ".join(label_parts)
-            # Assicurati che x_param sia numerico per il plot e ordinato
             group = group.sort_values(by=x_param)
-            plt.plot(group[x_param], group[y_param], marker='o', linestyle='-', label=label)
+            ax.plot(group[x_param], group[y_param], marker='o', linestyle='-', label=label) # Usa ax.plot
     else: # Nessun parametro variante, solo una linea
         filtered_df = filtered_df.sort_values(by=x_param)
-        plt.plot(filtered_df[x_param], filtered_df[y_param], marker='o', linestyle='-')
+        ax.plot(filtered_df[x_param], filtered_df[y_param], marker='o', linestyle='-') # Usa ax.plot
 
-    plt.xlabel(x_param.replace('_',' ').title())
+    ax.set_xlabel(x_param.replace('_',' ').title()) # Usa ax.set_xlabel
     y_label_base = y_param.replace('_',' ').title()
     time_unit = filtered_df['time_unit'].iloc[0] if not filtered_df.empty and 'time_unit' in filtered_df.columns else "unknown_unit"
-    plt.ylabel(f"{y_label_base} ({time_unit})")
+    ax.set_ylabel(f"{y_label_base} ({time_unit})") # Usa ax.set_ylabel
     
-    # Mostra i fixed_params come titolo sopra il grafico
     if fixed_params:
         fixed_str = ", ".join(f"{k}={v}" for k, v in fixed_params.items())
-        plt.title(f"Parametri fissi: {fixed_str}", fontsize=11)
-    plt.legend(loc='best', fontsize='small')
-    plt.grid(True, which="both", ls="--", alpha=0.7)
-    plt.xscale('log') # Spesso utile per l'asse N
-    plt.yscale('log') # Spesso utile per i tempi
+        ax.set_title(f"Parametri fissi: {fixed_str}", fontsize=11) # Usa ax.set_title
+    
+    ax.legend(loc='best', fontsize='small') # Usa ax.legend
+    
+    # MODIFICA: Griglia Personalizzata (era nel suggerimento precedente)
+    ax.grid(True, which='major', linestyle='--', linewidth=0.7, alpha=0.7)
 
-    filename = f"{filename_base}"
+    # Imposta la scala dell'asse x e y
+    x_unique_values = sorted(filtered_df[x_param].unique())
+    is_x_log_scale = False
+    if len(x_unique_values) > 1:
+        if x_unique_values[-1] > 8:
+            ax.set_xscale('log')
+            is_x_log_scale = True
+
+    # Mostra solo i tick corrispondenti agli x_unique_values, sia in scala normale che log
+    ax.set_xticks(x_unique_values)
+    ax.set_xticklabels([str(val) for val in x_unique_values])
+    ax.minorticks_off()
+
+    if filtered_df[y_param].nunique() > 1:
+        ax.set_yscale('log')
+
+    filename = f"{filename_base}" 
+    plt.tight_layout() # Aggiunto per migliorare il layout, specialmente con etichette ruotate
     plt.savefig(filename)
     plt.close()
     print(f"Grafico salvato: {filename}")
+
+# ... (il resto del codice, inclusa la funzione main e generate_all_plots, rimane invariato) ...
 
 # --- Definizione dei Grafici da Generare ---
 def generate_all_plots(df):
