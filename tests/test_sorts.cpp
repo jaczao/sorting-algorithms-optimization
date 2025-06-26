@@ -1,16 +1,18 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <algorithm>  // std::is_sorted
-#include <random>     // std::mt19937_64, std::uniform_int_distribution
+#include <random>     // std::mt19937_64, std::uniform_int_distribution, std::uniform_real_distribution
+#include <cstdint>
 #include "sorts.h"
 
 using std::vector;
 
-// Fixture per array di prova
-class DivideEtImperaTest : public ::testing::Test {
+// Template fixture per array di prova
+template <typename T>
+class DivideEtImperaTestTyped : public ::testing::Test {
 protected:
-    void check_sorted(const vector<int>& v, int maxSmall, SmallSortStrategy strat) {
-        vector<int> copy = v;
+    void check_sorted(const vector<T>& v, int maxSmall, SmallSortStrategy strat) {
+        vector<T> copy = v;
         mergeSort(copy.data(), 0, static_cast<int>(copy.size()) - 1, maxSmall, strat);
         EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
         copy = v;
@@ -31,26 +33,43 @@ protected:
     }
 };
 
-TEST_F(DivideEtImperaTest, SmallArrays) {
-    vector<vector<int>> cases = {{}, {1}, {2,1}, {3,2,1}, {5,4,3,2,1}};
+using TestTypes = ::testing::Types<int32_t, int64_t, float>;
+TYPED_TEST_SUITE(DivideEtImperaTestTyped, TestTypes);
+
+TYPED_TEST(DivideEtImperaTestTyped, SmallArrays) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {},
+        {T(1)},
+        {T(2), T(1)},
+        {T(3), T(2), T(1)},
+        {T(5), T(4), T(3), T(2), T(1)}
+    };
     for (const auto& v : cases) {
-        check_sorted(v, 1, SmallSortStrategy::AlphaDev);
+        this->check_sorted(v, 1, SmallSortStrategy::AlphaDev);
     }
 }
 
-TEST_F(DivideEtImperaTest, RandomArrays) {
+TYPED_TEST(DivideEtImperaTestTyped, RandomArrays) {
+    using T = TypeParam;
     std::mt19937_64 rng(42);
-    std::uniform_int_distribution<int> dist(-1000, 1000);
     for (int n : {10, 100, 1000, 10000}) {
-        vector<int> v(n);
-        for (auto& x : v) x = dist(rng);
-        check_sorted(v, 1, SmallSortStrategy::AlphaDev);
+        vector<T> v(n);
+        if constexpr (std::is_floating_point<T>::value) {
+            std::uniform_real_distribution<T> dist(-1000.0, 1000.0);
+            for (auto& x : v) x = dist(rng);
+        } else {
+            std::uniform_int_distribution<int64_t> dist(-1000, 1000);
+            for (auto& x : v) x = static_cast<T>(dist(rng));
+        }
+        this->check_sorted(v, 1, SmallSortStrategy::AlphaDev);
     }
 }
 
-TEST_F(DivideEtImperaTest, InsertionSortFunction) {
-    vector<vector<int>> cases = {
-        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {4, 2, 5, 3, 1}
+TYPED_TEST(DivideEtImperaTestTyped, InsertionSortFunction) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(4), T(2), T(5), T(3), T(1)}
     };
     for (auto v : cases) {
         insertionSort(v.data(), static_cast<int>(v.size()));
@@ -58,9 +77,10 @@ TEST_F(DivideEtImperaTest, InsertionSortFunction) {
     }
 }
 
-TEST_F(DivideEtImperaTest, BubbleSortFunction) {
-    vector<vector<int>> cases = {
-        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {7, 3, 9, 1, 4}
+TYPED_TEST(DivideEtImperaTestTyped, BubbleSortFunction) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
         bubbleSort(v.data(), static_cast<int>(v.size()));
@@ -68,9 +88,10 @@ TEST_F(DivideEtImperaTest, BubbleSortFunction) {
     }
 }
 
-TEST_F(DivideEtImperaTest, SelectionSortFunction) {
-    vector<vector<int>> cases = {
-        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {8, 6, 7, 5, 3, 0, 9}
+TYPED_TEST(DivideEtImperaTestTyped, SelectionSortFunction) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(8), T(6), T(7), T(5), T(3), T(0), T(9)}
     };
     for (auto v : cases) {
         selectionSort(v.data(), static_cast<int>(v.size()));
@@ -78,9 +99,10 @@ TEST_F(DivideEtImperaTest, SelectionSortFunction) {
     }
 }
 
-TEST_F(DivideEtImperaTest, HeapSortFunction) {
-    vector<vector<int>> cases = {
-        {}, {1}, {2, 1}, {3, 2, 1}, {10, 7, 5, 3, 2, 1}, {12, 4, 8, 3, 9}
+TYPED_TEST(DivideEtImperaTestTyped, HeapSortFunction) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(10), T(7), T(5), T(3), T(2), T(1)}, {T(12), T(4), T(8), T(3), T(9)}
     };
     for (auto v : cases) {
         heapSort(v.data(), static_cast<int>(v.size()));
@@ -88,9 +110,10 @@ TEST_F(DivideEtImperaTest, HeapSortFunction) {
     }
 }
 
-TEST_F(DivideEtImperaTest, IntroSortTest) {
-    vector<vector<int>> cases = {
-        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {8, 3, 7, 4, 6, 5, 2, 1, 9}
+TYPED_TEST(DivideEtImperaTestTyped, IntroSortTest) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(8), T(3), T(7), T(4), T(6), T(5), T(2), T(1), T(9)}
     };
     for (auto v : cases) {
         if (!v.empty())
@@ -99,9 +122,10 @@ TEST_F(DivideEtImperaTest, IntroSortTest) {
     }
 }
 
-TEST_F(DivideEtImperaTest, TimSortFunction) {
-    vector<vector<int>> cases = {
-        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {7, 3, 9, 1, 4}
+TYPED_TEST(DivideEtImperaTestTyped, TimSortFunction) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
         timSort(v.data(), static_cast<int>(v.size()), 32, SmallSortStrategy::AlphaDev);
@@ -109,9 +133,10 @@ TEST_F(DivideEtImperaTest, TimSortFunction) {
     }
 }
 
-TEST_F(DivideEtImperaTest, NewSortFunction) {
-    vector<vector<int>> cases = {
-        {}, {1}, {2, 1}, {3, 2, 1}, {5, 4, 3, 2, 1}, {8, 3, 7, 4, 6, 5, 2, 1, 9}
+TYPED_TEST(DivideEtImperaTestTyped, NewSortFunction) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(8), T(3), T(7), T(4), T(6), T(5), T(2), T(1), T(9)}
     };
     for (auto v : cases) {
         if (!v.empty())
