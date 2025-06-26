@@ -9,7 +9,6 @@ ninja -C build
 
 REM 3) Esegue il benchmark
 build\benchmark_app.exe ^
-  --benchmark_format=json ^
   --benchmark_out=outputs\results.json
 
 REM 4) Genera i grafici Python

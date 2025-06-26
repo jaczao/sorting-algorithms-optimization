@@ -109,7 +109,7 @@ def load_data(json_file):
     
     return pd.DataFrame(processed_benchmarks)
 
-def plot_benchmark(df, x_param, y_param, fixed_params, varying_params, title, filename_base, output_dir="plots"):
+def plot_benchmark(df, x_param, fixed_params, varying_params, filename_base):
     """
     Genera un grafico.
     - df: DataFrame con i dati.
@@ -117,11 +117,9 @@ def plot_benchmark(df, x_param, y_param, fixed_params, varying_params, title, fi
     - y_param: Nome della colonna per l'asse Y (es. METRIC_Y).
     - fixed_params: Dizionario dei parametri da fissare e i loro valori.
     - varying_params: Lista dei nomi dei parametri che genereranno linee diverse nel grafico.
-    - title: Titolo del grafico.
-    - filename_base: Base per il nome del file del grafico.
+    - filename_base: Path completo del file del grafico (senza estensione).
     """
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    y_param = METRIC_Y  # cpu_time fisso
 
     # Filtra i dati in base ai parametri fissi
     query_parts = []
@@ -144,7 +142,7 @@ def plot_benchmark(df, x_param, y_param, fixed_params, varying_params, title, fi
             return
 
     if filtered_df.empty:
-        print(f"Nessun dato trovato per i parametri fissati: {fixed_params}. Salto il grafico: {title}")
+        print(f"Nessun dato trovato per i parametri fissati: {fixed_params}. Salto il grafico.")
         return
 
     plt.figure(figsize=(12, 7))
@@ -174,17 +172,19 @@ def plot_benchmark(df, x_param, y_param, fixed_params, varying_params, title, fi
     time_unit = filtered_df['time_unit'].iloc[0] if not filtered_df.empty and 'time_unit' in filtered_df.columns else "unknown_unit"
     plt.ylabel(f"{y_label_base} ({time_unit})")
     
-    plt.title(title)
+    # Mostra i fixed_params come titolo sopra il grafico
+    if fixed_params:
+        fixed_str = ", ".join(f"{k}={v}" for k, v in fixed_params.items())
+        plt.title(f"Parametri fissi: {fixed_str}", fontsize=11)
     plt.legend(loc='best', fontsize='small')
     plt.grid(True, which="both", ls="--", alpha=0.7)
     plt.xscale('log') # Spesso utile per l'asse N
     plt.yscale('log') # Spesso utile per i tempi
 
-    filename = f"{filename_base}.png"
-    filepath = os.path.join(output_dir, filename)
-    plt.savefig(filepath)
+    filename = f"{filename_base}"
+    plt.savefig(filename)
     plt.close()
-    print(f"Grafico salvato: {filepath}")
+    print(f"Grafico salvato: {filename}")
 
 # --- Definizione dei Grafici da Generare ---
 def generate_all_plots(df):
@@ -193,214 +193,52 @@ def generate_all_plots(df):
     plot_benchmark(
         df=df,
         x_param=PARAM_N,
-        y_param=METRIC_Y,
         fixed_params={
             PARAM_TYPE: "int32",
             PARAM_ORDER_TYPE: "Random",
             PARAM_RANGE_TYPE: "FullType",
-            PARAM_MAX_SMALL: 16 # Fissa un maxSmall per questo confronto
         },
-        varying_params=[PARAM_ALG], # Algoritmi diversi, una linea per ciascuno
-        title="Confronto Algoritmi (Int32, Random, FullRange, maxSmall=16)",
+        varying_params=[PARAM_ALG, PARAM_MAX_SMALL], # Algoritmi diversi, una linea per ciascuno
         filename_base="alg_comparison_int32_random_full_ms16"
     )
 
-    # Esempio 2: Impatto di maxSmall su IntroSort per Int32, Random, FullRange
-    # Asse X: N, Linee: maxSmall
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int32",
-            PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType"
-        },
-        varying_params=[PARAM_ALG, PARAM_MAX_SMALL], # maxSmall diversi
-        title="Impatto di maxSmall su IntroSort (Int32, Random, FullRange)",
-        filename_base="introsort_maxsmall_impact_int32_random_full"
-    )
-
-    # Esempio 3: Confronto SmallSortStrategy (AlphaDev vs Branchless vs Insertion) per IntroSort, N piccolo, maxSmall=N
-    # Qui N è anche il maxSmall. Dobbiamo filtrare dove N == maxSmall e N <= 8 (o fino a dove hai i dati)
-    # Potrebbe richiedere un preprocessing del df o un filtro più complesso.
-    # Per semplicità, assumiamo che tu voglia vedere per N piccoli, fissando maxSmall uguale a N.
-    # Questo grafico potrebbe essere meglio con x_param = max_small e N fisso (es. N=8)
-    # Oppure: x_param = N, linee per SS, ma devi assicurarti che per ogni N, max_small sia = N
-    # Questo è un caso più complicato da definire genericamente.
-
-    # Esempio 4: Confronto Algoritmi (Quick, Merge, Intro, TimSort, StdSort) per un tipo di dato specifico
-    # e un tipo di ordine specifico (es. Ascending)
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int64", # Esempio con int64
-            PARAM_ORDER_TYPE: "Ascending",
-            PARAM_RANGE_TYPE: "FullType", # Il range è meno rilevante per dati già ordinati
-            # maxSmall potrebbe essere un valore "ottimale" trovato o un default per gli algo che lo usano
-             PARAM_MAX_SMALL: 16 # O un altro valore rilevante
-        },
-        varying_params=[PARAM_ALG],
-        title="Confronto Algoritmi (Int64, Dati Ordinati Ascendenti)",
-        filename_base="alg_comparison_int64_ascending"
-    )
-    
-    # Esempio 5: Impatto del tipo di Range su un Algoritmo specifico (es. TimSort)
-    # Asse X: N, Linee: Tipo di Range
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int32",
-            PARAM_ALG: "TimSort",
-            PARAM_ORDER_TYPE: "Random", # Per dati casuali
-            PARAM_MAX_SMALL: 32 # Esempio
-        },
-        varying_params=[PARAM_RANGE_TYPE],
-        title="Impatto del Range dei Dati su TimSort (Int32, Random, maxSmall=32)",
-        filename_base="timsort_rangetype_impact_int32_random"
-    )
-
-    # Esempio 6: Confronto SmallSortStrategy per un algoritmo (es. Intro) e N piccolo
-    # Asse X: max_small (da 1 a 8 o più), N fisso (es. N=1000 per vedere l'impatto del caso base)
-    # Linee: SmallSortStrategy (AlphaDev, Branchless, Insertion)
-    # Nota: x_param qui è max_small, non N!
-    fixed_n_for_ss_comparison = 100000 # Scegli una N rappresentativa
-    plot_benchmark(
-        df=df[df[PARAM_N] == fixed_n_for_ss_comparison], # Filtra per N prima di passare
-        x_param=PARAM_MAX_SMALL,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int32",
-            PARAM_ALG: "Intro",
-            PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType",
-            # PARAM_N: fixed_n_for_ss_comparison # Già filtrato nel df
-        },
-        varying_params=[PARAM_SS],
-        # Filtra per max_small che sono rilevanti (es. <= 32 o <=64)
-        title=f"Confronto Small Sort Strategies per IntroSort (Int32, Random, N={fixed_n_for_ss_comparison})",
-        filename_base=f"intro_ss_comparison_N{fixed_n_for_ss_comparison}"
-         # Questo richiede che i valori di max_small per cui plottare siano presenti.
-         # Aggiungi un filtro per i valori di PARAM_SS che vuoi includere
-         # E un filtro per i valori di PARAM_MAX_SMALL che vuoi includere (es. 1..8 per AlphaDev, 1..32 per altri)
-
-    )
-
-    # Per il grafico sopra, dovrai probabilmente fare un subset del DataFrame
-    # df_ss_plot = df[
-    #     (df[PARAM_N] == fixed_n_for_ss_comparison) &
-    #     (df[PARAM_TYPE] == "int32") &
-    #     (df[PARAM_ALG] == "Intro") &
-    #     (df[PARAM_ORDER_TYPE] == "Random") &
-    #     (df[PARAM_RANGE_TYPE] == "FullType") &
-    #     (df[PARAM_SS].isin(["AlphaDev", "Branchless", "Insertion"])) & # Seleziona le strategie
-    #     (df[PARAM_MAX_SMALL] <= 32) # Esempio di limite per max_small
-    # ]
-    # plot_benchmark(df_ss_plot, x_param=PARAM_MAX_SMALL, ..., varying_params=[PARAM_SS], ...)
-
-    # Io
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int32",
-            PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType",
-            PARAM_SS: "AlphaDev",  # Fissa la strategia di small sort
-        },
-        varying_params=[PARAM_ALG, PARAM_MAX_SMALL],
-        title="Io",
-        filename_base="io"
-    )
-
-    # Io2
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int32",
-            PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType",
-            PARAM_SS: "AlphaDev",  # Fissa la strategia di small sort
-            PARAM_ALG: "TimSort"
-        },
-        varying_params=[PARAM_MAX_SMALL],
-        title="Io2",
-        filename_base="io2"
-    )
-
-    # Io3
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int32",
-            PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType",
-            PARAM_MAX_SMALL: 64
-        },
-        varying_params=[PARAM_ALG, PARAM_SS],
-        title="Io3",
-        filename_base="io3"
-    )
-
-    # Io4
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "int64",
-            PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType",
-            PARAM_MAX_SMALL: 64
-        },
-        varying_params=[PARAM_ALG, PARAM_SS],
-        title="Io4",
-        filename_base="io4"
-    )
-
-    # Io5
-    plot_benchmark(
-        df=df,
-        x_param=PARAM_N,
-        y_param=METRIC_Y,
-        fixed_params={
-            PARAM_TYPE: "float",
-            PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType",
-            PARAM_MAX_SMALL: 64
-        },
-        varying_params=[PARAM_ALG, PARAM_SS],
-        title="Io5",
-        filename_base="io5"
-    )
 
     print("--- Generazione Grafici Completata ---")
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Genera grafici dai risultati di Google Benchmark.")
+    parser = argparse.ArgumentParser(description="Genera un grafico dai risultati di Google Benchmark.")
     parser.add_argument("json_file", help="Path al file JSON di output di Google Benchmark.")
+    parser.add_argument("output_filename_base", help="Path completo (senza estensione) del file di output.")
+    parser.add_argument("--x_param", required=True, help="Parametro per l'asse X (es: N, max_small, ...)")
+    parser.add_argument("--varying_params", default="", help="Parametri separati da virgola che generano linee diverse (es: algorithm,range_type)")
+    parser.add_argument("--fixed_params", default="", help="Parametri fissati in formato chiave=valore,chiave=valore (es: type=int32,order_type=Random)")
     args = parser.parse_args()
 
     dataframe = load_data(args.json_file)
-    
-    # Stampa le colonne per debug e per capire i nomi esatti
-    print("Colonne del DataFrame caricato:")
-    print(dataframe.columns.tolist())
-    print("\nPrimi 5 record:")
-    print(dataframe.head())
-    print(f"\nTipi di dato unici per colonna '{PARAM_TYPE}': {dataframe[PARAM_TYPE].unique()}")
-    print(f"Algoritmi unici per colonna '{PARAM_ALG}': {dataframe[PARAM_ALG].unique()}")
-    print(f"Valori unici per colonna '{PARAM_MAX_SMALL}': {dataframe[PARAM_MAX_SMALL].unique()}")
 
+    # Parsing fixed_params
+    fixed_params = {}
+    if args.fixed_params:
+        for kv in args.fixed_params.split(','):
+            if '=' in kv:
+                k, v = kv.split('=', 1)
+                try:
+                    v = int(v)
+                except ValueError:
+                    pass
+                fixed_params[k] = v
 
-    generate_all_plots(dataframe)
+    # Parsing varying_params
+    varying_params = [p for p in args.varying_params.split(',') if p] if args.varying_params else []
+
+    # Usa direttamente l'argomento fornito come base del filename
+    filename_base = args.output_filename_base
+
+    plot_benchmark(
+        df=dataframe,
+        x_param=args.x_param,
+        fixed_params=fixed_params,
+        varying_params=varying_params,
+        filename_base=filename_base
+    )
