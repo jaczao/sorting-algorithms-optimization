@@ -147,7 +147,7 @@ void call_sort_branchless(T* buf) {
         sort31branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, std::less<T>());
     else if constexpr (N == 32)
         sort32branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, buf+31, std::less<T>());
-    /*else if constexpr (N == 33)
+    else if constexpr (N == 33)
         sort33branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, buf+31, buf+32, std::less<T>());
     else if constexpr (N == 34)
         sort34branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, buf+31, buf+32, buf+33, std::less<T>());
@@ -208,7 +208,7 @@ void call_sort_branchless(T* buf) {
     else if constexpr (N == 62)
         sort62branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, buf+31, buf+32, buf+33, buf+34, buf+35, buf+36, buf+37, buf+38, buf+39, buf+40, buf+41, buf+42, buf+43, buf+44, buf+45, buf+46, buf+47, buf+48, buf+49, buf+50, buf+51, buf+52, buf+53, buf+54, buf+55, buf+56, buf+57, buf+58, buf+59, buf+60, buf+61, std::less<T>());
     else if constexpr (N == 63)
-        sort63branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, buf+31, buf+32, buf+33, buf+34, buf+35, buf+36, buf+37, buf+38, buf+39, buf+40, buf+41, buf+42, buf+43, buf+44, buf+45, buf+46, buf+47, buf+48, buf+49, buf+50, buf+51, buf+52, buf+53, buf+54, buf+55, buf+56, buf+57, buf+58, buf+59, buf+60, buf+61, buf+62, std::less<T>());*/
+        sort63branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, buf+31, buf+32, buf+33, buf+34, buf+35, buf+36, buf+37, buf+38, buf+39, buf+40, buf+41, buf+42, buf+43, buf+44, buf+45, buf+46, buf+47, buf+48, buf+49, buf+50, buf+51, buf+52, buf+53, buf+54, buf+55, buf+56, buf+57, buf+58, buf+59, buf+60, buf+61, buf+62, std::less<T>());
     else if constexpr (N == 64)
         sort64branchless<void>(buf, buf+1, buf+2, buf+3, buf+4, buf+5, buf+6, buf+7, buf+8, buf+9, buf+10, buf+11, buf+12, buf+13, buf+14, buf+15, buf+16, buf+17, buf+18, buf+19, buf+20, buf+21, buf+22, buf+23, buf+24, buf+25, buf+26, buf+27, buf+28, buf+29, buf+30, buf+31, buf+32, buf+33, buf+34, buf+35, buf+36, buf+37, buf+38, buf+39, buf+40, buf+41, buf+42, buf+43, buf+44, buf+45, buf+46, buf+47, buf+48, buf+49, buf+50, buf+51, buf+52, buf+53, buf+54, buf+55, buf+56, buf+57, buf+58, buf+59, buf+60, buf+61, buf+62, buf+63, std::less<T>());
 }
@@ -342,7 +342,7 @@ TEST_BRANCHLESS_TYPED(31, float, float)
 TEST_BRANCHLESS_TYPED(32, int32_t, int32)
 TEST_BRANCHLESS_TYPED(32, int64_t, int64)
 TEST_BRANCHLESS_TYPED(32, float, float)
-/*TEST_BRANCHLESS_TYPED(33, int32_t, int32)
+TEST_BRANCHLESS_TYPED(33, int32_t, int32)
 TEST_BRANCHLESS_TYPED(33, int64_t, int64)
 TEST_BRANCHLESS_TYPED(33, float, float)
 TEST_BRANCHLESS_TYPED(34, int32_t, int32)
@@ -422,7 +422,19 @@ TEST_BRANCHLESS_TYPED(58, int64_t, int64)
 TEST_BRANCHLESS_TYPED(58, float, float)
 TEST_BRANCHLESS_TYPED(59, int32_t, int32)
 TEST_BRANCHLESS_TYPED(59, int64_t, int64)
-TEST_BRANCHLESS_TYPED(59, float, float)*/
+TEST_BRANCHLESS_TYPED(59, float, float)
+TEST_BRANCHLESS_TYPED(60, int32_t, int32)
+TEST_BRANCHLESS_TYPED(60, int64_t, int64)
+TEST_BRANCHLESS_TYPED(60, float, float)
+TEST_BRANCHLESS_TYPED(61, int32_t, int32)
+TEST_BRANCHLESS_TYPED(61, int64_t, int64)
+TEST_BRANCHLESS_TYPED(61, float, float)
+TEST_BRANCHLESS_TYPED(62, int32_t, int32)
+TEST_BRANCHLESS_TYPED(62, int64_t, int64)
+TEST_BRANCHLESS_TYPED(62, float, float)
+TEST_BRANCHLESS_TYPED(63, int32_t, int32)
+TEST_BRANCHLESS_TYPED(63, int64_t, int64)
+TEST_BRANCHLESS_TYPED(63, float, float)
 TEST_BRANCHLESS_TYPED(64, int32_t, int32)
 TEST_BRANCHLESS_TYPED(64, int64_t, int64)
 TEST_BRANCHLESS_TYPED(64, float, float)
