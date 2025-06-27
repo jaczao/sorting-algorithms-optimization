@@ -30,6 +30,9 @@ protected:
         copy = v;
         newSort(copy.data(), 0, static_cast<int>(copy.size()) - 1, 32, 1024, strat, SmallSortStrategy::Heap);
         EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
+        copy = v;
+        timSortOld(copy.data(), static_cast<int>(copy.size()), maxSmall, strat);
+        EXPECT_TRUE(std::is_sorted(copy.begin(), copy.end()));
     }
 };
 
@@ -46,7 +49,7 @@ TYPED_TEST(DivideEtImperaTestTyped, SmallArrays) {
         {T(5), T(4), T(3), T(2), T(1)}
     };
     for (const auto& v : cases) {
-        this->check_sorted(v, 1, SmallSortStrategy::AlphaDev);
+        this->check_sorted(v, 1, SmallSortStrategy::Branchless);
     }
 }
 
@@ -62,7 +65,7 @@ TYPED_TEST(DivideEtImperaTestTyped, RandomArrays) {
             std::uniform_int_distribution<int64_t> dist(-1000, 1000);
             for (auto& x : v) x = static_cast<T>(dist(rng));
         }
-        this->check_sorted(v, 1, SmallSortStrategy::AlphaDev);
+        this->check_sorted(v, 1, SmallSortStrategy::Branchless);
     }
 }
 
@@ -117,7 +120,7 @@ TYPED_TEST(DivideEtImperaTestTyped, IntroSortTest) {
     };
     for (auto v : cases) {
         if (!v.empty())
-            introSort(v.data(), 0, static_cast<int>(v.size()) - 1, 1, SmallSortStrategy::AlphaDev);
+            introSort(v.data(), 0, static_cast<int>(v.size()) - 1, 64, SmallSortStrategy::Branchless);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -128,7 +131,7 @@ TYPED_TEST(DivideEtImperaTestTyped, TimSortFunction) {
         {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
-        timSort(v.data(), static_cast<int>(v.size()), 32, SmallSortStrategy::AlphaDev);
+        timSort(v.data(), static_cast<int>(v.size()), 64, SmallSortStrategy::Branchless);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -140,8 +143,18 @@ TYPED_TEST(DivideEtImperaTestTyped, NewSortFunction) {
     };
     for (auto v : cases) {
         if (!v.empty())
-            newSort(v.data(), 0, static_cast<int>(v.size()) - 1, 4, 4, SmallSortStrategy::AlphaDev, SmallSortStrategy::Insertion);
+            newSort(v.data(), 0, static_cast<int>(v.size()) - 1, 4, 4, SmallSortStrategy::Branchless, SmallSortStrategy::Insertion);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
 
+TYPED_TEST(DivideEtImperaTestTyped, TimSortOldFunction) {
+    using T = TypeParam;
+    vector<vector<T>> cases = {
+        {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
+    };
+    for (auto v : cases) {
+        timSortOld(v.data(), static_cast<int>(v.size()), 64, SmallSortStrategy::Branchless);
+        EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
+    }
+}
