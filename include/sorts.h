@@ -224,15 +224,15 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
 
 // Merge Sort template
 template<typename T>
-void mergeSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
+void mergeSortOld(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
     int len = right - left + 1;
     if (len <= 1) return;
     if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat); return; }
-    if (len <= 64) { insertionSort(arr + left, len); return; }
+    //if (len <= 64) { insertionSort(arr + left, len); return; }
     //if (len <= 0) { heapSort(arr + left, len); return; }
     int mid = left + (right - left) / 2;
-    mergeSort(arr, left, mid, maxSmall, strat);
-    mergeSort(arr, mid + 1, right, maxSmall, strat);
+    mergeSortOld(arr, left, mid, maxSmall, strat);
+    mergeSortOld(arr, mid + 1, right, maxSmall, strat);
     int n1 = mid - left + 1;
     int n2 = right - mid;
     std::vector<T> L(n1), R(n2);
@@ -244,9 +244,31 @@ void mergeSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
     while (j < n2)            arr[k++] = R[j++];
 }
 
-// Quick Sort template
 template<typename T>
 int partition(T* arr, int left, int right) {
+    T pivot_value = arr[left];
+    int i = left;
+    int j = right;
+
+    while (i < j) {
+        while (i <= right && arr[i] <= pivot_value) {
+            i++;
+        }
+        while (arr[j] > pivot_value) {
+            j--;
+        }
+        if (i < j) {
+            std::swap(arr[i], arr[j]);
+        }
+    }
+    
+    std::swap(arr[left], arr[j]);
+    return j;
+}
+
+// Quick Sort template
+template<typename T>
+int partitionOld(T* arr, int left, int right) {
     T pivot = arr[left];
     int i = left + 1, j = right;
     while (true) {
@@ -260,73 +282,44 @@ int partition(T* arr, int left, int right) {
 }
 
 template<typename T>
-void quickSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
+void quickSortOld(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
     int len = right - left + 1;
     if (len <= 1) return;
     if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat); return; }
-    int pi = partition(arr, left, right);
-    quickSort(arr, left,     pi - 1, maxSmall, strat);
-    quickSort(arr, pi + 1, right,     maxSmall, strat);
+    int pi = partitionOld(arr, left, right);
+    quickSortOld(arr, left,     pi - 1, maxSmall, strat);
+    quickSortOld(arr, pi + 1, right,     maxSmall, strat);
 }
 
-// Variante mergeSort8: suddivide in blocchi di dimensione ≤8 in un unico passaggio e poi fonde tutti i blocchi in un unico array ordinato.
-// 1) Calcola quanti blocchi (ceil(len/8)).
-// 2) Chiama mergeSort8 su ciascun blocco (ricorsivamente), finché la dimensione è ≤8 chiama smallSort.
-// 3) Esegue un multi-merge iterativo di tutti i blocchi.
 
 template<typename T>
-void mergeSort8(T* arr, int left, int right, int maxSmall, SmallSortStrategy ss) {
-    int len = right - left + 1;
-    // caso base: piccolo
-    if (len <= 8 && len <= maxSmall) {
-        smallSort(arr + left, len, maxSmall, ss);
-        return;
-    }
-    // suddivisione in blocchi di max 8
-    int numBlocks = (len + 7) / 8;
-    // array di indici di inizio e fine
-    std::vector<std::pair<int,int>> ranges;
-    ranges.reserve(numBlocks);
-    for (int b = 0; b < numBlocks; ++b) {
-        int start = left + b*8;
-        int end   = std::min(start + 8 - 1, right);
-        ranges.emplace_back(start, end);
-        // ordina ciascun blocco
-        mergeSort8(arr, start, end, maxSmall, ss);
-    }
-    // multi-merge: utilizza un buffer temporaneo per fondere progressivamente i blocchi
-    std::vector<T> tmp(len);
-    // inizializza cursori
-    std::vector<int> idx(numBlocks, 0);
-    // merge fino a consumare tutti i blocchi
-    for (int k = 0; k < len; ++k) {
-        T* bestVal = nullptr;
-        int bestBlock = -1;
-        for (int b = 0; b < numBlocks; ++b) {
-            int start = ranges[b].first;
-            int end   = ranges[b].second;
-            int off   = idx[b];
-            if (off > end - start) continue;
-            T& candidate = arr[start + off];
-            if (!bestVal || candidate < *bestVal) {
-                bestVal = &candidate;
-                bestBlock = b;
-            }
+void quickSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
+    while (left < right) {
+        int len = right - left + 1;
+
+        if (len <= maxSmall) {
+            smallSort(arr + left, len, maxSmall, strat);
+            return;
         }
-        tmp[k] = *bestVal;
-        // incrementa cursore
-        idx[bestBlock]++;
+
+        int pi = partition(arr, left, right);
+
+        if ((pi - left) < (right - pi)) {
+            
+            quickSort(arr, left, pi - 1, maxSmall, strat);
+            
+            left = pi + 1;
+        } else {
+            quickSort(arr, pi + 1, right, maxSmall, strat);
+            right = pi - 1;
+        }
     }
-    // copia indietro
-    for (int i = 0; i < len; ++i) arr[left + i] = tmp[i];
 }
 
 // Introsort helper: funzione ricorsiva
 template<typename T>
 void introSortUtil(T* arr, int left, int right, int depthLimit, int maxSmall, SmallSortStrategy strat) {
     int len = right - left + 1;
-    if (len <= 1)
-        return;
     if (len <= maxSmall) {
         smallSort(arr + left, len, maxSmall, strat);
         return;
@@ -350,62 +343,6 @@ void introSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
     int len = right - left + 1;
     int depthLimit = 2 * static_cast<int>(std::log2(len));
     introSortUtil(arr, left, right, depthLimit, maxSmall, strat);
-}
-
-// Aggiunta della funzione timSort
-template<typename T>
-void timSortOld(T* arr, int size, int maxSmall, SmallSortStrategy strat) {
-    const int RUN = maxSmall;
-    // Passo 1: Ordina i piccoli blocchi con insertionSort
-    for (int i = 0; i < size; i += RUN) {
-        int runSize = std::min(RUN, size - i);
-        smallSort(arr + i, runSize, maxSmall, strat);
-    }
-    // Passo 2: Merge iterativo dei blocchi ordinati
-    for (int run = RUN; run < size; run *= 2) {
-        for (int left = 0; left < size; left += 2 * run) {
-            int mid = left + run - 1;
-            int right = std::min(left + 2 * run - 1, size - 1);
-            if (mid < right) {
-                std::vector<T> tmp(right - left + 1);
-                int i = left, j = mid + 1, k = 0;
-                while (i <= mid && j <= right) {
-                    if (arr[i] <= arr[j])
-                        tmp[k++] = arr[i++];
-                    else
-                        tmp[k++] = arr[j++];
-                }
-                while (i <= mid) tmp[k++] = arr[i++];
-                while (j <= right) tmp[k++] = arr[j++];
-                for (int t = 0; t < tmp.size(); ++t)
-                    arr[left + t] = tmp[t];
-            }
-        }
-    }
-}
-
-
-
-// Merge Sort template
-template<typename T>
-void newSort(T* arr, int left, int right, int maxSmall, int maxAux, SmallSortStrategy strat1, SmallSortStrategy strat2, int depth=0) {
-    int len = right - left + 1;
-    if (len <= 1) return;
-    if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat1); return; }
-    //if (maxSmall < len && len <= maxAux) { smallSort(arr + left, len, maxAux, strat2); return; }
-    if (maxAux < len && len <= 5000 && depth == 0) { quickSort(arr, left, right, maxSmall, strat1); return; }
-    int mid = left + (right - left) / 2;
-    newSort(arr, left, mid, maxSmall, maxAux, strat1, strat2, depth + 1);
-    newSort(arr, mid + 1, right, maxSmall, maxAux, strat1, strat2, depth + 1);
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-    std::vector<T> L(n1), R(n2);
-    std::copy(arr + left,     arr + mid + 1, L.begin());
-    std::copy(arr + mid + 1, arr + right + 1, R.begin());
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2) arr[k++] = (L[i] <= R[j]) ? L[i++] : R[j++];
-    while (i < n1)            arr[k++] = L[i++];
-    while (j < n2)            arr[k++] = R[j++];
 }
 
 // TimSort implementation (generic, schema fedele allo pseudocodice)
@@ -525,3 +462,77 @@ void timSort(T* arr, int size, int maxSmall, SmallSortStrategy strat) {
     }
     mergeForceCollapse(run_stack, arr);
 }
+
+// Aggiunta della funzione timSort
+template<typename T>
+void timSortOld(T* arr, int size, int maxSmall, SmallSortStrategy strat) {
+    const int RUN = maxSmall;
+    // Passo 1: Ordina i piccoli blocchi con insertionSort
+    for (int i = 0; i < size; i += RUN) {
+        int runSize = std::min(RUN, size - i);
+        smallSort(arr + i, runSize, maxSmall, strat);
+    }
+    // Passo 2: Merge iterativo dei blocchi ordinati
+    for (int run = RUN; run < size; run *= 2) {
+        for (int left = 0; left < size; left += 2 * run) {
+            int mid = left + run - 1;
+            int right = std::min(left + 2 * run - 1, size - 1);
+            if (mid < right) {
+                std::vector<T> tmp(right - left + 1);
+                int i = left, j = mid + 1, k = 0;
+                while (i <= mid && j <= right) {
+                    if (arr[i] <= arr[j])
+                        tmp[k++] = arr[i++];
+                    else
+                        tmp[k++] = arr[j++];
+                }
+                while (i <= mid) tmp[k++] = arr[i++];
+                while (j <= right) tmp[k++] = arr[j++];
+                for (int t = 0; t < tmp.size(); ++t)
+                    arr[left + t] = tmp[t];
+            }
+        }
+    }
+}
+
+
+template<typename T>
+void merge(T* arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    std::vector<T> L(n1), R(n2);
+    for (int i = 0; i < n1; ++i)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; ++j)
+        R[j] = arr[mid + 1 + j];
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k++] = L[i++];
+        } else {
+            arr[k++] = R[j++];
+        }
+    }
+    while (i < n1) {
+        arr[k++] = L[i++];
+    }
+    while (j < n2) {
+        arr[k++] = R[j++];
+    }
+}
+
+template<typename T>
+void mergeSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
+    int len = right - left + 1;
+    if (len <= maxSmall) { smallSort(arr + left, len, maxSmall, strat); return; }
+    if (left < right) {
+        int mid = (left + right) / 2;
+        mergeSort(arr, left, mid, maxSmall, strat);
+        mergeSort(arr, mid + 1, right, maxSmall, strat);
+        merge(arr, left, mid, right);
+    }
+}
+
+
+
+

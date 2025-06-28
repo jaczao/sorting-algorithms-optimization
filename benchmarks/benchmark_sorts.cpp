@@ -18,8 +18,8 @@ enum class SmallSortStrategyEnum { AlphaDev = 0, BranchlessSN = 1, Branching = 2
 static const char* SmallSortNames[] = {"AlphaDev","BranchlessSN","Branching","SelectionSort","InsertionSort","BubbleSort"};
 
 // Algoritmi di ordinamento
-enum class SortAlgorithm { QuickSort = 0, MergeSort = 1, HeapSort = 2, Merge8 = 3, SelectionSort = 4, InsertionSort = 5, BubbleSort = 6, IntroSort =7, StdSort=8, TimSort=9, TimSortOld=10 };
-static const char* SortAlgoNames[] = {"QuickSort","MergeSort","HeapSort","Merge8","SelectionSort","InsertionSort","BubbleSort","IntroSort", "StdSort", "TimSort", "TimSortOld"};
+enum class SortAlgorithm { QuickSort = 0, MergeSort = 1, HeapSort = 2, SelectionSort = 3, InsertionSort = 4, BubbleSort = 5, IntroSort = 6, StdSort = 7, TimSort = 8, TimSortOld = 9, MergeSortOld = 10, QuickSortOld = 11 };
+static const char* SortAlgoNames[] = {"QuickSort","MergeSort","HeapSort","SelectionSort","InsertionSort","BubbleSort","IntroSort", "StdSort", "TimSort", "TimSortOld", "MergeSortOld", "QuickSortOld"};
 
 // Tipi di range per il riempimento random
 enum class RandomRangeType { FullType = 0, Binary = 1, Small = 2, NRange = 3 };
@@ -153,9 +153,6 @@ void runSort(T* data, int size, int maxSmall, SmallSortStrategyEnum ss, SortAlgo
         case SortAlgorithm::HeapSort:
             heapSort(data, size);
             break;
-        case SortAlgorithm::Merge8:
-            mergeSort8(data, 0, size-1, maxSmall, static_cast<SmallSortStrategy>(ss));
-            break;
         case SortAlgorithm::SelectionSort:
             selectionSort(data, size);
         break;
@@ -177,6 +174,12 @@ void runSort(T* data, int size, int maxSmall, SmallSortStrategyEnum ss, SortAlgo
         case SortAlgorithm::TimSortOld:
             timSortOld(data, size, maxSmall, static_cast<SmallSortStrategy>(ss));
         break;
+        case SortAlgorithm::MergeSortOld:
+            mergeSortOld(data, 0, size-1, maxSmall, static_cast<SmallSortStrategy>(ss));
+        break;
+        case SortAlgorithm::QuickSortOld:
+            quickSortOld(data, 0, size-1, maxSmall, static_cast<SmallSortStrategy>(ss));
+        break;
     }
 }
 
@@ -185,7 +188,7 @@ template<typename T>
 void BM_All(benchmark::State& state, SortType t, SmallSortStrategyEnum ss, SortAlgorithm alg, RandomRangeType rangeType, ArrayOrderType orderType) {
     size_t N = state.range(0);
     vector<T> original(N);
-    mt19937_64 rng(5432 + int(t)*100 + int(ss)*10 + int(alg) + int(rangeType)*1000 + int(orderType)*10000);
+    mt19937_64 rng(54321); //+ int(t)*100 + int(ss)*10 + /*int(alg) +*/ int(rangeType)*1000 + int(orderType)*10000);
     fill_random(original, rng, rangeType, int(N));
     apply_order(original, orderType, rng);
     int maxSmall = state.range(1);
@@ -213,7 +216,7 @@ int main(int argc, char** argv) {
     vector<SortType> types = { SortType::Int32, SortType::Int64, SortType::Float };
     vector<int> sizes = {10, 100, 1000, 10000, 100000};
     vector<SmallSortStrategyEnum> ssArr = { SmallSortStrategyEnum::AlphaDev };
-    vector<SortAlgorithm> algs = { SortAlgorithm::StdSort, SortAlgorithm::IntroSort, SortAlgorithm::TimSort, SortAlgorithm::MergeSort, SortAlgorithm::QuickSort };
+    vector<SortAlgorithm> algs = { SortAlgorithm::StdSort };
     vector<int> maxSmalls = {64};
     vector<RandomRangeType> rangeTypes = { RandomRangeType::FullType };
     vector<ArrayOrderType> orderTypes = { ArrayOrderType::Random };
@@ -254,7 +257,7 @@ int main(int argc, char** argv) {
         if (argc > idx) { // algs
             algs.clear();
             for (auto& s : parse_csv(argv[idx++])) {
-                for (int i = 0; i < 11; ++i)
+                for (int i = 0; i < 12; ++i)
                     if (s == SortAlgoNames[i]) algs.push_back(static_cast<SortAlgorithm>(i));
             }
         }
