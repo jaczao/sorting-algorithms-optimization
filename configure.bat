@@ -11,11 +11,11 @@ REM 2) Crea la directory build
 mkdir build 2>nul
 
 REM 3) Genera i file Ninja con toolchain Windows
-cmake -G "Ninja" \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_TOOLCHAIN_FILE="toolchain-windows.cmake" \
-  -DBENCHMARK_ENABLE_WERROR=OFF \
-  -DCMAKE_CXX_FLAGS="-Wno-old-style-cast -Wno-invalid-offsetof" \
-  -DCMAKE_C_COMPILER=/mingw64/bin/clang.exe \
-  -DCMAKE_CXX_COMPILER=/mingw64/bin/clang++.exe \
+cmake -G "Ninja" ^
+  -DCMAKE_BUILD_TYPE=Release ^
+  -DCMAKE_TOOLCHAIN_FILE="toolchain-windows.cmake" ^
+  -DBENCHMARK_ENABLE_WERROR=OFF ^
+  -DCMAKE_CXX_FLAGS="-Wno-old-style-cast -Wno-invalid-offsetof" ^
+  -DCMAKE_C_COMPILER=C:/dev-tools/msys64/mingw64/bin/clang.exe ^
+  -DCMAKE_CXX_COMPILER=C:/dev-tools/msys64/mingw64/bin/clang++.exe ^
   -B build -S .
