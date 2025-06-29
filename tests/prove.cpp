@@ -12,41 +12,35 @@ using namespace std;
 #error "Unsupported architecture for AlphaDev sorts"
 #endif
 #include <ciso646>
+#include <random>
+#include <algorithm>
+#include <numeric>
+#include <limits>
 
-void printArray(const int arr[], int n) {
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-}
+
+
 
 int main() {
-    #ifdef _LIBCPP_VERSION
-        cout << "Questo è un print di prova all'interno del blocco _LIBCPP_VERSION." << endl;
-    #endif
 
-    // Definiamo alcuni vettori di 4 elementi ciascuno.
-    int vector1[5] = {3, 1, 4, 2, 1};//, 5, 9, 6};
-    int vector2[5] = {10, 5, 7, 6};//, 2, 3, 8, 4};
-    int vector3[5] = {8, 2, 9, 1};//, 6, 4, 7, 3};
-    int vector4[5] = {5, 3, 8, 2};//, 1, 4, 7, 6};
+    int N = 1000; // Dimensione dell'array
 
-    // Array di puntatori ai vettori e nomi per la stampa.
-    int* vectors[] = {vector1, vector2, vector3, vector4};
-    const char* names[] = {"vector1", "vector2", "vector3", "vector4"};
+    using T = int;
 
-    // Per ogni vettore, stampiamo l'array prima e dopo l'ordinamento
-    for (int i = 0; i < 4; i++) { // Cambiato da 8 a 4 per evitare accessi fuori limite
-        cout << names[i] << " prima del sorting: ";
-        printArray(vectors[i], 5);
+    vector<T> buf(N);
+    mt19937_64 rng(54321);
 
-        // Ordiniamo usando la funzione alphadev_sort definita in "alphadev_sorts_arm64.h"
-        //Sort5AlphaDev(vectors[i]);
-
-        cout << names[i] << " dopo il sorting: ";
-        printArray(vectors[i], 5);
-        cout << endl;
+    uniform_int_distribution<T> dist(numeric_limits<T>::min(), numeric_limits<T>::max());
+    for (auto& x : buf) x = dist(rng);
+                
+    std::iota(buf.begin(), buf.end(), T(0));
+    int K = std::max(1, int(std::log2(N)));
+    uniform_int_distribution<size_t> dist(0, N-1);
+    for (int i = 0; i < K; ++i) {
+        size_t a = dist(rng), b = dist(rng); //ok o mi voglio assicurare che sia k coppie diverse?
+        std::swap(buf[a], buf[b]);
     }
+
+    
 
     return 0;
 }
