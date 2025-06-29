@@ -49,8 +49,8 @@ TYPED_TEST(DivideEtImperaTestTyped, SmallArrays) {
         {T(5), T(4), T(3), T(2), T(1)}
     };
     for (const auto& v : cases) {
-        this->check_sorted(v, 1, SmallSortStrategy::Branchless);
-        this->check_sorted(v, 64, SmallSortStrategy::Branchless);
+        this->check_sorted(v, 1, SmallSortStrategy::BranchlessSN);
+        this->check_sorted(v, 64, SmallSortStrategy::BranchlessSN);
     }
 }
 
@@ -66,8 +66,8 @@ TYPED_TEST(DivideEtImperaTestTyped, RandomArrays) {
             std::uniform_int_distribution<int64_t> dist(-1000, 1000);
             for (auto& x : v) x = static_cast<T>(dist(rng));
         }
-        this->check_sorted(v, 1, SmallSortStrategy::Branchless);
-        this->check_sorted(v, 64, SmallSortStrategy::Branchless);
+        this->check_sorted(v, 1, SmallSortStrategy::BranchlessSN);
+        this->check_sorted(v, 64, SmallSortStrategy::BranchlessSN);
     }
 }
 
@@ -122,10 +122,10 @@ TYPED_TEST(DivideEtImperaTestTyped, IntroSortTest) {
     };
     for (auto v : cases) {
         if (!v.empty())
-            introSort(v.data(), 0, static_cast<int>(v.size()) - 1, 1, SmallSortStrategy::Branchless);
+            introSort(v.data(), 0, static_cast<int>(v.size()) - 1, 1, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
         if (!v.empty())
-            introSort(v.data(), 0, static_cast<int>(v.size()) - 1, 64, SmallSortStrategy::Branchless);
+            introSort(v.data(), 0, static_cast<int>(v.size()) - 1, 64, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -136,9 +136,9 @@ TYPED_TEST(DivideEtImperaTestTyped, TimSortFunction) {
         {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
-        timSort(v.data(), static_cast<int>(v.size()), 1, SmallSortStrategy::Branchless);
+        timSort(v.data(), static_cast<int>(v.size()), 1, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
-        timSort(v.data(), static_cast<int>(v.size()), 64, SmallSortStrategy::Branchless);
+        timSort(v.data(), static_cast<int>(v.size()), 64, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -149,9 +149,9 @@ TYPED_TEST(DivideEtImperaTestTyped, QuickSortFunction) {
         {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
-        quickSort(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::Branchless);
+        quickSort(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
-        quickSort(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::Branchless);
+        quickSort(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -162,9 +162,9 @@ TYPED_TEST(DivideEtImperaTestTyped, MergeSortFunction) {
         {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
-        mergeSort(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::Branchless);
+        mergeSort(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
-        mergeSort(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::Branchless);
+        mergeSort(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -175,9 +175,9 @@ TYPED_TEST(DivideEtImperaTestTyped, TimSortOldFunction) {
         {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
-        timSortOld(v.data(), static_cast<int>(v.size()), 1, SmallSortStrategy::Branchless);
+        timSortOld(v.data(), static_cast<int>(v.size()), 1, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
-        timSortOld(v.data(), static_cast<int>(v.size()), 64, SmallSortStrategy::Branchless);
+        timSortOld(v.data(), static_cast<int>(v.size()), 64, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -188,9 +188,9 @@ TYPED_TEST(DivideEtImperaTestTyped, QuickSortOldFunction) {
         {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
-        quickSortOld(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::Branchless);
+        quickSortOld(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
-        quickSortOld(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::Branchless);
+        quickSortOld(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }
@@ -201,9 +201,9 @@ TYPED_TEST(DivideEtImperaTestTyped, MergeSortOldFunction) {
         {}, {T(1)}, {T(2), T(1)}, {T(3), T(2), T(1)}, {T(5), T(4), T(3), T(2), T(1)}, {T(7), T(3), T(9), T(1), T(4)}
     };
     for (auto v : cases) {
-        mergeSortOld(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::Branchless);
+        mergeSortOld(v.data(), 0, static_cast<int>(v.size())-1, 1, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
-        mergeSortOld(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::Branchless);
+        mergeSortOld(v.data(), 0, static_cast<int>(v.size())-1, 64, SmallSortStrategy::BranchlessSN);
         EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
     }
 }

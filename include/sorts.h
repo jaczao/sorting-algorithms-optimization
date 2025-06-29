@@ -29,7 +29,7 @@ inline void sort2(T* a, T* b) {
     if (*a > *b) std::swap(*a, *b);
 }
 
-enum class SmallSortStrategy { AlphaDev, Branchless, Branching, Selection, Insertion, Bubble, Heap };
+enum class SmallSortStrategy { AlphaDev, BranchlessSN, Branching, Selection, Insertion, Bubble, Heap };
 
 // Selection Sort
 template<typename T>
@@ -115,35 +115,35 @@ void smallSort(T* buffer, int size, int maxSmall, SmallSortStrategy strat) {
                         case 37: sort37branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, std::less<int32_t>{}); return;
                         case 38: sort38branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, std::less<int32_t>{}); return;
                         case 39: sort39branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, std::less<int32_t>{}); return;
-                        case 40: sort40branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, std::less<int32_t>{}); return;
-                        case 41: sort41branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, std::less<int32_t>{}); return;
-                        case 42: sort42branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, std::less<int32_t>{}); return;
-                        case 43: sort43branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, std::less<int32_t>{}); return;
-                        case 44: sort44branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, std::less<int32_t>{}); return;
-                        case 45: sort45branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, std::less<int32_t>{}); return;
-                        case 46: sort46branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, std::less<int32_t>{}); return;
-                        case 47: sort47branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, std::less<int32_t>{}); return;
-                        case 48: sort48branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, std::less<int32_t>{}); return;
-                        case 49: sort49branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, std::less<int32_t>{}); return;
-                        case 50: sort50branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, std::less<int32_t>{}); return;
-                        case 51: sort51branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, std::less<int32_t>{}); return;
-                        case 52: sort52branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, std::less<int32_t>{}); return;
-                        case 53: sort53branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, std::less<int32_t>{}); return;
-                        case 54: sort54branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, std::less<int32_t>{}); return;
-                        case 55: sort55branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, std::less<int32_t>{}); return;
-                        case 56: sort56branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, std::less<int32_t>{}); return;
-                        case 57: sort57branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, std::less<int32_t>{}); return;
-                        case 58: sort58branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, std::less<int32_t>{}); return;
-                        case 59: sort59branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, std::less<int32_t>{}); return;
-                        case 60: sort60branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, std::less<int32_t>{}); return;
-                        case 61: sort61branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, std::less<int32_t>{}); return;
-                        case 62: sort62branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, std::less<int32_t>{}); return;
-                        case 63: sort63branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, buffer+62, std::less<int32_t>{}); return;
-                        case 64: sort64branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, buffer+62, buffer+63, std::less<int32_t>{}); return;
+                        case 40: sort40branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, std::less<T>{}); return;
+                        case 41: sort41branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, std::less<T>{}); return;
+                        case 42: sort42branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, std::less<T>{}); return;
+                        case 43: sort43branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, std::less<T>{}); return;
+                        case 44: sort44branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, std::less<T>{}); return;
+                        case 45: sort45branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, std::less<T>{}); return;
+                        case 46: sort46branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, std::less<T>{}); return;
+                        case 47: sort47branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, std::less<T>{}); return;
+                        case 48: sort48branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, std::less<T>{}); return;
+                        case 49: sort49branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, std::less<T>{}); return;
+                        case 50: sort50branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, std::less<T>{}); return;
+                        case 51: sort51branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, std::less<T>{}); return;
+                        case 52: sort52branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, std::less<T>{}); return;
+                        case 53: sort53branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, std::less<T>{}); return;
+                        case 54: sort54branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, std::less<T>{}); return;
+                        case 55: sort55branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, std::less<T>{}); return;
+                        case 56: sort56branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, std::less<T>{}); return;
+                        case 57: sort57branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, std::less<T>{}); return;
+                        case 58: sort58branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, std::less<T>{}); return;
+                        case 59: sort59branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, std::less<T>{}); return;
+                        case 60: sort60branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, std::less<T>{}); return;
+                        case 61: sort61branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, std::less<T>{}); return;
+                        case 62: sort62branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, std::less<T>{}); return;
+                        case 63: sort63branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, buffer+62, std::less<T>{}); return;
+                        case 64: sort64branchless<void>(buffer, buffer+1, buffer+2, buffer+3, buffer+4, buffer+5, buffer+6, buffer+7, buffer+8, buffer+9, buffer+10, buffer+11, buffer+12, buffer+13, buffer+14, buffer+15, buffer+16, buffer+17, buffer+18, buffer+19, buffer+20, buffer+21, buffer+22, buffer+23, buffer+24, buffer+25, buffer+26, buffer+27, buffer+28, buffer+29, buffer+30, buffer+31, buffer+32, buffer+33, buffer+34, buffer+35, buffer+36, buffer+37, buffer+38, buffer+39, buffer+40, buffer+41, buffer+42, buffer+43, buffer+44, buffer+45, buffer+46, buffer+47, buffer+48, buffer+49, buffer+50, buffer+51, buffer+52, buffer+53, buffer+54, buffer+55, buffer+56, buffer+57, buffer+58, buffer+59, buffer+60, buffer+61, buffer+62, buffer+63, std::less<T>{}); return;
                     }
                 }
                 break;
-            case SmallSortStrategy::Branchless:
+            case SmallSortStrategy::BranchlessSN:
                 switch (size) {
                     case 3:  sort3branchless<void>(buffer, buffer+1, buffer+2, std::less<T>{}); return;
                     case 4:  sort4branchless<void>(buffer, buffer+1, buffer+2, buffer+3, std::less<T>{}); return;
@@ -244,28 +244,6 @@ void mergeSortOld(T* arr, int left, int right, int maxSmall, SmallSortStrategy s
     while (j < n2)            arr[k++] = R[j++];
 }
 
-template<typename T>
-int partition(T* arr, int left, int right) {
-    T pivot_value = arr[left];
-    int i = left;
-    int j = right;
-
-    while (i < j) {
-        while (i <= right && arr[i] <= pivot_value) {
-            i++;
-        }
-        while (arr[j] > pivot_value) {
-            j--;
-        }
-        if (i < j) {
-            std::swap(arr[i], arr[j]);
-        }
-    }
-    
-    std::swap(arr[left], arr[j]);
-    return j;
-}
-
 // Quick Sort template
 template<typename T>
 int partitionOld(T* arr, int left, int right) {
@@ -291,6 +269,27 @@ void quickSortOld(T* arr, int left, int right, int maxSmall, SmallSortStrategy s
     quickSortOld(arr, pi + 1, right,     maxSmall, strat);
 }
 
+template<typename T>
+int partition(T* arr, int left, int right) {
+    T pivot_value = arr[left];
+    int i = left;
+    int j = right;
+
+    while (i < j) {
+        while (i <= right && arr[i] <= pivot_value) {
+            i++;
+        }
+        while (arr[j] > pivot_value) {
+            j--;
+        }
+        if (i < j) {
+            std::swap(arr[i], arr[j]);
+        }
+    }
+    
+    std::swap(arr[left], arr[j]);
+    return j;
+}
 
 template<typename T>
 void quickSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy strat) {
@@ -343,6 +342,38 @@ void introSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
     int len = right - left + 1;
     int depthLimit = 2 * static_cast<int>(std::log2(len));
     introSortUtil(arr, left, right, depthLimit, maxSmall, strat);
+}
+
+// Aggiunta della funzione timSort
+template<typename T>
+void timSortOld(T* arr, int size, int maxSmall, SmallSortStrategy strat) {
+    const int RUN = maxSmall;
+    // Passo 1: Ordina i piccoli blocchi con insertionSort
+    for (int i = 0; i < size; i += RUN) {
+        int runSize = std::min(RUN, size - i);
+        smallSort(arr + i, runSize, maxSmall, strat);
+    }
+    // Passo 2: Merge iterativo dei blocchi ordinati
+    for (int run = RUN; run < size; run *= 2) {
+        for (int left = 0; left < size; left += 2 * run) {
+            int mid = left + run - 1;
+            int right = std::min(left + 2 * run - 1, size - 1);
+            if (mid < right) {
+                std::vector<T> tmp(right - left + 1);
+                int i = left, j = mid + 1, k = 0;
+                while (i <= mid && j <= right) {
+                    if (arr[i] <= arr[j])
+                        tmp[k++] = arr[i++];
+                    else
+                        tmp[k++] = arr[j++];
+                }
+                while (i <= mid) tmp[k++] = arr[i++];
+                while (j <= right) tmp[k++] = arr[j++];
+                for (int t = 0; t < tmp.size(); ++t)
+                    arr[left + t] = tmp[t];
+            }
+        }
+    }
 }
 
 // TimSort implementation (generic, schema fedele allo pseudocodice)
@@ -463,38 +494,6 @@ void timSort(T* arr, int size, int maxSmall, SmallSortStrategy strat) {
     mergeForceCollapse(run_stack, arr);
 }
 
-// Aggiunta della funzione timSort
-template<typename T>
-void timSortOld(T* arr, int size, int maxSmall, SmallSortStrategy strat) {
-    const int RUN = maxSmall;
-    // Passo 1: Ordina i piccoli blocchi con insertionSort
-    for (int i = 0; i < size; i += RUN) {
-        int runSize = std::min(RUN, size - i);
-        smallSort(arr + i, runSize, maxSmall, strat);
-    }
-    // Passo 2: Merge iterativo dei blocchi ordinati
-    for (int run = RUN; run < size; run *= 2) {
-        for (int left = 0; left < size; left += 2 * run) {
-            int mid = left + run - 1;
-            int right = std::min(left + 2 * run - 1, size - 1);
-            if (mid < right) {
-                std::vector<T> tmp(right - left + 1);
-                int i = left, j = mid + 1, k = 0;
-                while (i <= mid && j <= right) {
-                    if (arr[i] <= arr[j])
-                        tmp[k++] = arr[i++];
-                    else
-                        tmp[k++] = arr[j++];
-                }
-                while (i <= mid) tmp[k++] = arr[i++];
-                while (j <= right) tmp[k++] = arr[j++];
-                for (int t = 0; t < tmp.size(); ++t)
-                    arr[left + t] = tmp[t];
-            }
-        }
-    }
-}
-
 
 template<typename T>
 void merge(T* arr, int left, int mid, int right) {
@@ -532,7 +531,3 @@ void mergeSort(T* arr, int left, int right, int maxSmall, SmallSortStrategy stra
         merge(arr, left, mid, right);
     }
 }
-
-
-
-

@@ -59,8 +59,12 @@ void fill_random(vector<T>& buf, mt19937_64& rng/*e se lo generassi qui senza av
     } else {
         switch (rangeType) {
             case RandomRangeType::FullType: {
-                uniform_real_distribution<T> dist(numeric_limits<T>::lowest(), numeric_limits<T>::max());
-                for (auto& x : buf) x = dist(rng);
+                uniform_real_distribution<T> dist(0, numeric_limits<T>::max());
+                uniform_int_distribution<int> sign_dist(0, 1); // 0 or 1
+                for (auto& x : buf) {
+                    int sign = sign_dist(rng) == 0 ? -1 : 1;
+                    x = dist(rng) * sign;
+                }
                 break;
             }
             case RandomRangeType::Binary: {
