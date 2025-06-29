@@ -22,8 +22,8 @@ enum class SortAlgorithm { QuickSort = 0, MergeSort = 1, HeapSort = 2, Selection
 static const char* SortAlgoNames[] = {"QuickSort","MergeSort","HeapSort","SelectionSort","InsertionSort","BubbleSort","IntroSort", "StdSort", "TimSort", "TimSortOld", "MergeSortOld", "QuickSortOld"};
 
 // Tipi di range per il riempimento random
-enum class RandomRangeType { FullType = 0, Binary = 1, Small = 2, NRange = 3 };
-static const char* RandomRangeNames[] = {"FullType", "Binary", "Small", "NRange"};
+enum class RandomRangeType { Full = 0, Binary = 1, Small = 2, NRange = 3 };
+static const char* RandomRangeNames[] = {"Full", "Binary", "Small", "NRange"};
 
 // Tipi di ordine per l'array
 enum class ArrayOrderType { Random = 0, Ascending = 1, Descending = 2, PipeOrgan = 3, Constant = 4, MostlySorted = 5, NaturalRuns = 6 };
@@ -34,7 +34,7 @@ template<typename T>
 void fill_random(vector<T>& buf, mt19937_64& rng/*e se lo generassi qui senza averlo come param?*/, RandomRangeType rangeType, int N) {
     if constexpr (is_integral_v<T>) { //gestisco caso integral vs not (che non sia float per forza)
         switch (rangeType) {
-            case RandomRangeType::FullType: {
+            case RandomRangeType::Full: {
                 uniform_int_distribution<T> dist(numeric_limits<T>::min(), numeric_limits<T>::max());
                 for (auto& x : buf) x = dist(rng);
                 break;
@@ -45,7 +45,7 @@ void fill_random(vector<T>& buf, mt19937_64& rng/*e se lo generassi qui senza av
                 break;
             }
             case RandomRangeType::Small: {
-                int maxval = std::max(1, int(std::sqrt(N)));
+                int maxval = std::max(1, int(std::sqrt(N))); 
                 uniform_int_distribution<int> dist(0, maxval);
                 for (auto& x : buf) x = static_cast<T>(dist(rng));
                 break;
@@ -58,7 +58,7 @@ void fill_random(vector<T>& buf, mt19937_64& rng/*e se lo generassi qui senza av
         }
     } else {
         switch (rangeType) {
-            case RandomRangeType::FullType: {
+            case RandomRangeType::Full: {
                 uniform_real_distribution<T> dist(0, numeric_limits<T>::max());
                 uniform_int_distribution<int> sign_dist(0, 1); // 0 or 1
                 for (auto& x : buf) {
@@ -128,16 +128,16 @@ void apply_order(vector<T>& buf, ArrayOrderType order, mt19937_64& rng) {
         }
         case ArrayOrderType::NaturalRuns: {
             // scegli k casuale tra 2 e N/5
-            size_t kmin = 2, kmax = std::max<size_t>(2, N/5);
+            size_t kmin = 2, kmax = std::max<size_t>(2, std::sqrt(N));
             uniform_int_distribution<size_t> k_dist(kmin, kmax);
             size_t k = k_dist(rng);
             uniform_int_distribution<size_t> pos_dist(0, N-1);
-            uniform_int_distribution<size_t> len_dist(2, std::max<size_t>(2, N/5));
+            uniform_int_distribution<size_t> len_dist(2, std::max<size_t>(2, std::log2(N)));
             for (size_t i = 0; i < k; ++i) {
                 size_t start = pos_dist(rng);
                 size_t maxlen = std::min(len_dist(rng), N - start);
                 if (maxlen < 2) continue;
-                std::iota(buf.begin() + start, buf.begin() + start + maxlen, T(start)); //attenzione che tstart non sfori maxTYPE
+                std::iota(buf.begin() + start, buf.begin() + start + maxlen, T(pos_dist(rng)));
             }
             break;
         }
@@ -189,20 +189,18 @@ void runSort(T* data, int size, int maxSmall, SmallSortStrategyEnum ss, SortAlgo
 
 // Benchmark template
 template<typename T>
-void BM_All(benchmark::State& state, SortType t, SmallSortStrategyEnum ss, SortAlgorithm alg, RandomRangeType rangeType, ArrayOrderType orderType) {
+void BM_All(benchmark::State& state, SortType t, SmallSortStrategyEnum ss, SortAlgorithm alg, RandomRangeType rangeType, ArrayOrderType orderType, int maxSmall, int rngSeed) {
     size_t N = state.range(0);
     vector<T> original(N);
-    mt19937_64 rng(54321); //+ int(t)*100 + int(ss)*10 + /*int(alg) +*/ int(rangeType)*1000 + int(orderType)*10000);
+    mt19937_64 rng(rngSeed); 
     fill_random(original, rng, rangeType, int(N));
     apply_order(original, orderType, rng);
-    int maxSmall = state.range(1);
     for (auto _ : state) {
         vector<T> buf = original;
         runSort<T>(buf.data(), int(buf.size()), maxSmall, ss, alg);
         benchmark::ClobberMemory();
     }
     state.SetComplexityN(N);
-    
 }
 
 int main(int argc, char** argv) {
@@ -222,11 +220,11 @@ int main(int argc, char** argv) {
     vector<SmallSortStrategyEnum> ssArr = { SmallSortStrategyEnum::AlphaDev };
     vector<SortAlgorithm> algs = { SortAlgorithm::StdSort };
     vector<int> maxSmalls = {64};
-    vector<RandomRangeType> rangeTypes = { RandomRangeType::FullType };
+    vector<RandomRangeType> rangeTypes = { RandomRangeType::Full };
     vector<ArrayOrderType> orderTypes = { ArrayOrderType::Random };
 
     // Parse command line arguments (simple CSV for each parameter, order: types sizes ssArr algs maxSmalls rangeTypes orderTypes)
-    // Example: ./benchmark_app int32,int64 100,1000 AlphaDev StdSort,Intro 64 FullType Random
+    // Example: ./benchmark_app int32,int64 100,1000 AlphaDev StdSort,Intro 64 Full Random
     if (argc > 1) {
         auto parse_csv = [](const char* arg) {
             vector<string> out;
@@ -285,6 +283,8 @@ int main(int argc, char** argv) {
         }
     }
 
+    int rngSeed = std::chrono::steady_clock::now().time_since_epoch().count();
+
     for (auto t : types) {
         for (auto N : sizes) {
             for (auto ss : ssArr) {
@@ -293,24 +293,24 @@ int main(int argc, char** argv) {
                         for (auto rangeType : rangeTypes) {
                             for (auto orderType : orderTypes) {
                                 // Nome: type_size_ss_alg_maxSmall_range_order
-                                string name = string(SortTypeNames[int(t)])
-                                    + "_" + SmallSortNames[int(ss)]
-                                    + "_" + SortAlgoNames[int(alg)]
-                                    + "_maxSmall" + to_string(ms)
-                                    + "_rng" + RandomRangeNames[int(rangeType)]
-                                    + "_ord" + ArrayOrderNames[int(orderType)];
+                                string name = "type:" + string(SortTypeNames[int(t)])
+                                    + ",smallSort:" + SmallSortNames[int(ss)]
+                                    + ",algo:" + SortAlgoNames[int(alg)]
+                                    + ",maxSmall:" + to_string(ms)
+                                    + ",range:" + RandomRangeNames[int(rangeType)]
+                                    + ",order:" + ArrayOrderNames[int(orderType)];
                                 switch (t) {
                                     case SortType::Int32:
-                                        benchmark::RegisterBenchmark(name.c_str(), BM_All<int32_t>, t, ss, alg, rangeType, orderType)
-                                            ->Args({N, ms})->Complexity();
+                                        benchmark::RegisterBenchmark(name.c_str(), BM_All<int32_t>, t, ss, alg, rangeType, orderType, ms, rngSeed)
+                                            ->Args({N})->Complexity();
                                         break;
                                     case SortType::Int64:
-                                        benchmark::RegisterBenchmark(name.c_str(), BM_All<int64_t>, t, ss, alg, rangeType, orderType)
-                                            ->Args({N, ms})->Complexity();
+                                        benchmark::RegisterBenchmark(name.c_str(), BM_All<int64_t>, t, ss, alg, rangeType, orderType, ms, rngSeed)
+                                            ->Args({N})->Complexity();
                                         break;
                                     case SortType::Float:
-                                        benchmark::RegisterBenchmark(name.c_str(), BM_All<float>, t, ss, alg, rangeType, orderType)
-                                            ->Args({N, ms})->Complexity();
+                                        benchmark::RegisterBenchmark(name.c_str(), BM_All<float>, t, ss, alg, rangeType, orderType, ms, rngSeed)
+                                            ->Args({N})->Complexity();
                                         break;
                                 }
                             }

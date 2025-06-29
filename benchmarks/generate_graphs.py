@@ -26,67 +26,50 @@ METRIC_Y = 'cpu_time' # o 'real_time'
 
 def parse_benchmark_name(name_str):
     """
-    Parsa il nome del benchmark complesso che hai costruito.
+    Parsa il nuovo nome del benchmark in formato chiave:valore, separato da virgole, seguito da /N.
+    Esempio: "type:int32,smallSort:AlphaDev,algo:MergeSort,maxSmall:64,range:Full,order:NaturalRuns/1000000"
     Restituisce un dizionario di parametri.
-    DA ADATTARE ALLA TUA STRUTTURA ESATTA DEL NOME!
-    Esempio di nome: "int32_AlphaDev_Intro_maxSmall1_rngFullType_ordRandom/1000/1"
-                     "int32_AlphaDev_Intro_maxSmall1_rngFullType_ordRandom/Args_0:1000/Args_1:1" (dipende dalla versione di gbenchmark)
     """
     params = {}
-    parts = name_str.split('/')
-    base_name_parts = parts[0].split('_')
-
-    # Estrarre N e maxSmall dagli Args se presenti
-    if len(parts) > 1 and 'Args_0:' in parts[1] and 'Args_1:' in parts[2] : #Formato con Args_X:Y
-        params[PARAM_N] = int(parts[1].split(':')[1])
-        params[PARAM_MAX_SMALL] = int(parts[2].split(':')[1])
-    elif len(parts) > 1 and len(parts) == 3 : # Formato BM_Name/N/maxSmall
-         params[PARAM_N] = int(parts[1])
-         params[PARAM_MAX_SMALL] = int(parts[2])
-
-
-    # Esempio basato sulla tua stringa di nome (ADATTA QUESTO!)
-    # "int32_AlphaDev_Intro_maxSmall1_rngFullType_ordRandom"
-    try:
-        params[PARAM_TYPE] = base_name_parts[0]
-        params[PARAM_SS] = base_name_parts[1]
-        params[PARAM_ALG] = base_name_parts[2]
-        # maxSmall nel nome potrebbe essere ridondante se lo prendi da Args_1, ma utile per il filtro iniziale
-        if "maxSmall" in base_name_parts[3]:
-             # params[PARAM_MAX_SMALL] = int(base_name_parts[3].replace("maxSmall", "")) # Sovrascritto da Args se presente
-             pass # Già gestito da Args
-        params[PARAM_RANGE_TYPE] = base_name_parts[4].replace("rng", "")
-        params[PARAM_ORDER_TYPE] = base_name_parts[5].replace("ord", "")
-    except IndexError:
-        print(f"Attenzione: impossibile parsare completamente il nome: {parts[0]}")
-        # Potresti voler gestire diversamente i benchmark che non seguono questo pattern
-        # (es. std::sort che non ha ss o maxSmall)
-
-
-    '''
-    # Gestione di std::sort e algoritmi semplici che non hanno tutti i parametri
-    if params.get(PARAM_ALG) == "StdSort" or \
-       params.get(PARAM_ALG) in ["Selection", "Insertion", "Bubble"]:
-        params[PARAM_SS] = "N/A" # Non applicabile
-        if params.get(PARAM_ALG) == "StdSort": # StdSort non ha maxSmall come lo intendi tu
-             if PARAM_MAX_SMALL not in params: # Se non preso da Args
-                params[PARAM_MAX_SMALL] = "N/A"
-    '''
-
-
-    # Se N o maxSmall non sono stati presi da Args, segnala un problema o usa un default
-    if PARAM_N not in params:
-        # Questo non dovrebbe accadere se usi ->Args({N, ms})
-        print(f"Attenzione: N non trovato per {name_str}")
-        params[PARAM_N] = 0 # o gestisci l'errore
+    # Split tra parte parametri e N
+    if '/' in name_str:
+        param_part, n_part = name_str.split('/', 1)
+        try:
+            params[PARAM_N] = int(n_part)
+        except ValueError:
+            print(f"Attenzione: N non numerico in {name_str}")
+            params[PARAM_N] = 0
+    else:
+        param_part = name_str
+        params[PARAM_N] = 0
+    # Split parametri chiave:valore
+    for pair in param_part.split(','):
+        if ':' in pair:
+            k, v = pair.split(':', 1)
+            k = k.strip()
+            v = v.strip()
+            # Mappa le chiavi ai parametri interni
+            if k == 'type':
+                params[PARAM_TYPE] = v
+            elif k == 'smallSort':
+                params[PARAM_SS] = v
+            elif k == 'algo':
+                params[PARAM_ALG] = v
+            elif k == 'maxSmall':
+                try:
+                    params[PARAM_MAX_SMALL] = int(v)
+                except ValueError:
+                    params[PARAM_MAX_SMALL] = v
+            elif k == 'range':
+                params[PARAM_RANGE_TYPE] = v
+            elif k == 'order':
+                params[PARAM_ORDER_TYPE] = v
+            else:
+                params[k] = v
+    # Default per maxSmall se non presente e serve
     if PARAM_MAX_SMALL not in params and params.get(PARAM_SS) != "N/A":
-        # Se non è N/A e non è stato trovato, potrebbe essere un problema
-        # per algoritmi che lo usano. Per quelli che non lo usano (es. HeapSort), va bene
         if params.get(PARAM_ALG) not in ["Heap", "Selection", "Insertion", "Bubble", "StdSort"]:
-            print(f"Attenzione: maxSmall non trovato per {name_str}")
-            params[PARAM_MAX_SMALL] = 1 # o gestisci
-
-
+            params[PARAM_MAX_SMALL] = 1
     return params
 
 def load_data(json_file):
@@ -154,7 +137,7 @@ def plot_benchmark(df, x_param, fixed_params, varying_params, filename_base):
         return
 
     # MODIFICA: Figura Quadrata (era nel suggerimento precedente, lo includo qui)
-    plt.figure(figsize=(10, 10)) # Puoi aggiustare la dimensione
+    plt.figure(figsize=(10, 7.5)) # Puoi aggiustare la dimensione
     ax = plt.gca() # Ottieni l'oggetto Axes corrente
     
     # Raggruppa per i parametri che variano per creare linee diverse
@@ -185,7 +168,7 @@ def plot_benchmark(df, x_param, fixed_params, varying_params, filename_base):
         fixed_str = ", ".join(f"{k}={v}" for k, v in fixed_params.items())
         ax.set_title(f"Parametri fissi: {fixed_str}", fontsize=11) # Usa ax.set_title
     
-    ax.legend(loc='best', fontsize='small') # Usa ax.legend
+    ax.legend(loc='best', fontsize='11') # Usa ax.legend
     
     # MODIFICA: Griglia Personalizzata (era nel suggerimento precedente)
     ax.grid(True, which='major', linestyle='--', linewidth=0.7, alpha=0.7)
@@ -224,7 +207,7 @@ def generate_all_plots(df):
         fixed_params={
             PARAM_TYPE: "int32",
             PARAM_ORDER_TYPE: "Random",
-            PARAM_RANGE_TYPE: "FullType",
+            PARAM_RANGE_TYPE: "Full",
         },
         varying_params=[PARAM_ALG, PARAM_MAX_SMALL], # Algoritmi diversi, una linea per ciascuno
         filename_base="alg_comparison_int32_random_full_ms16"
