@@ -16,31 +16,36 @@ using namespace std;
 #include <algorithm>
 #include <numeric>
 #include <limits>
+#include <vector>
+#include <chrono>
+#include <unordered_set>
 
 
 
 
 int main() {
 
-    int N = 1000; // Dimensione dell'array
-
-    using T = int;
+    int N = 10; // Dimensione dell'array
+    using T = float;
 
     vector<T> buf(N);
-    mt19937_64 rng(54321);
+    mt19937_64 rng(std::chrono::steady_clock::now().time_since_epoch().count());
 
-    uniform_int_distribution<T> dist(numeric_limits<T>::min(), numeric_limits<T>::max());
-    for (auto& x : buf) x = dist(rng);
-                
-    std::iota(buf.begin(), buf.end(), T(0));
-    int K = std::max(1, int(std::log2(N)));
-    uniform_int_distribution<size_t> dist(0, N-1);
-    for (int i = 0; i < K; ++i) {
-        size_t a = dist(rng), b = dist(rng); //ok o mi voglio assicurare che sia k coppie diverse?
-        std::swap(buf[a], buf[b]);
+
+    uniform_real_distribution<T> dist(0, numeric_limits<T>::max());
+    uniform_int_distribution<int> sign_dist(0, 1); // 0 or 1
+    for (auto& x : buf) {
+        int sign = sign_dist(rng) == 0 ? -1 : 1;
+        x = dist(rng) * sign;
     }
 
-    
+    cout << "Buffer: ";
+    for (const auto& val : buf) {
+        cout << val << " ";
+    }
+    cout << endl;
+
+
 
     return 0;
 }

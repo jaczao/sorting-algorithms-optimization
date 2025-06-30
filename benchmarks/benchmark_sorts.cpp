@@ -6,6 +6,7 @@
 #include <numeric>
 #include "sorts.h"
 #include <iostream>
+#include <unordered_set>
 
 using namespace std;
 
@@ -127,17 +128,51 @@ void apply_order(vector<T>& buf, ArrayOrderType order, mt19937_64& rng) {
             break;
         }
         case ArrayOrderType::NaturalRuns: {
-            // scegli k casuale tra 2 e N/5
-            size_t kmin = 2, kmax = std::max<size_t>(2, std::sqrt(N));
-            uniform_int_distribution<size_t> k_dist(kmin, kmax);
-            size_t k = k_dist(rng);
-            uniform_int_distribution<size_t> pos_dist(0, N-1);
-            uniform_int_distribution<size_t> len_dist(2, std::max<size_t>(2, std::log2(N)));
+            // Scegli N/10 inizi casuali (oltre a 0), ordina, e ogni segmento è una run
+            size_t k = std::max<size_t>(1, std::sqrt(N));
+            std::vector<size_t> starts = {0};
+            if (k > 1 && N > k) {
+                std::unordered_set<size_t> chosen;
+                uniform_int_distribution<size_t> dist(1, N-1);
+                while (starts.size() < k) {
+                    size_t s = dist(rng);
+                    if (chosen.insert(s).second) starts.push_back(s);
+                }
+            }
+            std::sort(starts.begin(), starts.end());
+            starts.push_back(N);
+            int prev_last = 0;
+            bool prev_valid = false;
+            uniform_int_distribution<int> val_dist(-1000, 1000);
+            uniform_int_distribution<int> dir_dist(0, 1); // 0: crescente, 1: decrescente
             for (size_t i = 0; i < k; ++i) {
-                size_t start = pos_dist(rng);
-                size_t maxlen = std::min(len_dist(rng), N - start);
-                if (maxlen < 2) continue;
-                std::iota(buf.begin() + start, buf.begin() + start + maxlen, T(pos_dist(rng)));
+                size_t seg_start = starts[i];
+                size_t seg_end = starts[i+1];
+                size_t seg_len = seg_end - seg_start;
+                if (seg_len < 2) continue;
+                bool crescente = dir_dist(rng) == 0;
+                int first_val;
+                if (!prev_valid) {
+                    first_val = val_dist(rng);
+                } else {
+                    if (crescente) {
+                        uniform_int_distribution<int> dist(prev_last+1, 1000);
+                        first_val = dist(rng);
+                    } else {
+                        uniform_int_distribution<int> dist(-1000, prev_last-1);
+                        first_val = dist(rng);
+                    }
+                }
+                if (crescente) {
+                    std::iota(buf.begin() + seg_start, buf.begin() + seg_end, T(first_val));
+                    prev_last = first_val + int(seg_len) - 1;
+                } else {
+                    for (size_t j = 0; j < seg_len; ++j) {
+                        buf[seg_start + j] = T(first_val - int(j));
+                    }
+                    prev_last = first_val - int(seg_len) + 1;
+                }
+                prev_valid = true;
             }
             break;
         }
