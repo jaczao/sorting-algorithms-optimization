@@ -5,6 +5,10 @@ project(MySortsProject LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Imposto globalmente -march=native per C e C++
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
+set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -march=native")
+
 # Options
 option(BUILD_BENCHMARK "Build benchmarks" ON)
 option(BUILD_TESTS "Build tests" ON)
