@@ -6,3 +6,8 @@
 /outputs/
 proveee.exe
 test.sh
+benchmark
+proveee
+run_ns_testing.sh
+run_tests
+new_sorts_testing.sh
